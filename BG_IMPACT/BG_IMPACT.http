@@ -1,0 +1,6 @@
+@BG_IMPACT_HostAddress = http://localhost:5001
+
+GET {{BG_IMPACT_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
