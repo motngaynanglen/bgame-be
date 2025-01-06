@@ -35,7 +35,7 @@ namespace BG_IMPACT.Command
                     password = request.Password,
                     phone_number = request.PhoneNumber ?? string.Empty,
                     email = request.Email ?? string.Empty,
-                    role = "CUSTOMER",
+                    role = "STAFF",
                     full_name = request.FullName,
                     date_of_birth = request.DateOfBirth,
                 };
