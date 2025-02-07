@@ -3,12 +3,10 @@ using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 
-namespace BG_IMPACT.Command
+namespace BG_IMPACT.Command.Login.Commands
 {
-    public class CreateStaffCommand : IRequest<object>
+    public class CreateCustomerCommand : IRequest<object>
     {
-        [Required]
-        public Guid StoreId { get; set; }
         [Required]
         public string Username { get; set; } = string.Empty;
         [Required]
@@ -18,29 +16,28 @@ namespace BG_IMPACT.Command
         public string PhoneNumber { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public DateTimeOffset DateOfBirth { get; set; }
-        public class CreateStaffCommandHandler : IRequestHandler<CreateStaffCommand, object>
+        public class CreateCustomerComandHandler : IRequestHandler<CreateCustomerCommand, object>
         {
             public readonly IAccountRepository _accountRepository;
 
-            public CreateStaffCommandHandler(IAccountRepository accountRepository)
+            public CreateCustomerComandHandler(IAccountRepository accountRepository)
             {
                 _accountRepository = accountRepository;
             }
-            public async Task<object> Handle(CreateStaffCommand request, CancellationToken cancellationToken)
+            public async Task<object> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
             {
                 object param = new
                 {
-                    store_id = request.StoreId,
                     username = request.Username,
                     password = request.Password,
                     phone_number = request.PhoneNumber ?? string.Empty,
                     email = request.Email ?? string.Empty,
-                    role = "STAFF",
+                    role = "CUSTOMER",
                     full_name = request.FullName,
                     date_of_birth = request.DateOfBirth,
                 };
 
-                object result = await _accountRepository.spAccountCreateStaff(param);
+                object result = await _accountRepository.spAccountCreateCustomer(param);
                 return Task.FromResult(result);
             }
         }

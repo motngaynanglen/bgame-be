@@ -25,21 +25,21 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
-        public async Task<object> spAccountLogin(object param)
+        public async Task<object?> spLogin(object param)
         {
-            object result = await _connection.ExecuteAsync("spLogin", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryFirstOrDefaultAsync("spLogin", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
         public async Task<object> spAccountCreateManager(object param)
         {
-            object result = await _connection.ExecuteAsync("spAccountManagerCustomer", param, commandType: CommandType.StoredProcedure);
+            object result = await _connection.ExecuteAsync("spAccountCreateManager", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
         public async Task<object> spAccountCreateStaff(object param)
         {
-            object result = await _connection.ExecuteAsync("spAccountStaffCustomer", param, commandType: CommandType.StoredProcedure);
+            object result = await _connection.ExecuteAsync("spAccountCreateStaff", param, commandType: CommandType.StoredProcedure);
             return result;
         }
     }

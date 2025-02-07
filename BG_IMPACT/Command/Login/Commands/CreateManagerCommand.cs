@@ -2,7 +2,7 @@
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 
-namespace BG_IMPACT.Command
+namespace BG_IMPACT.Command.Login.Commands
 {
     public class CreateManagerCommand : IRequest<object>
     {

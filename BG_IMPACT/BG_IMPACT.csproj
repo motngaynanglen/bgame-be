@@ -13,4 +13,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Command\Login\Queries\" />
+    <Folder Include="Command\Product\Queries\" />
+    <Folder Include="Command\Store\Queries\" />
+  </ItemGroup>
+
 </Project>

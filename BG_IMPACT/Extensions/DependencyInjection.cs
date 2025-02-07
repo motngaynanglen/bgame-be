@@ -9,6 +9,10 @@ namespace BG_IMPACT.Extensions
         public static IServiceCollection DependencyInject(this IServiceCollection services)
         {
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IStoreRepository, StoreRepository>();
+            services.AddScoped<IProductGroupRepository, ProductGroupRepository>();
+            services.AddScoped<IProductGroupRefRepository, ProductGroupRefRepository>();
+
             return services;
         }
     }

@@ -2,7 +2,7 @@
 using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
 
-namespace BG_IMPACT.Command
+namespace BG_IMPACT.Command.Login.Commands
 {
     public class LoginCommand : IRequest<object>
     {
@@ -16,15 +16,17 @@ namespace BG_IMPACT.Command
                 _accountRepository = accountRepository;
             }
 
-            public Task<object> Handle(LoginCommand request, CancellationToken cancellationToken)
+            public async Task<object> Handle(LoginCommand request, CancellationToken cancellationToken)
             {
                 object param = new
                 {
-                    username = request.Username,
-                    password = request.Password
+                    request.Username,
+                    request.Password
                 };
 
-                return Task.FromResult(param);
+                var result = await _accountRepository.spLogin(param);
+
+                return result ?? "Sai tài khoản hoặc mật khẩu";
             }
         }
     }
