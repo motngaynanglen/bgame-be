@@ -24,12 +24,14 @@ namespace BG_IMPACT.Command.ProductGroupRef.Commands
 
             public async Task<object> Handle(CreateProductGroupRefCommand request, CancellationToken cancellationToken)
             {
+                string Creator = "ADMIN";
+
                 object param = new
                 {
-                    GroupId = request.GroupId,
-                    Prefix = request.Prefix,
-                    GroupRefName = request.GroupRefName,
-                    Creator = "ADMIN"
+                    request.GroupId,
+                    request.Prefix,
+                    request.GroupRefName,
+                    Creator
                 };
 
                 var result = await _productGroupRefRepository.spProductGroupRefCreate(param);
