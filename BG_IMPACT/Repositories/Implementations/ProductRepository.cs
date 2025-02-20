@@ -19,6 +19,12 @@ namespace BG_IMPACT.Repositories.Implementations
             }
         }
 
+        public async Task<object> spProductCreate(object param)
+        {
+            object? result = await _connection.ExecuteAsync("spProductCreate", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
         public async Task<object> spProductCreateTemplate(object param)
         {
             object? result = await _connection.ExecuteAsync("spProductCreateTemplate", param, commandType: CommandType.StoredProcedure);
