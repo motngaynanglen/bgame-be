@@ -12,6 +12,7 @@ namespace BG_IMPACT.Extensions
             services.AddScoped<IStoreRepository, StoreRepository>();
             services.AddScoped<IProductGroupRepository, ProductGroupRepository>();
             services.AddScoped<IProductGroupRefRepository, ProductGroupRefRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             return services;
         }
