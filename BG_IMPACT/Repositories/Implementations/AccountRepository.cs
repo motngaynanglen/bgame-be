@@ -42,5 +42,11 @@ namespace BG_IMPACT.Repositories.Implementations
             object result = await _connection.ExecuteAsync("spAccountCreateStaff", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+
+        public async Task<object?> spAccountAddRefreshToken(object param)
+        {
+            object result = await _connection.ExecuteAsync("spAccountAddRefreshToken", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
     }
 }

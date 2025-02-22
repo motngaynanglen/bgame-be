@@ -1,4 +1,5 @@
-﻿using BG_IMPACT.Repositories.Implementations;
+﻿using BG_IMPACT.Jwt;
+using BG_IMPACT.Repositories.Implementations;
 using BG_IMPACT.Repositories.Interfaces;
 using System.Reflection;
 
@@ -13,6 +14,7 @@ namespace BG_IMPACT.Extensions
             services.AddScoped<IProductGroupRepository, ProductGroupRepository>();
             services.AddScoped<IProductGroupRefRepository, ProductGroupRefRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
             return services;
         }
