@@ -39,5 +39,18 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [HttpPost("create-product-unknown")]
+        public async Task<IActionResult> CreateProductUnknown(CreateProductUnknownCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
