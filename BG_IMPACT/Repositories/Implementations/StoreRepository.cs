@@ -19,29 +19,30 @@ namespace BG_IMPACT.Repositories.Implementations
             }
         }
 
-        public async Task<object> spStoreChangeStatus(object param)
+        public async Task<object?> spStoreChangeStatus(object param)
         {
-            object result = await _connection.ExecuteAsync("spStoreChangeStatus", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.ExecuteAsync("spStoreChangeStatus", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
-        public async Task<object> spStoreCreate(object param)
+        public async Task<object?> spStoreCreate(object param)
         {
-            object result = await _connection.ExecuteAsync("spStoreCreate", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryFirstOrDefaultAsync("spStoreCreate", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
-        public Task<object> spStoreGetById(object param)
+        public Task<object?> spStoreGetById(object param)
         {
             throw new NotImplementedException();
         }
 
-        public Task<object> spStoreGetList(object param)
+        public async Task<object> spStoreGetList(object param)
         {
-            throw new NotImplementedException();
+            object result = await _connection.QueryAsync("spStoreGetList", param, commandType: CommandType.StoredProcedure);
+            return result;
         }
 
-        public Task<object> spStoreUpdate(object param)
+        public Task<object?> spStoreUpdate(object param)
         {
             throw new NotImplementedException();
         }

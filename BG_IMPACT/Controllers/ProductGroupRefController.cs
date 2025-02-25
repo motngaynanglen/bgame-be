@@ -26,11 +26,11 @@ namespace BG_IMPACT.Controllers
         }
 
         [HttpPost("get-list")]
-        public async Task<IActionResult> GetList(GetProductGroupRefListQuery query)
+        public async Task<IActionResult> GetList(GetProductGroupRefListQuery command)
         {
             try
             {
-                var result = await _mediator.Send(query);
+                var result = await _mediator.Send(command);
                 return Ok(result);
             }
             catch (Exception ex)

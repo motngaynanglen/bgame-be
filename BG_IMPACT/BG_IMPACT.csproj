@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Command\Login\Queries\" />
+    <Folder Include="Jwt\" />
     <Folder Include="Command\Product\Queries\" />
     <Folder Include="Command\Store\Queries\" />
   </ItemGroup>

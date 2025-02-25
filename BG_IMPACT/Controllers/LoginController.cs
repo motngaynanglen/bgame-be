@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BG_IMPACT.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
 
