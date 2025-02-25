@@ -1,24 +1,32 @@
-﻿using BG_IMPACT.Repositories.Implementations;
+﻿using BG_IMPACT.Models;
+using BG_IMPACT.Repositories.Implementations;
 using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 
 namespace BG_IMPACT.Command.Login.Commands
 {
-    public class CreateStaffCommand : IRequest<object>
+    public class CreateStaffCommand : IRequest<ResponseObject>
     {
         [Required]
         public Guid StoreId { get; set; }
+
         [Required]
+        [StringLength(20, MinimumLength = 8, ErrorMessage = "Tên tài khoản phải từ 8 đến 20 ký tự")]
         public string Username { get; set; } = string.Empty;
+
         [Required]
+        [StringLength(20, MinimumLength = 8, ErrorMessage = "Mật khẩu phải từ 8 đến 20 ký tự")]
         public string Password { get; set; } = string.Empty;
+
         [Required]
+        [StringLength(50, MinimumLength = 4, ErrorMessage = "Tên người dùng phải từ 4 đến 50 ký tự")]
         public string FullName { get; set; } = string.Empty;
+
         public string PhoneNumber { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public DateTimeOffset DateOfBirth { get; set; }
-        public class CreateStaffCommandHandler : IRequestHandler<CreateStaffCommand, object>
+        public class CreateStaffCommandHandler : IRequestHandler<CreateStaffCommand, ResponseObject>
         {
             public readonly IAccountRepository _accountRepository;
 
@@ -26,8 +34,10 @@ namespace BG_IMPACT.Command.Login.Commands
             {
                 _accountRepository = accountRepository;
             }
-            public async Task<object> Handle(CreateStaffCommand request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(CreateStaffCommand request, CancellationToken cancellationToken)
             {
+                ResponseObject response = new();
+
                 object param = new
                 {
                     store_id = request.StoreId,
@@ -40,8 +50,36 @@ namespace BG_IMPACT.Command.Login.Commands
                     date_of_birth = request.DateOfBirth,
                 };
 
-                object result = await _accountRepository.spAccountCreateStaff(param);
-                return Task.FromResult(result);
+                var result = await _accountRepository.spAccountCreateStaff(param);
+                var dict = result as IDictionary<string, object>;
+
+                if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _ ) == true)
+                {
+                    _ = Int64.TryParse(dict["Status"].ToString(), out long count);
+
+                    if (count == 0)
+                    {
+                        response.StatusCode = "200";
+                        response.Message = "Tạo tài khoản thành công";
+                    }
+                    else if (count == 1)
+                    {
+                        response.StatusCode = "404";
+                        response.Message = "Tên tài khoản đã tồn tại";
+                    }
+                    else if (count == 2)
+                    {
+                        response.StatusCode = "404";
+                        response.Message = "Cửa hàng không tồn tại";
+                    }
+                }
+                else
+                {
+                    response.StatusCode = "404";
+                    response.Message = "Tạo tài khoản thất bại. Xin hãy thử lại sau.";
+                }       
+
+                return response;
             }
         }
     }

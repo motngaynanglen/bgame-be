@@ -1,4 +1,4 @@
-﻿namespace BG_IMPACT.Jwt
+﻿namespace BG_IMPACT.Repositories.Interfaces
 {
     public interface IJwtTokenGenerator
     {

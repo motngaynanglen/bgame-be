@@ -1,10 +1,11 @@
-﻿using BG_IMPACT.Repositories.Interfaces;
+﻿using BG_IMPACT.Models;
+using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 
 namespace BG_IMPACT.Command.Store.Commands
 {
-    public class CreateStoreCommand : IRequest<object>
+    public class CreateStoreCommand : IRequest<ResponseObject>
     {
         [Required]
         public string StoreName { get; set; } = string.Empty;
@@ -15,7 +16,7 @@ namespace BG_IMPACT.Command.Store.Commands
         public string Longtitude { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
 
-        public class CreateStoreCommandHandler : IRequestHandler<CreateStoreCommand, object>
+        public class CreateStoreCommandHandler : IRequestHandler<CreateStoreCommand, ResponseObject>
         {
 
             public readonly IStoreRepository _storeRepository;
@@ -24,20 +25,45 @@ namespace BG_IMPACT.Command.Store.Commands
             {
                 _storeRepository = storeRepository;
             }
-            public async Task<object> Handle(CreateStoreCommand request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(CreateStoreCommand request, CancellationToken cancellationToken)
             {
+                ResponseObject response = new();
+
                 object param = new
                 {
-                    store_name = request.StoreName,
-                    adress = request.Address,
-                    hotline = request.Hotline,
-                    lattitude = request.Lattitude,
-                    longtitude = request.Longtitude,
-                    email = request.Email,
+                    request.StoreName,
+                    request.Address,
+                    request.Hotline,
+                    request.Lattitude,
+                    request.Longtitude,
+                    request.Email,
                 };
 
-                object result = await _storeRepository.spStoreCreate(param);
-                return result;
+                var result = await _storeRepository.spStoreCreate(param);
+                var dict = result as IDictionary<string, object>;
+
+                if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
+                {
+                    _ = Int64.TryParse(dict["Status"].ToString(), out long count);
+
+                    if (count == 0)
+                    {
+                        response.StatusCode = "200";
+                        response.Message = "Tạo cửa hàng thành công";
+                    }
+                    else 
+                    {
+                        response.StatusCode = "404";
+                        response.Message = "Tên cửa hàng đã tồn tại";
+                    }
+                }
+                else
+                {
+                    response.StatusCode = "404";
+                    response.Message = "Tạo cửa hàng thất bại. Xin hãy thử lại sau.";
+                }
+
+                return response;
             }
         }
     }
