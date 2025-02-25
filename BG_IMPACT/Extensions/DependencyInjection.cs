@@ -1,5 +1,4 @@
-﻿using BG_IMPACT.Jwt;
-using BG_IMPACT.Repositories.Implementations;
+﻿using BG_IMPACT.Repositories.Implementations;
 using BG_IMPACT.Repositories.Interfaces;
 using System.Reflection;
 

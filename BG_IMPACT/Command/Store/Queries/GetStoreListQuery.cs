@@ -1,24 +1,23 @@
 ﻿using BG_IMPACT.Models;
-using BG_IMPACT.Repositories.Implementations;
 using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
 
-namespace BG_IMPACT.Command.Product.Queries
+namespace BG_IMPACT.Command.Store.Queries
 {
-    public class GetProductListQuery : IRequest<ResponseObject>
+    public class GetStoreListQuery : IRequest<ResponseObject>
     {
-        public string Search {  get; set; } = string.Empty;
+        public string Search { get; set; } = string.Empty;
         public List<string> Filter { get; set; } = [];
 
-        public class GetProductListQueryHandler : IRequestHandler<GetProductListQuery, ResponseObject>
+        public class GetStoreListQueryHandler : IRequestHandler<GetStoreListQuery, ResponseObject>
         {
-            private readonly IProductRepository _productRepository;
+            private readonly IStoreRepository _storeRepository;
 
-            public GetProductListQueryHandler(IProductRepository productRepository)
+            public GetStoreListQueryHandler(IStoreRepository storeRepository)
             {
-                _productRepository = productRepository;
+                _storeRepository = storeRepository;
             }
-            public async Task<ResponseObject> Handle(GetProductListQuery request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(GetStoreListQuery request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
 
@@ -27,7 +26,7 @@ namespace BG_IMPACT.Command.Product.Queries
                     request.Search
                 };
 
-                var result = await _productRepository.spProductGetList(param);
+                var result = await _storeRepository.spStoreGetList(param);
                 var list = ((IEnumerable<dynamic>)result).ToList();
 
                 if (list.Count > 0)
@@ -39,7 +38,7 @@ namespace BG_IMPACT.Command.Product.Queries
                 else
                 {
                     response.StatusCode = "404";
-                    response.Message = "Không tìm thấy sản phẩm nào.";
+                    response.Message = "Không tìm thấy cửa hàng nào.";
                 }
 
                 return response;

@@ -1,9 +1,10 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using BG_IMPACT.Repositories.Interfaces;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace BG_IMPACT.Jwt
+namespace BG_IMPACT.Repositories.Implementations
 {
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
