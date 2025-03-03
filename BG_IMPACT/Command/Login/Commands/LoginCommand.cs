@@ -2,6 +2,7 @@
 using BG_IMPACT.Repositories.Implementations;
 using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
+using Microsoft.AspNetCore.Rewrite;
 using System.ComponentModel.DataAnnotations;
 
 namespace BG_IMPACT.Command.Login.Commands
@@ -44,8 +45,9 @@ namespace BG_IMPACT.Command.Login.Commands
                     {
                         _ = Guid.TryParse(dict["id"].ToString(), out Guid userId);
 
-                        string role = dict["role"].ToString() ?? "";
+                        string role = dict["role"].ToString() ?? string.Empty;
                         _ = Guid.TryParse(dict["id"].ToString(), out Guid id);
+                        string name = dict["full_name"].ToString() ?? string.Empty;
 
                         var jwt = _jwtTokenGenerator.GenerateToken(userId, role);
                         var refreshToken = _jwtTokenGenerator.GenerateToken(Guid.NewGuid(), role);
@@ -64,7 +66,10 @@ namespace BG_IMPACT.Command.Login.Commands
                         object data = new
                         {
                             jwt,
-                            refreshToken
+                            refreshToken,
+                            id,
+                            name,
+                            role
                         };
 
                         response.Data = data;

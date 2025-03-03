@@ -67,5 +67,19 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+        [HttpPost("search-by-store-id")]
+        public async Task<IActionResult> SearchProduct(GetProductListByStoreIdQuery command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
