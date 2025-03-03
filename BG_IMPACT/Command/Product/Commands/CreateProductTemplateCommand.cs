@@ -14,6 +14,8 @@ namespace BG_IMPACT.Command.Product.Commands
         public string Image { get; set; } = string.Empty;
         [Required]
         public double Price { get; set; }
+        [Required]
+        public double RentPrice { get; set; }
 
         public class CreateProductTemplateCommandHandler : IRequestHandler<CreateProductTemplateCommand, object>
         {

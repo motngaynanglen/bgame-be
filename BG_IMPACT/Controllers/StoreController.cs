@@ -51,5 +51,19 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+        [HttpPost("get-list-by-group-ref-id")]
+        public async Task<IActionResult> GetListByGroupRefId(GetStoreListByGroupRefIdQuery command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

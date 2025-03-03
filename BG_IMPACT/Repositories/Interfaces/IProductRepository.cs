@@ -6,5 +6,6 @@
         Task<object> spProductGetList(object param);
         Task<object> spProductCreate(object param);
         Task<object> spProductCreateUnknown(object param);
+        Task<object> spProductGetListByStoreId(object param);
     }
 }

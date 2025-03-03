@@ -21,7 +21,7 @@ namespace BG_IMPACT.Repositories.Implementations
 
         public async Task<object> spProductCreate(object param)
         {
-            object? result = await _connection.ExecuteAsync("spProductCreate", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryFirstOrDefaultAsync("spProductCreate", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
@@ -39,6 +39,12 @@ namespace BG_IMPACT.Repositories.Implementations
         public async Task<object> spProductCreateUnknown(object param)
         {
             object? result = await _connection.QueryAsync("spProductCreateUnknown", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object> spProductGetListByStoreId(object param)
+        {
+            object? result = await _connection.QueryAsync("spProductGetListByStoreId", param, commandType: CommandType.StoredProcedure);
             return result;
         }
     }
