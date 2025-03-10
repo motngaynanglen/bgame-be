@@ -7,5 +7,7 @@
         Task<object> spProductCreate(object param);
         Task<object> spProductCreateUnknown(object param);
         Task<object> spProductGetListByStoreId(object param);
+        Task<object> spProductChangeToSales(object param);
+        Task<object> spProductChangeToRent(object param);
     }
 }
