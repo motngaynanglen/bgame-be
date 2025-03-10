@@ -35,7 +35,7 @@ namespace BG_IMPACT.Command.BookList.Commands
                 {
                     _ = Int64.TryParse(dict["Status"].ToString(), out long count);
 
-                    if (count == 1)
+                    if (count == 1) 
                     {
                         response.StatusCode = "404";
                         response.Message = "Không tìm thấy đơn thuê.";
