@@ -10,6 +10,7 @@ namespace BG_IMPACT.Command.Store.Queries
         [Required]
         public Guid GroupRefId { get; set; }
 
+
         public class GetStoreListByGroupRefIdQueryHandler : IRequestHandler<GetStoreListByGroupRefIdQuery, ResponseObject>
         {
             private readonly IStoreRepository _storeRepository;
@@ -24,8 +25,7 @@ namespace BG_IMPACT.Command.Store.Queries
 
                 object param = new
                 {
-                    request.GroupRefId
-                };
+                    request.GroupRefId                };
 
                 var result = await _storeRepository.spStoreGetListByGroupRefId(param);
                 var list = ((IEnumerable<dynamic>)result).ToList();

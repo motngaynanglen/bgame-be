@@ -36,6 +36,7 @@ namespace BG_IMPACT.Command.Product.Commands
                     request.ProductName,
                     request.Image,
                     request.Price,
+                    request.RentPrice,
                     Creator,
                 };
 

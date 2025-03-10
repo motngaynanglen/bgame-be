@@ -81,5 +81,33 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+        [HttpPost("change-product-to-sales")]
+        public async Task<IActionResult> ChangeProductToSales(ChangeProductToSales command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost("change-product-to-rent")]
+        public async Task<IActionResult> ChangeProductToRent(ChangeProductToRent command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

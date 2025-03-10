@@ -47,5 +47,17 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryAsync("spProductGetListByStoreId", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+
+        public async Task<object?> spProductChangeToSales(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spProductChangeToSales", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spProductChangeToRent(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spProductChangeToRent", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
     }
 }

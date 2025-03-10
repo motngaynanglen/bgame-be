@@ -2,12 +2,15 @@
 using BG_IMPACT.Repositories.Implementations;
 using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
+using System.ComponentModel.DataAnnotations;
 
 namespace BG_IMPACT.Command.Product.Queries
 {
     public class GetProductListByStoreIdQuery : IRequest<ResponseObject>
     {
         public Guid StoreId { get; set; }
+        [Required]
+        public bool IsRent { get; set; }
 
         public class GetProductListByStoreIdQueryHandler : IRequestHandler<GetProductListByStoreIdQuery, ResponseObject>
         {
@@ -23,7 +26,8 @@ namespace BG_IMPACT.Command.Product.Queries
 
                 object param = new
                 {
-                    request.StoreId
+                    request.StoreId,
+                    request.IsRent
                 };
 
                 var result = await _productRepository.spProductGetListByStoreId(param);

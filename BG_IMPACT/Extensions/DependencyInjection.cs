@@ -13,6 +13,7 @@ namespace BG_IMPACT.Extensions
             services.AddScoped<IProductGroupRepository, ProductGroupRepository>();
             services.AddScoped<IProductGroupRefRepository, ProductGroupRefRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IBookListRepository, BookListRepository>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
             return services;
