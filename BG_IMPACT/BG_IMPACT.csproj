@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< Updated upstream
     <PackageReference Include="CloudinaryDotNet" Version="1.27.4" />
-=======
     <Compile Remove="Jwt\**" />
     <Content Remove="Jwt\**" />
     <EmbeddedResource Remove="Jwt\**" />
@@ -17,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
->>>>>>> Stashed changes
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
