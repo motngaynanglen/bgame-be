@@ -31,6 +31,12 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
+        public async Task<object?> spBookListExtend(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spBookListExtend", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
         public async Task<object?> spBookListGet(object param)
         {
             object? result = await _connection.QueryAsync("spBookListGet", param, commandType: CommandType.StoredProcedure);

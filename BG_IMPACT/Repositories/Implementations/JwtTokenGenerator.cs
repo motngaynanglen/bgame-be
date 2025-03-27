@@ -27,7 +27,7 @@ namespace BG_IMPACT.Repositories.Implementations
                 new Claim(ClaimTypes.Role, role.ToString())
             ];
 
-            SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(_configuration.GetSection("Keys:JWT").Value));
+            SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(_configuration.GetSection("Keys:JWT").Value ?? string.Empty));
 
             SigningCredentials creds = new(key, SecurityAlgorithms.HmacSha512Signature);
 
