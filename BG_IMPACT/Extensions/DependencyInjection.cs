@@ -9,6 +9,7 @@ namespace BG_IMPACT.Extensions
     {
         public static IServiceCollection DependencyInject(this IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IStoreRepository, StoreRepository>();
             services.AddScoped<IProductGroupRepository, ProductGroupRepository>();

@@ -1,4 +1,5 @@
 ﻿using BG_IMPACT.Command.Product.Commands;
+using BG_IMPACT.Extensions;
 using BG_IMPACT.Models;
 using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
@@ -12,7 +13,7 @@ namespace BG_IMPACT.Command.BookList.Commands
         [Required]
         public Guid CustomerId { get; set; }
         [Required]
-        public List<Guid> ProductTemplateIds { get; set; } = [];
+        public List<Guid> ProductGroupRefIds { get; set; } = [];
         [Required]
         public Guid StoreId { get; set; }
         [Required]
@@ -26,22 +27,34 @@ namespace BG_IMPACT.Command.BookList.Commands
         public class CreateBookListCommandHandler : IRequestHandler<CreateBookListCommand, ResponseObject>
         {
             private readonly IBookListRepository _bookListRepository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public CreateBookListCommandHandler(IBookListRepository bookListRepository)
+            public CreateBookListCommandHandler(IBookListRepository bookListRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _bookListRepository = bookListRepository;
+                _httpContextAccessor = httpContextAccessor;
             }
 
             public async Task<ResponseObject> Handle(CreateBookListCommand request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
 
-                string ListProductTemplateId = string.Join(",", request.ProductTemplateIds);
+                var context = _httpContextAccessor.HttpContext;
+
+                string? StaffId = null;
+                
+                if (context != null && context.GetRole() == "STAFF")
+                {
+                    StaffId = context.GetName();
+                }
+
+                string ListProductGroupRefIds = string.Join(",", request.ProductGroupRefIds);
 
                 object param = new
                 {
                     request.CustomerId,
-                    ListProductTemplateId,
+                    StaffId,
+                    ListProductGroupRefIds,
                     request.StoreId,
                     request.From,
                     request.To,
@@ -88,12 +101,22 @@ namespace BG_IMPACT.Command.BookList.Commands
                     else if (count == 7)
                     {
                         response.StatusCode = "404";
-                        response.Message = "Có product template nhưng không có hàng thuê";
+                        response.Message = "Không có đủ mặt hàng để cho thuê";
                     }
                     else if (count == 8)
                     {
                         response.StatusCode = "404";
                         response.Message = "Dữ liệu đặt hàng nhập vào đơn không đủ";
+                    }
+                    else if (count == 9)
+                    {
+                        response.StatusCode = "404";
+                        response.Message = "Nhân viên không tồn tại";
+                    }
+                    else if (count == 10)
+                    {
+                        response.StatusCode = "404";
+                        response.Message = "Nhân viên không thuộc cửa hàng này";
                     }
                     else 
                     {

@@ -1,4 +1,5 @@
-﻿namespace BG_IMPACT.Repositories.Interfaces
+﻿
+namespace BG_IMPACT.Repositories.Interfaces
 {
     public interface IProductRepository
     {
@@ -9,5 +10,6 @@
         Task<object> spProductGetListByStoreId(object param);
         Task<object?> spProductChangeToSales(object param);
         Task<object?> spProductChangeToRent(object param);
+        Task<object?> spProductGetByMultipleOption(object param);
     }
 }
