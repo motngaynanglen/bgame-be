@@ -74,6 +74,11 @@ namespace BG_IMPACT.Command.BookList.Commands
                         response.StatusCode = "404";
                         response.Message = "Không thể gia hạn đơn thuê theo ngày.";
                     }
+                    else if (count == 5)
+                    {
+                        response.StatusCode = "404";
+                        response.Message = "Nhân viên không có quyền hạn ở cửa hàng này.";
+                    }
                     else
                     {
                         response.StatusCode = "200";
