@@ -10,8 +10,7 @@ namespace BG_IMPACT.Command.BookList.Commands
 {
     public class CreateBookListCommand : IRequest<ResponseObject>
     {
-        [Required]
-        public Guid CustomerId { get; set; }
+        public Guid? CustomerId { get; set; }
         [Required]
         public List<Guid> ProductGroupRefIds { get; set; } = [];
         [Required]
@@ -46,6 +45,12 @@ namespace BG_IMPACT.Command.BookList.Commands
                 if (context != null && context.GetRole() == "STAFF")
                 {
                     StaffId = context.GetName();
+                }
+
+                if (context != null && context.GetRole() == "CUSTOMER")
+                {
+                    _ = Guid.TryParse(context.GetName(), out Guid cusId);
+                    request.CustomerId = cusId;
                 }
 
                 string ListProductGroupRefIds = string.Join(",", request.ProductGroupRefIds);
