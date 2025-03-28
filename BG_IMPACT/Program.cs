@@ -13,21 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.DependencyInject();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
-
-builder.Services.AddScoped<SqlConnection>(_ => new SqlConnection(connectionString));
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin",
-        builder => builder
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
-});
 
 builder.Services.AddAuthentication(x =>
 {
@@ -79,6 +64,22 @@ builder.Services.AddSwaggerGen(x =>
     });
 });
 
+//builder.Services.AddSwaggerGen();
+builder.Services.DependencyInject();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+
+builder.Services.AddScoped<SqlConnection>(_ => new SqlConnection(connectionString));
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -90,8 +91,6 @@ var app = builder.Build();
 //        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
 //    });
 //}
-
-
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
