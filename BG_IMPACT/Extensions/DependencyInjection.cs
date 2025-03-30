@@ -17,6 +17,7 @@ namespace BG_IMPACT.Extensions
             services.AddScoped<IBookListRepository, BookListRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<CloudinaryService>();
 
             return services;

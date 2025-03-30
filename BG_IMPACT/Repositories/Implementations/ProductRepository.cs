@@ -25,9 +25,9 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
-        public async Task<object> spProductCreateTemplate(object param)
+        public async Task<object?> spProductCreateTemplate(object param)
         {
-            object? result = await _connection.ExecuteAsync("spProductCreateTemplate", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryFirstOrDefaultAsync("spProductCreateTemplate", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
@@ -63,6 +63,18 @@ namespace BG_IMPACT.Repositories.Implementations
         public async Task<object?> spProductGetByMultipleOption(object param)
         {
             object? result = await _connection.QueryAsync("spProductGetByMultipleOption", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spProductGetListInStore(object param)
+        {
+            object? result = await _connection.QueryAsync("spProductGetListInStore", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spProductGetListInStorePageData(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spProductGetListInStorePageData", param, commandType: CommandType.StoredProcedure);
             return result;
         }
     }

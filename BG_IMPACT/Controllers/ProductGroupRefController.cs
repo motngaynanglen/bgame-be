@@ -2,6 +2,7 @@
 using BG_IMPACT.Command.ProductGroup.Queries;
 using BG_IMPACT.Command.ProductGroupRef.Commands;
 using BG_IMPACT.Command.ProductGroupRef.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace BG_IMPACT.Controllers
     [ApiController]
     public class ProductGroupRefController : ControllerBase
     {
+        [Authorize(Roles = "MANAGER")]
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateProductGroupRefCommand command)
         {
