@@ -42,6 +42,21 @@ namespace BG_IMPACT.Controllers
         }
 
         [Authorize(Roles = "STAFF,MANAGER")]
+        [HttpPost("start-booklist")]
+        public async Task<IActionResult> StartBookList(StartBookListCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "CUSTOMER,STAFF,MANAGER")]
         [HttpPost("get-booklist-by-date")]
         public async Task<IActionResult> GetBookListByDate(GetBookListByDateQuery command)
         {

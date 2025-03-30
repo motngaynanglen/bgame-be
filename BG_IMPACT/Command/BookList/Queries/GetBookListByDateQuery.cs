@@ -47,14 +47,39 @@ namespace BG_IMPACT.Command.BookList.Queries
                         request.Paging.PageSize
                     };
 
+                    object param2 = new
+                    {
+                        request.From,
+                        request.To,
+                        UserID,
+                        Role
+                    };
+
                     var result = await _bookListRepository.spBookListGet(param);
                     var list = ((IEnumerable<dynamic>)result).ToList();
 
+                    var pageData = await _bookListRepository.spBookListGetPageData(param2);
+                    var dict = pageData as IDictionary<string, object>;
+                    long count = 0;
+
+                    if (dict != null && Int64.TryParse(dict["TotalRows"].ToString(), out _) == true)
+                    {
+                        _ = Int64.TryParse(dict["TotalRows"].ToString(), out count);
+                    }
+
                     if (list.Count > 0)
                     {
+                        long pageCount = count / request.Paging.PageSize;
+
                         response.StatusCode = "200";
                         response.Data = list;
                         response.Message = string.Empty;
+                        response.Paging = new PagingModel
+                        {
+                            PageNum = request.Paging.PageNum,
+                            PageSize = request.Paging.PageSize,
+                            PageCount = count % request.Paging.PageSize == 0 ? pageCount : pageCount + 1
+                        };
                     }
                     else
                     {

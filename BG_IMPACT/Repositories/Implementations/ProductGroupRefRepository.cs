@@ -20,9 +20,9 @@ namespace BG_IMPACT.Repositories.Implementations
             }
         }
 
-        public async Task<object> spProductGroupRefCreate(object param)
+        public async Task<object?> spProductGroupRefCreate(object param)
         {
-            object result = await _connection.ExecuteAsync("spProductGroupRefCreate", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryFirstOrDefaultAsync("spProductGroupRefCreate", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
