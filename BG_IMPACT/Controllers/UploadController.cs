@@ -17,18 +17,26 @@ namespace BG_IMPACT.Controllers
             _cloudinaryService = cloudinaryService;
         }
 
-        [HttpPost("image")]
-        public async Task<IActionResult> UploadImage(IFormFile file)
+        [HttpPost("images")]
+        public async Task<IActionResult> UploadImages(List<IFormFile> files)
         {
-            if (file == null || file.Length == 0)
+            if (files == null || files.Count == 0)
             {
-                return BadRequest("File is empty");
+                return BadRequest("No files uploaded.");
             }
 
-            using var stream = file.OpenReadStream();
-            var imageUrl = await _cloudinaryService.UploadImageAsync(stream, file.FileName);
-            return Ok(new { Url = imageUrl });
+            var uploadedUrls = new List<string>();
+
+            foreach (var file in files)
+            {
+                using var stream = file.OpenReadStream();
+                var imageUrl = await _cloudinaryService.UploadImageAsync(stream, file.FileName);
+                uploadedUrls.Add(imageUrl);
+            }
+
+            return Ok(new { urls = uploadedUrls });
         }
+
     }
 }
 
