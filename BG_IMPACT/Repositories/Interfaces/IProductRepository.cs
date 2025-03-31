@@ -11,5 +11,6 @@ namespace BG_IMPACT.Repositories.Interfaces
         Task<object?> spProductChangeToSales(object param);
         Task<object?> spProductChangeToRent(object param);
         Task<object?> spProductGetByMultipleOption(object param);
+        Task<object?> spProductGetById(object param);
     }
 }
