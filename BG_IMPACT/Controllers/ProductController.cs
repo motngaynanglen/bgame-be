@@ -3,6 +3,7 @@ using BG_IMPACT.Command.Product.Queries;
 using BG_IMPACT.Command.ProductGroup.Commands;
 using BG_IMPACT.Command.ProductGroup.Queries;
 using BG_IMPACT.Command.Store;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,7 @@ namespace BG_IMPACT.Controllers
     public class ProductController : ControllerBase
     {
 
+        [Authorize(Roles = "MANAGER")]
         [HttpPost("create-template")]
         public async Task<IActionResult> CreateTemplate(CreateProductTemplateCommand command)
         {
@@ -56,6 +58,21 @@ namespace BG_IMPACT.Controllers
 
         [HttpPost("search")]
         public async Task<IActionResult> SearchProduct(GetProductListQuery command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "STAFF,MANAGER")]
+        [HttpPost("search-store")]
+        public async Task<IActionResult> SearchProductListInStore(GetProductListInStoreQuery command)
         {
             try
             {

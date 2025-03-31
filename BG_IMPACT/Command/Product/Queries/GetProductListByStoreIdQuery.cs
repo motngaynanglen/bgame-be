@@ -11,6 +11,7 @@ namespace BG_IMPACT.Command.Product.Queries
         public Guid StoreId { get; set; }
         [Required]
         public bool IsRent { get; set; }
+        public Paging Paging { get; set; } = new Paging();
 
         public class GetProductListByStoreIdQueryHandler : IRequestHandler<GetProductListByStoreIdQuery, ResponseObject>
         {
@@ -27,7 +28,9 @@ namespace BG_IMPACT.Command.Product.Queries
                 object param = new
                 {
                     request.StoreId,
-                    request.IsRent
+                    request.IsRent,
+                    request.Paging.PageNum,
+                    request.Paging.PageSize
                 };
 
                 var result = await _productRepository.spProductGetListByStoreId(param);

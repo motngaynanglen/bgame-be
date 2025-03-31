@@ -1,34 +1,78 @@
-﻿using BG_IMPACT.Repositories.Interfaces;
+﻿using BG_IMPACT.Extensions;
+using BG_IMPACT.Models;
+using BG_IMPACT.Repositories.Implementations;
+using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 
 namespace BG_IMPACT.Command.ProductGroup.Commands
 {
-    public class CreateProductGroupCommand : IRequest<object>
+    public class CreateProductGroupCommand : IRequest<ResponseObject>
     {
         [Required]
         public string GroupName { get; set; } = string.Empty;
 
-        public class CreateProductGroupCommandHandler : IRequestHandler<CreateProductGroupCommand, object>
+        public class CreateProductGroupCommandHandler : IRequestHandler<CreateProductGroupCommand, ResponseObject>
         {
             public readonly IProductGroupRepository _productGroupRepository;
+            public readonly IHttpContextAccessor _httpContextAccessor;
 
-            public CreateProductGroupCommandHandler(IProductGroupRepository productGroupRepository)
+            public CreateProductGroupCommandHandler(IProductGroupRepository productGroupRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _productGroupRepository = productGroupRepository;
+                _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<object> Handle(CreateProductGroupCommand request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(CreateProductGroupCommand request, CancellationToken cancellationToken)
             {
-                object param = new
+                ResponseObject response = new();
+
+                var context = _httpContextAccessor.HttpContext;
+
+                string? ManagerID = null;
+
+                if (context != null && context.GetRole() == "MANAGER")
                 {
-                    GroupName = request.GroupName,
-                    Creator = "ADMIN"
-                };
+                    ManagerID = context.GetName();
 
-                var result = await _productGroupRepository.spProductGroupCreate(param);
+                    object param = new
+                    {
+                        request.GroupName,
+                        ManagerID
+                    };
 
-                return result;
+                    var result = await _productGroupRepository.spProductGroupCreate(param);
+                    var dict = result as IDictionary<string, object>;
+
+                    if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
+                    {
+                        _ = Int64.TryParse(dict["Status"].ToString(), out long count);
+
+                        if (count == 1)
+                        {
+                            response.StatusCode = "404";
+                            response.Message = "Không tìm thấy nhóm sản phẩm.";
+                        }
+                        else
+                        {
+                            response.StatusCode = "200";
+                            response.Message = "Thêm sản phẩm thành công.";
+                        }
+
+                    }
+                    else
+                    {
+                        response.StatusCode = "404";
+                        response.Message = "Thêm sản phẩm thất bại. Xin hãy thử lại sau.";
+                    }
+                }
+                else
+                {
+                    response.StatusCode = "403";
+                    response.Message = "Bạn không có quyền sử dụng chức năng này.";
+                }
+
+                return response;
             }
         }
     }

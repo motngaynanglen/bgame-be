@@ -1,4 +1,5 @@
 ﻿
+
 namespace BG_IMPACT.Repositories.Interfaces
 {
     public interface IBookListRepository
@@ -7,5 +8,7 @@ namespace BG_IMPACT.Repositories.Interfaces
         Task<object?> spBookListEnd(object param);
         Task<object?> spBookListGet(object param);
         Task<object?> spBookListExtend(object param);
+        Task<object?> spBookListGetPageData(object param);
+        Task<object?> spBookListStart(object param);
     }
 }
