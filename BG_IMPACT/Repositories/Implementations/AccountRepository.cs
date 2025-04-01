@@ -48,5 +48,15 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spAccountAddRefreshToken", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+        public async Task<object?> spAccountListGetByAdmin()
+        {
+            object? result = await _connection.QueryAsync("spAccountListGetByAdmin", commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        public async Task<object?> spAccountListGetByManager()
+        {
+            object? result = await _connection.QueryAsync("spAccountListGetByManager", commandType: CommandType.StoredProcedure);
+            return result;
+        }
     }
 }

@@ -2,7 +2,7 @@
 {
     public interface ICustomerRepository
     {
-        Task<object?> spCustomerGetList();
+        Task<object?> spCustomerGetList(object param);
         Task<object?> spCustomerUpdateProfile(object param);
 
     }
