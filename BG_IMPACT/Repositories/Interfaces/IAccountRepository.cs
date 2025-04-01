@@ -7,5 +7,7 @@
         Task<object?> spAccountCreateCustomer(object param);
         Task<object?> spLogin(object param);
         Task<object?> spAccountAddRefreshToken(object param);
+        Task<object?> spAccountListGetByAdmin();
+        Task<object?> spAccountListGetByManager();
     }
 }
