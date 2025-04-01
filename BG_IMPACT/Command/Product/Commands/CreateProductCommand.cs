@@ -1,4 +1,6 @@
-﻿using BG_IMPACT.Models;
+﻿using BG_IMPACT.Extensions;
+using BG_IMPACT.Models;
+using BG_IMPACT.Repositories.Implementations;
 using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
@@ -10,62 +12,81 @@ namespace BG_IMPACT.Command.Product.Commands
         [Required]
         public Guid ProductGroupRefId { get; set; }
         [Required]
-        public Guid StoreId { get; set; }
-        [Required]
         public double Number { get; set; }
 
         public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ResponseObject>
         {
             private readonly IProductRepository _productRepository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public CreateProductCommandHandler(IProductRepository productRepository)
+            public CreateProductCommandHandler(IProductRepository productRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _productRepository = productRepository;
+                _httpContextAccessor = httpContextAccessor;
             }
 
             public async Task<ResponseObject> Handle(CreateProductCommand request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
 
-                object param = new
+                var context = _httpContextAccessor.HttpContext;
+
+                string? ManagerID = null;
+
+                if (context != null && context.GetRole() == "MANAGER")
                 {
-                    request.ProductGroupRefId,
-                    request.StoreId,
-                    request.Number
-                };
+                    ManagerID = context.GetName();
 
-                var result = await _productRepository.spProductCreate(param);
-                var dict = result as IDictionary<string, object>;
+                    object param = new
+                    {
+                        request.ProductGroupRefId,
+                        ManagerID,
+                        request.Number
+                    };
 
-                if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
-                {
-                    _ = Int64.TryParse(dict["Status"].ToString(), out long count);
+                    var result = await _productRepository.spProductCreate(param);
+                    var dict = result as IDictionary<string, object>;
 
-                    if (count == 1)
+                    if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
                     {
-                        response.StatusCode = "404";
-                        response.Message = "Sản phẩm không tồn tại.";
-                    }
-                    else if (count == 2)
-                    {
-                        response.StatusCode = "404";
-                        response.Message = "Cửa hàng không tồn tại.";
-                    }
-                    else if (count == 3)
-                    {
-                        response.StatusCode = "404";
-                        response.Message = "Số lượng mặt hàng phải lớn hơn 0";
+                        _ = Int64.TryParse(dict["Status"].ToString(), out long count);
+
+                        if (count == 1)
+                        {
+                            response.StatusCode = "404";
+                            response.Message = "Sản phẩm không tồn tại.";
+                        }
+                        else if (count == 2)
+                        {
+                            response.StatusCode = "404";
+                            response.Message = "Cửa hàng không tồn tại.";
+                        }
+                        else if (count == 3)
+                        {
+                            response.StatusCode = "404";
+                            response.Message = "Số lượng mặt hàng phải lớn hơn 0";
+                        }
+                        else if (count == 4)
+                        {
+                            response.StatusCode = "404";
+                            response.Message = "Quản lý không tồn tại.";
+                        }
+                        else
+                        {
+                            response.StatusCode = "200";
+                            response.Message = "Thêm sản phẩm thành công";
+                        }
                     }
                     else
                     {
-                        response.StatusCode = "200";
-                        response.Message = "Thêm sản phẩm thành công";
+                        response.StatusCode = "404";
+                        response.Message = "Thêm sản phẩm thất bại. Xin hãy thử lại sau.";
                     }
                 }
                 else
                 {
-                    response.StatusCode = "404";
-                    response.Message = "Thêm sản phẩm thất bại. Xin hãy thử lại sau.";
+                    response.StatusCode = "403";
+                    response.Message = "Bạn không có quyền sử dụng chức năng này.";
                 }
 
                 return response;
