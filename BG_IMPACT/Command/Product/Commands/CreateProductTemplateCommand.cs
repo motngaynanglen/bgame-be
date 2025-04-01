@@ -15,7 +15,7 @@ namespace BG_IMPACT.Command.Product.Commands
         [Required]
         public string ProductName { get; set; } = string.Empty;
         [Required]
-        public string Image { get; set; } = string.Empty;
+        public List<string> Images { get; set; } = [];
         [Required]
         public double Price { get; set; }
         [Required]
@@ -51,6 +51,8 @@ namespace BG_IMPACT.Command.Product.Commands
 
                 string? ManagerID = null;
 
+                string Image = String.Join("||", request.Images);
+
                 if (context != null && context.GetRole() == "MANAGER")
                 {
                     ManagerID = context.GetName();
@@ -59,7 +61,7 @@ namespace BG_IMPACT.Command.Product.Commands
                     {
                         request.ProductGroupRefId,
                         request.ProductName,
-                        request.Image,
+                        Image,
                         request.Price,
                         request.RentPrice,
                         request.RentPricePerHour,

@@ -2,7 +2,7 @@
 {
     public interface IProductGroupRepository
     {
-        Task<object> spProductGroupCreate(object param);
+        Task<object?> spProductGroupCreate(object param);
         Task<object> spProductGroupGetList();
     }
 }
