@@ -1,6 +1,8 @@
 ﻿using BG_IMPACT.Command.Account.Commands;
 using BG_IMPACT.Command.Account.Queries;
+using CloudinaryDotNet.Actions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BG_IMPACT.Controllers
@@ -28,6 +30,7 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize(Roles = "CUSTOMER,MANAGER,STAFF,ADMIN")]
         [HttpPost("update-profile")]
         public async Task<IActionResult> UpdateProfile([FromBody] UpdateCustomerProfileCommand command)
         {
