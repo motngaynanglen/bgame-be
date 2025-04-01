@@ -77,5 +77,11 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spProductGetListInStorePageData", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+
+        public async Task<object?> spProductGetListByStoreIdPageData(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spProductGetListByStoreIdPageData", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
     }
 }

@@ -51,19 +51,19 @@ namespace BG_IMPACT.Command.ProductGroup.Commands
                         if (count == 1)
                         {
                             response.StatusCode = "404";
-                            response.Message = "Không tìm thấy nhóm sản phẩm.";
+                            response.Message = "Tên nhóm lớn sản phẩm đã tồn tại.";
                         }
                         else
                         {
                             response.StatusCode = "200";
-                            response.Message = "Thêm sản phẩm thành công.";
+                            response.Message = "Thêm nhóm lớn sản phẩm thành công.";
                         }
 
                     }
                     else
                     {
                         response.StatusCode = "404";
-                        response.Message = "Thêm sản phẩm thất bại. Xin hãy thử lại sau.";
+                        response.Message = "Thêm nhóm lớn sản phẩm thất bại. Xin hãy thử lại sau.";
                     }
                 }
                 else

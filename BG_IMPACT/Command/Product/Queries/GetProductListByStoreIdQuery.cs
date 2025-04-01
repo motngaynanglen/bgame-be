@@ -33,14 +33,32 @@ namespace BG_IMPACT.Command.Product.Queries
                     request.Paging.PageSize
                 };
 
+                object param2 = new
+                {
+                    request.StoreId,
+                    request.IsRent
+                };
+
                 var result = await _productRepository.spProductGetListByStoreId(param);
                 var list = ((IEnumerable<dynamic>)result).ToList();
 
+                var pageData = await _productRepository.spProductGetListByStoreIdPageData(param2);
+                var dict = pageData as IDictionary<string, object>;
+                long count = 0;
+
                 if (list.Count > 0)
                 {
+                    long pageCount = count / request.Paging.PageSize;
+
                     response.StatusCode = "200";
                     response.Data = list;
                     response.Message = string.Empty;
+                    response.Paging = new PagingModel
+                    {
+                        PageNum = request.Paging.PageNum,
+                        PageSize = request.Paging.PageSize,
+                        PageCount = count % request.Paging.PageSize == 0 ? pageCount : pageCount + 1
+                    };
                 }
                 else
                 {
