@@ -27,7 +27,7 @@ namespace BG_IMPACT.Command.Product.Queries
                 var result = await _productRepository.spProductGetById(param);
                 var dict = result as IDictionary<string, object>;
 
-                if (dict.Count > 0)
+                if (dict != null && dict.Count > 0)
                 {
                     response.StatusCode = "200";
                     response.Data = dict;
@@ -36,7 +36,7 @@ namespace BG_IMPACT.Command.Product.Queries
                 else
                 {
                     response.StatusCode = "404";
-                    response.Message = "Không tìm thấy sản phẩm nào.";
+                    response.Message = "Không tìm thấy sản phẩm.";
                 }
 
                 return response;
