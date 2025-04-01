@@ -80,7 +80,7 @@ namespace BG_IMPACT.Repositories.Implementations
        
         public async Task<object?> spProductGetById(object param)
         {
-            object? result = await _connection.QueryAsync("spProductGetById", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryFirstOrDefaultAsync("spProductGetById", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 

@@ -25,12 +25,12 @@ namespace BG_IMPACT.Command.Product.Queries
                 };
 
                 var result = await _productRepository.spProductGetById(param);
-                var list = ((IEnumerable<dynamic>)result).ToList();
+                var dict = result as IDictionary<string, object>;
 
-                if (list.Count > 0)
+                if (dict.Count > 0)
                 {
                     response.StatusCode = "200";
-                    response.Data = list;
+                    response.Data = dict;
                     response.Message = string.Empty;
                 }
                 else
