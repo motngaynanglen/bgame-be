@@ -1,4 +1,4 @@
-﻿using BG_IMPACT.Repositories.Interfaces;
+using BG_IMPACT.Repositories.Interfaces;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using System.Data;
@@ -77,5 +77,13 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spProductGetListInStorePageData", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+       
+        public async Task<object?> spProductGetById(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spProductGetById", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+
     }
 }
