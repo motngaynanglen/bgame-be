@@ -9,7 +9,8 @@ namespace BG_IMPACT.Command.Store.Queries
     {
         [Required]
         public Guid GroupRefId { get; set; }
-
+        [Required]
+        public Paging Paging { get; set; } = new();
 
         public class GetStoreListByGroupRefIdQueryHandler : IRequestHandler<GetStoreListByGroupRefIdQuery, ResponseObject>
         {

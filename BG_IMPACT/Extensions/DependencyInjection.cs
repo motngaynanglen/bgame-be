@@ -19,6 +19,7 @@ namespace BG_IMPACT.Extensions
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<CloudinaryService>();
 
             return services;
