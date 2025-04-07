@@ -1,4 +1,4 @@
-﻿using BG_IMPACT.Models;
+using BG_IMPACT.Models;
 using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
