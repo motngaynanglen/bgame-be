@@ -2,6 +2,7 @@
 using BG_IMPACT.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using BG_IMPACT.Command.Account.Commands;
 
 namespace BG_IMPACT.Repositories.Implementations
 {
@@ -53,10 +54,31 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryAsync("spAccountListGetByAdmin", commandType: CommandType.StoredProcedure);
             return result;
         }
-        public async Task<object?> spAccountListGetByManager()
+        public async Task<object?> spAccountListGetByManager(object param)
         {
-            object? result = await _connection.QueryAsync("spAccountListGetByManager", commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryAsync("spAccountListGetByManager", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+        public async Task<object?> spAccountListGetByManagerPageData(object param)
+        {
+            object? result = await _connection.QueryAsync("spAccountListGetByManagerPageData", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        public async Task<object?> spUpdateStaffProfile(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spUpdateStaffProfile", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        public async Task<object?> spAccountReverseStaffStatus(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spAccountReverseStaffStatus", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        public async Task<object?> spAccountReverseStatusForAdmin(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spAccountReverseStatusForAdmin", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        
     }
 }
