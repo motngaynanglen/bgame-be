@@ -1,4 +1,4 @@
-﻿using BG_IMPACT.Models;
+using BG_IMPACT.Models;
 using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
@@ -88,8 +88,8 @@ namespace BG_IMPACT.Command.Product.Commands
                     {
                         response.StatusCode = "200";
                         response.Message = "Thêm sản phẩm thành công";
-                        string groupRefID = dict["GroupRefID"].ToString() ?? string.Empty;
-                        response.Data = groupRefID;
+                        string productID = dict["GroupRefID"].ToString() ?? string.Empty;
+                        response.Data = productID;
                     }
                 }
                 else

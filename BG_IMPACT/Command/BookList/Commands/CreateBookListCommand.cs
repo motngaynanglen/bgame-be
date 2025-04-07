@@ -32,7 +32,7 @@ namespace BG_IMPACT.Command.BookList.Commands
             {
                 _bookListRepository = bookListRepository;
                 _httpContextAccessor = httpContextAccessor;
-            }
+            }   
 
             public async Task<ResponseObject> Handle(CreateBookListCommand request, CancellationToken cancellationToken)
             {
