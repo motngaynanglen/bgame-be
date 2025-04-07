@@ -1,4 +1,5 @@
 using BG_IMPACT.Command.Login.Commands;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BG_IMPACT.Controllers
@@ -43,6 +44,7 @@ namespace BG_IMPACT.Controllers
             }
         }
 
+        [Authorize(Roles = "MANAGER")]
         [HttpPost("create-staff")]
         public async Task<IActionResult> CreateStaff(CreateStaffCommand command)
         {

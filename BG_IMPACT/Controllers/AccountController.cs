@@ -1,5 +1,6 @@
 ﻿using BG_IMPACT.Command.Account.Commands;
 using BG_IMPACT.Command.Account.Queries;
+using BG_IMPACT.Command.Login.Commands;
 using CloudinaryDotNet.Actions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -75,7 +76,49 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        
+
+        [Authorize(Roles = "MANAGER")]
+        [HttpPost("update-staff-profile")]
+        public async Task<IActionResult> UpdateStaffProfile([FromBody] UpdateStaffProfileCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        [Authorize(Roles = "MANAGER")]
+        [HttpPost("reverse-staff-status-for-manager")]
+        public async Task<IActionResult> AccountReverseStaffStatus([FromBody] ReverseStaffStatusCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        [Authorize(Roles = "ADMIN")]
+        [HttpPost("reverse-status-for-admin")]
+        public async Task<IActionResult> AccountReverseStatus([FromBody] ReverseAccountStatusCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
     }
 }

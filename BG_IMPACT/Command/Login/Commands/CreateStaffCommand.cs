@@ -1,4 +1,5 @@
-﻿using BG_IMPACT.Models;
+﻿using BG_IMPACT.Extensions;
+using BG_IMPACT.Models;
 using BG_IMPACT.Repositories.Implementations;
 using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
@@ -8,8 +9,6 @@ namespace BG_IMPACT.Command.Login.Commands
 {
     public class CreateStaffCommand : IRequest<ResponseObject>
     {
-        [Required]
-        public Guid StoreId { get; set; }
 
         [Required]
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Tên tài khoản phải từ 8 đến 20 ký tự")]
@@ -29,18 +28,24 @@ namespace BG_IMPACT.Command.Login.Commands
         public class CreateStaffCommandHandler : IRequestHandler<CreateStaffCommand, ResponseObject>
         {
             public readonly IAccountRepository _accountRepository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public CreateStaffCommandHandler(IAccountRepository accountRepository)
+            public CreateStaffCommandHandler(IAccountRepository accountRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _accountRepository = accountRepository;
+                _httpContextAccessor = httpContextAccessor;
+
             }
             public async Task<ResponseObject> Handle(CreateStaffCommand request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
+                var context = _httpContextAccessor.HttpContext;
+                string? ManagerID = null;
+                ManagerID = context.GetName();
 
                 object param = new
                 {
-                    store_id = request.StoreId,
+                    ManagerID,
                     username = request.Username,
                     password = request.Password,
                     phone_number = request.PhoneNumber ?? string.Empty,
@@ -64,13 +69,18 @@ namespace BG_IMPACT.Command.Login.Commands
                     }
                     else if (count == 1)
                     {
-                        response.StatusCode = "404";
+                        response.StatusCode = "400";
                         response.Message = "Tên tài khoản đã tồn tại";
                     }
                     else if (count == 2)
                     {
                         response.StatusCode = "404";
                         response.Message = "Cửa hàng không tồn tại";
+                    }
+                    else if (count == 3)
+                    {
+                        response.StatusCode = "404";
+                        response.Message = "Không tìm thấy thông tin người quản lý";
                     }
                 }
                 else
