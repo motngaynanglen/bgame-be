@@ -166,5 +166,24 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+        [Authorize(Roles = "MANAGER")]
+        [HttpPost("get-by-template-condition")]
+        public async Task<IActionResult> GetByTemplateCondition(GetProductByTemplateAndConditionQuery command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                    return Ok(result);
+                else
+                    return BadRequest(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }

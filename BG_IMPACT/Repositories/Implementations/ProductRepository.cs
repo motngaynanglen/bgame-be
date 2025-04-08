@@ -84,6 +84,13 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
+        public async Task<object?> spGetProductsByTemplateAndCondition(object param)
+        {
+            object? result = await _connection.QueryAsync("spGetProductsByTemplateAndCondition", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        
+
 
     }
 }
