@@ -1,4 +1,5 @@
-﻿using BG_IMPACT.Command.Product.Commands;
+﻿using BG_IMPACT.Command.Order.Commands;
+using BG_IMPACT.Command.Product.Commands;
 using BG_IMPACT.Extensions;
 using BG_IMPACT.Models;
 using BG_IMPACT.Repositories.Interfaces;
@@ -8,11 +9,16 @@ using System.Linq;
 
 namespace BG_IMPACT.Command.BookList.Commands
 {
+    public class BookListItem
+    {
+        public Guid ProductTemplateID { get; set; }
+        public int Quantity { get; set; }
+    }
     public class CreateBookListCommand : IRequest<ResponseObject>
     {
         public Guid? CustomerId { get; set; }
         [Required]
-        public List<Guid> ProductGroupRefIds { get; set; } = [];
+        public List<BookListItem> BookListItems { get; set; } = [];
         [Required]
         public Guid StoreId { get; set; }
         [Required]
@@ -32,7 +38,7 @@ namespace BG_IMPACT.Command.BookList.Commands
             {
                 _bookListRepository = bookListRepository;
                 _httpContextAccessor = httpContextAccessor;
-            }
+            }   
 
             public async Task<ResponseObject> Handle(CreateBookListCommand request, CancellationToken cancellationToken)
             {

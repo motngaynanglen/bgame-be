@@ -19,9 +19,9 @@ namespace BG_IMPACT.Repositories.Implementations
                 _connection.OpenAsync().GetAwaiter().GetResult();
             }
         }
-        public async Task<object> spProductGroupCreate(object param)
+        public async Task<object?> spProductGroupCreate(object param)
         {
-            object? result = await _connection.ExecuteAsync("spProductGroupCreate", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryFirstOrDefaultAsync("spProductGroupCreate", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
