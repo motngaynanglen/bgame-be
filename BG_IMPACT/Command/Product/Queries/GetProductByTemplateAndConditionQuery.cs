@@ -7,8 +7,8 @@ namespace BG_IMPACT.Command.Product.Queries
 {
     public class GetProductByTemplateAndConditionQuery : IRequest<ResponseObject>
     {
-        public Guid @TemplateID { get; set; }
-        public string ConditionFilter { get; set; } = "SALES_PRODUCT";
+        public Guid TemplateID { get; set; }
+        public int ConditionFilter { get; set; } 
 
         public class GetProductByTemplateAndConditionQueryHandler : IRequestHandler<GetProductByTemplateAndConditionQuery, ResponseObject>
         {
@@ -28,7 +28,7 @@ namespace BG_IMPACT.Command.Product.Queries
                 string? UserID = context?.GetName() ?? string.Empty;
                 object param = new
                 {
-                    request.@TemplateID,
+                    request.TemplateID,
                     UserID,
                     request.ConditionFilter,
                 };

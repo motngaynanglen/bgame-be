@@ -17,13 +17,9 @@ namespace BG_IMPACT.Command.Order.Commands
         public Guid? CustomerID { get; set; }
         [Required]
         public List<OrderItem> OrderItems { get; set; } = new();
-        [Required]
         public string Email { get; set; } = string.Empty;
-        [Required]
         public string FullName { get; set; } = string.Empty;
-        [Required]
         public string PhoneNumber { get; set; } = string.Empty;
-        [Required]
         public string Address { get; set; } = string.Empty;
 
         public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, ResponseObject>

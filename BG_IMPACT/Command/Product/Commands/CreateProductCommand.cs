@@ -10,7 +10,7 @@ namespace BG_IMPACT.Command.Product.Commands
     public class CreateProductCommand : IRequest<ResponseObject>
     {
         [Required]
-        public Guid ProductGroupRefId { get; set; }
+        public Guid ProductTemplateId { get; set; }
         [Required]
         public double Number { get; set; }
 
@@ -39,7 +39,7 @@ namespace BG_IMPACT.Command.Product.Commands
 
                     object param = new
                     {
-                        request.ProductGroupRefId,
+                        request.ProductTemplateId,
                         ManagerID,
                         request.Number
                     };
