@@ -1,5 +1,6 @@
 ﻿using BG_IMPACT.Command.BookList.Commands;
 using BG_IMPACT.Command.BookList.Queries;
+using BG_IMPACT.Command.Order.Queries;
 using BG_IMPACT.Command.Product.Commands;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -78,6 +79,49 @@ namespace BG_IMPACT.Controllers
             try
             {
                 var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "CUSTOMER,STAFF,MANAGER")]
+        [HttpPost("get-booklist-history")]
+        public async Task<IActionResult> GetBookListHistory([FromBody] GetBookListHistoryQuery query)
+        {
+            try
+            {
+                var result = await _mediator.Send(query);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost("get-booklist-available-slot")]
+        public async Task<IActionResult> GetBookListAvailableSlot([FromBody] GetBookListAvailableSlotQuery query)
+        {
+            try
+            {
+                var result = await _mediator.Send(query);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost("get-booklist-available-product")]
+        public async Task<IActionResult> GetBookListAvailableProduct([FromBody] GetBookListAvailableProductQuery query)
+        {
+            try
+            {
+                var result = await _mediator.Send(query);
                 return Ok(result);
             }
             catch (Exception ex)

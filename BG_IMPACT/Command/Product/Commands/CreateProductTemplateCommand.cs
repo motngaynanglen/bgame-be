@@ -89,6 +89,8 @@ namespace BG_IMPACT.Command.Product.Commands
                         {
                             response.StatusCode = "200";
                             response.Message = "Thêm sản phẩm thành công.";
+                            string productID = dict["ProductID"].ToString() ?? string.Empty;
+                            response.Data = productID;
                         }
 
                     }

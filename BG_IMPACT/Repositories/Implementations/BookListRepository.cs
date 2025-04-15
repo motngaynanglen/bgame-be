@@ -43,9 +43,33 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
+        public async Task<object?> spBookListGetAvailableProduct(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spBookListGetAvailableProduct", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spBookListGetAvailableSlot(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spBookListGetAvailableSlot", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
         public async Task<object?> spBookListGetPageData(object param)
         {
             object? result = await _connection.QueryFirstOrDefaultAsync("spBookListGetPageData", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spBookListHistory(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spBookListHistory", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spBookListHistoryPageData(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spBookListHistoryPageData", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
