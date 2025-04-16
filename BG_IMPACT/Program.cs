@@ -78,6 +78,8 @@ builder.Services.AddCors(options =>
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader());
+
+
 });
 
 var app = builder.Build();

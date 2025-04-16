@@ -59,13 +59,15 @@ namespace BG_IMPACT.Command.BookList.Commands
                     request.CustomerId = cusId;
                 }
 
-                string ListProductGroupRefIds = string.Join(",", request.ProductGroupRefIds);
+                string ListProductTemplateIDs = string.Join(",", request.BookListItems
+                                    .SelectMany(item => Enumerable.Repeat(item.ProductTemplateID, item.Quantity))
+                                );
 
                 object param = new
                 {
                     request.CustomerId,
                     StaffId,
-                    ListProductGroupRefIds,
+                    ListProductTemplateIDs,
                     request.StoreId,
                     request.From,
                     request.To,

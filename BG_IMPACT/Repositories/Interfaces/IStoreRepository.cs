@@ -8,5 +8,6 @@
         Task<object> spStoreGetList(object param);
         Task<object?> spStoreChangeStatus(object param);
         Task<object> spStoreGetListByGroupRefId(object param);
+        Task<object?> spStoreGetByUserID(object param); 
     }
 }

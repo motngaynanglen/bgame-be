@@ -28,7 +28,7 @@ namespace BG_IMPACT.Command.Product.Queries
                 string? UserID = context?.GetName() ?? string.Empty;
                 object param = new
                 {
-                    request.@TemplateID,
+                    request.TemplateID,
                     UserID,
                     request.ConditionFilter,
                 };

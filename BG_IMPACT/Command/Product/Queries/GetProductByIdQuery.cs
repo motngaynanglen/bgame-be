@@ -36,7 +36,7 @@ namespace BG_IMPACT.Command.Product.Queries
                 else
                 {
                     response.StatusCode = "404";
-                    response.Message = "Không tìm thấy sản phẩm.";
+                    response.Message = "Không thể xác định khung giờ.";
                 }
 
                 return response;
