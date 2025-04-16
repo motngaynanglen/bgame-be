@@ -79,6 +79,13 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spAccountReverseStatusForAdmin", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+
+        public async Task<object?> spGetCustomerListByPhoneAndEmail(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spGetCustomerListByPhoneAndEmail", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
         
+
     }
 }
