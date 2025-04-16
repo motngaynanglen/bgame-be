@@ -2,40 +2,40 @@
 using BG_IMPACT.Models;
 using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
-using static BG_IMPACT.Models.StatusBase;
 
-namespace BG_IMPACT.Command.Account.Commands
+namespace BG_IMPACT.Command.Order.Commands
 {
-    public class ReverseStaffStatusCommand : IRequest<ResponseObject>
+    public class UpdateStatusOrderToSendingCommand : IRequest<ResponseObject>
     {
-        public Guid? AccountID { get; set; }
+        public Guid? OrderID { get; set; }
 
-        public class ReverseStaffStatusCommandCommandHandler : IRequestHandler<ReverseStaffStatusCommand, ResponseObject>
+
+        public class UpdateStatusOrderToSendingCommandHandler : IRequestHandler<UpdateStatusOrderToSendingCommand, ResponseObject>
         {
-            private readonly IAccountRepository _accountRepository;
+            private readonly IOrderRepository _orderRepository;
 
             private readonly IHttpContextAccessor _httpContextAccessor;
 
 
-            public ReverseStaffStatusCommandCommandHandler(IAccountRepository accountRepository, IHttpContextAccessor httpContextAccessor)
+            public UpdateStatusOrderToSendingCommandHandler(IOrderRepository orderRepository, IHttpContextAccessor httpContextAccessor)
             {
-                _accountRepository = accountRepository;
+                _orderRepository = orderRepository;
                 _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<ResponseObject> Handle(ReverseStaffStatusCommand request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(UpdateStatusOrderToSendingCommand request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
                 var context = _httpContextAccessor.HttpContext;
 
-                string? UserID = context?.GetName() ?? string.Empty;
+                string? AccountID = context?.GetName() ?? string.Empty;
                 object parameters = new
                 {
-                    request.AccountID,
-                    UserID
+                    AccountID,
+                    request.OrderID
 
                 };
-                var result = await _accountRepository.spAccountReverseStaffStatus(parameters);
+                var result = await _orderRepository.spOrderUpdateStatusToSending(parameters);
                 var dict = result as IDictionary<string, object>;
 
                 if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
@@ -54,22 +54,12 @@ namespace BG_IMPACT.Command.Account.Commands
                         response.StatusCode = "404";
                         response.Message = Message;
                     }
-                    else if (count == 3)
-                    {
-                        response.StatusCode = "404";
-                        response.Message = Message;
-                    }
-                    else if (count == 4)
-                    {
-                        response.StatusCode = "404";
-                        response.Message = Message;
-                    }
-
                     else
                     {
                         response.StatusCode = "200";
                         response.Message = Message;
                     }
+
                 }
                 else
                 {
