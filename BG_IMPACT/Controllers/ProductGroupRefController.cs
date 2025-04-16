@@ -1,4 +1,5 @@
-﻿using BG_IMPACT.Command.ProductGroup.Commands;
+﻿using BG_IMPACT.Command.Product.Commands;
+using BG_IMPACT.Command.ProductGroup.Commands;
 using BG_IMPACT.Command.ProductGroup.Queries;
 using BG_IMPACT.Command.ProductGroupRef.Commands;
 using BG_IMPACT.Command.ProductGroupRef.Queries;
@@ -29,6 +30,21 @@ namespace BG_IMPACT.Controllers
 
         [HttpPost("get-list")]
         public async Task<IActionResult> GetList(GetProductGroupRefListQuery command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "MANAGER,ADMIN")]
+        [HttpPost("update-product-group-ref")]
+        public async Task<IActionResult> UpdateProductGroupRef(UpdateProductGroupRefCommand command)
         {
             try
             {
