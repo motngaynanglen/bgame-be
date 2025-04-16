@@ -1,5 +1,6 @@
 ﻿using BG_IMPACT.Command.Store.Commands;
 using BG_IMPACT.Command.Store.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,6 +55,21 @@ namespace BG_IMPACT.Controllers
 
         [HttpPost("get-list-by-group-ref-id")]
         public async Task<IActionResult> GetListByGroupRefId(GetStoreListByGroupRefIdQuery command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "STAFF,MANAGER")]
+        [HttpGet("get-store-id")]
+        public async Task<IActionResult> GetStoreID(GetStoreIDQuery command)
         {
             try
             {

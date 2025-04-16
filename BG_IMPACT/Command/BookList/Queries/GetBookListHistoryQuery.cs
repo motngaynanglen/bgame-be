@@ -58,8 +58,40 @@ namespace BG_IMPACT.Command.BookList.Queries
                 {
                     long pageCount = count / request.Paging.PageSize;
 
+                    object data = list
+                        .GroupBy(g => new
+                        {
+                            g.id,
+                            g.customer_id,
+                            g.from,
+                            g.to,
+                            g.type,
+                            g.total_price,
+                            g.status
+                        })
+                        .Select(x => new
+                        {
+                            x.Key.id,
+                            x.Key.customer_id,
+                            x.Key.from,
+                            x.Key.to,
+                            x.Key.type,
+                            x.Key.total_price,
+                            x.Key.status,
+                            items = x
+                                .Where(i => i.book_list_id == x.Key.id)
+                                .Select(t => new
+                                {
+                                    t.rent_price,
+                                    t.rent_price_per_hour,
+                                    t.condition,
+                                    t.status
+                                }).ToList()
+                        })
+                        .ToList();
+
                     response.StatusCode = "200";
-                    response.Data = list;
+                    response.Data = data;
                     response.Message = string.Empty;
                     response.Paging = new PagingModel
                     {
