@@ -119,6 +119,20 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize(Roles = "STAFF,MANAGER")]
+        [HttpPost("search-customer-by-phone-and-email")]
+        public async Task<IActionResult> GetListCustomer([FromBody] GetCustomerListByPhoneAndEmailQuery query)
+        {
+            try
+            {
+                var result = await _mediator.Send(query);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
     }
 }

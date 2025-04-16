@@ -185,5 +185,20 @@ namespace BG_IMPACT.Controllers
             }
         }
 
+        [Authorize(Roles = "MANAGER")]
+        [HttpPost("update-product")]
+        public async Task<IActionResult> UpdateProduct(UpdateProductCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }

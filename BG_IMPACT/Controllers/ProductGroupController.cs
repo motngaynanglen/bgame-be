@@ -1,5 +1,7 @@
-﻿using BG_IMPACT.Command.ProductGroup.Commands;
+﻿using BG_IMPACT.Command.Product.Commands;
+using BG_IMPACT.Command.ProductGroup.Commands;
 using BG_IMPACT.Command.ProductGroup.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +27,21 @@ namespace BG_IMPACT.Controllers
 
         [HttpPost("get-list")]
         public async Task<IActionResult> GetList(GetProductGroupListQuery command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "MANAGER,ADMIN")]
+        [HttpPost("update-product-group")]
+        public async Task<IActionResult> UpdateProductGroup(UpdateProductGroupCommand command)
         {
             try
             {

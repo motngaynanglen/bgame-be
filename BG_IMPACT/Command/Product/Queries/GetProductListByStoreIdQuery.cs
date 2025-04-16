@@ -42,7 +42,7 @@ namespace BG_IMPACT.Command.Product.Queries
                 var result = await _productRepository.spProductGetListByStoreId(param);
                 var list = ((IEnumerable<dynamic>)result).ToList();
 
-                var pageData = await _productRepository.spProductGetListByStoreIdPageData(param2);
+                var pageData = await _productRepository.spProductGetListPageData(param2);
                 var dict = pageData as IDictionary<string, object>;
                 long count = 0;
 
