@@ -31,5 +31,12 @@ namespace BG_IMPACT.Repositories.Implementations
             object result = await _connection.QueryAsync("spProductGroupRefGetList", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+
+        public async Task<object?> spProductGroupRefUpdate(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spProductGroupRefUpdate", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        
     }
 }

@@ -19,5 +19,6 @@ namespace BG_IMPACT.Repositories.Interfaces
         Task<object?> spProductGetById(object param);
         Task<object?> spProductGetListPageData(object param);
         Task<object?> spGetProductsByTemplateAndCondition(object param);
+        Task<object?> spProductUpdate(object param);
     }
 }

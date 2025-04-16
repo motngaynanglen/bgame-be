@@ -4,5 +4,6 @@
     {
         Task<object?> spProductGroupCreate(object param);
         Task<object> spProductGroupGetList();
+        Task<object?> spProductGroupUpdate(object param);
     }
 }
