@@ -45,13 +45,13 @@ namespace BG_IMPACT.Repositories.Implementations
 
         public async Task<object?> spBookListGetAvailableProduct(object param)
         {
-            object? result = await _connection.QueryFirstOrDefaultAsync("spBookListGetAvailableProduct", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryAsync("spBookListGetAvailableProduct", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
         public async Task<object?> spBookListGetAvailableSlot(object param)
         {
-            object? result = await _connection.QueryFirstOrDefaultAsync("spBookListGetAvailableSlot", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryAsync("spBookListGetAvailableSlot", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
@@ -63,7 +63,7 @@ namespace BG_IMPACT.Repositories.Implementations
 
         public async Task<object?> spBookListHistory(object param)
         {
-            object? result = await _connection.QueryFirstOrDefaultAsync("spBookListHistory", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryAsync("spBookListHistory", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 

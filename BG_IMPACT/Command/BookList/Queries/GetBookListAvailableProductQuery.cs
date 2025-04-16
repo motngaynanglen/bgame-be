@@ -33,12 +33,12 @@ namespace BG_IMPACT.Command.BookList.Queries
 
 
                 var result = await _bookListRepository.spBookListGetAvailableProduct(param);
-                var dict = result as IDictionary<string, object>;
+                var list = ((IEnumerable<dynamic>)result).ToList();
 
-                if (dict != null && dict.Count > 0)
+                if (list != null && list.Count > 0)
                 {
                     response.StatusCode = "200";
-                    response.Data = dict;
+                    response.Data = list;
                     response.Message = string.Empty;
                 }
                 else
