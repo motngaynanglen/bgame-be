@@ -1,7 +1,9 @@
-﻿namespace BG_IMPACT.Repositories.Interfaces
+﻿
+namespace BG_IMPACT.Repositories.Interfaces
 {
     public interface ITransactionRepository
     {
+        Task<object?> spCheckOnlinePayment(object param);
         Task<object?> spTransactionCreateOffline(object param);
     }
 }

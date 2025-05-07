@@ -107,6 +107,11 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spProductUpdate", param, commandType: CommandType.StoredProcedure);
             return result;
         }
-        
+
+        public async Task<object?> spProductGetByCode(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spProductGetByCode", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
     }
 }

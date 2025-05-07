@@ -93,5 +93,21 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+        
+        [Authorize(Roles = "STAFF")]
+        [HttpPost("get-unclaim-order")]
+        public async Task<IActionResult> GetUnclaimOrder([FromBody] GetOrderGetUnclaimQuery query)
+        {
+            try
+            {
+                var result = await _mediator.Send(query);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
