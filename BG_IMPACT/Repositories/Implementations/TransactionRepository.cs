@@ -19,6 +19,12 @@ namespace BG_IMPACT.Repositories.Implementations
             }
         }
 
+        public async Task<object?> spCheckOnlinePayment(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spCheckOnlinePayment", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
         public async Task<object?> spTransactionCreateOffline(object param)
         {
             object? result = await _connection.QueryFirstOrDefaultAsync("spTransactionCreateOffline", param, commandType: CommandType.StoredProcedure);

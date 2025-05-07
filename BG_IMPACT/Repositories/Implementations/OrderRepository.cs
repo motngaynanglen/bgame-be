@@ -25,6 +25,18 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
+        public async Task<object?> spOrderGetUnclaim(object param)
+        {
+            object? result = await _connection.QueryAsync("spOrderGetUnclaim", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spOrderGetUnclaimPageData(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spOrderGetUnclaimPageData", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
         public async Task<object?> spOrderHistory(object param)
         {
             object? result = await _connection.QueryAsync("spOrderHistory", param, commandType: CommandType.StoredProcedure);

@@ -9,5 +9,8 @@ namespace BG_IMPACT.Repositories.Interfaces
         Task<object?> spOrderUpdateStatusToPaid(object param);
         Task<object?> spOrderUpdateStatusToSending(object param);
         Task<object?> spOrderUpdateStatusToSent(object param);
+        Task<object?> spOrderGetUnclaim(object param);
+        Task<object?> spOrderGetUnclaimPageData(object param);
+
     }
 }

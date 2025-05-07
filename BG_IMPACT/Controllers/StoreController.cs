@@ -69,7 +69,7 @@ namespace BG_IMPACT.Controllers
 
         [Authorize(Roles = "STAFF,MANAGER")]
         [HttpGet("get-store-id")]
-        public async Task<IActionResult> GetStoreID(GetStoreIDQuery command)
+        public async Task<IActionResult> GetStoreID([FromQuery]GetStoreIDQuery command)
         {
             try
             {
