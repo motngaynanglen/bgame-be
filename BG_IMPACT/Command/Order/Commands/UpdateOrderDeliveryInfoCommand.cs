@@ -12,13 +12,10 @@ namespace BG_IMPACT.Command.Order.Commands
         public string FullName { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
-        public int DeliveryType { get; set; } = 0; //0: shipping (default) ; 1: get at store
-
-        // Nên có thêm field mã vận chuyển và hãng vận chuyển
-        /*
+        public bool IsDelivery { get; set; } = true; //true: shipping (default) ; false: get at store
         public string DeliveryCode { get; set; } = string.Empty;
         public string DeliveryBrand { get; set; } = string.Empty;
-        */
+
 
         public class UpdaterOrderDeliveryInfoCommandHandler : IRequestHandler<UpdaterOrderDeliveryInfoCommand, ResponseObject>
         {
@@ -37,7 +34,11 @@ namespace BG_IMPACT.Command.Order.Commands
             {
                 ResponseObject response = new();
                 var context = _httpContextAccessor.HttpContext;
-
+                if (!request.IsDelivery)
+                {
+                    request.DeliveryCode = "";
+                    request.DeliveryBrand = "";
+                }
                 string? AccountID = context?.GetName() ?? string.Empty;
                 object parameters = new
                 {
@@ -47,10 +48,12 @@ namespace BG_IMPACT.Command.Order.Commands
                     request.FullName,
                     request.PhoneNumber,
                     request.Address,
-                    request.DeliveryType,
+                    request.IsDelivery,
+                    request.DeliveryCode,
+                    request.DeliveryBrand,
 
                 };
-                var result = await _orderRepository.spOrderUpdateStatusToSending(parameters);
+                var result = await _orderRepository.spOrderUpdateDeliveryInfo(parameters);
                 var dict = result as IDictionary<string, object>;
 
                 if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)

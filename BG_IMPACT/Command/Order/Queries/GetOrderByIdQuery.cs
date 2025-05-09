@@ -45,7 +45,7 @@ namespace BG_IMPACT.Command.Order.Queries
 
                 return response;
             }
-            public class OrderDto
+            private class OrderDto
             {
                 public Guid order_id { get; set; }
                 public string order_code { get; set; }
@@ -60,7 +60,7 @@ namespace BG_IMPACT.Command.Order.Queries
                 public List<OrderItemDto> order_items { get; set; }
             }
 
-            public class OrderItemDto
+            private class OrderItemDto
             {
                 public Guid order_item_id { get; set; }
                 public Guid? product_id { get; set; }

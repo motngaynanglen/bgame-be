@@ -60,9 +60,10 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
-        public Task<object?> spOrderUpdateDeliveryInfo(object param)
+        public async Task<object?> spOrderUpdateDeliveryInfo(object param)
         {
-            throw new NotImplementedException();
+            object? result = await _connection.QueryFirstOrDefaultAsync("spOrderUpdateDeliveryInfo", param, commandType: CommandType.StoredProcedure);
+            return result;
         }
 
         public async Task<object?> spOrderUpdateStatusToPaid(object param)

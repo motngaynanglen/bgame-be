@@ -68,7 +68,20 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
-
+        [Authorize(Roles = "STAFF")]
+        [HttpPost("update-order-delivery-info")]
+        public async Task<IActionResult> UpdateOrderDeliveryInfo([FromBody] UpdaterOrderDeliveryInfoCommand query)
+        {
+            try
+            {
+                var result = await _mediator.Send(query);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         [Authorize(Roles = "STAFF")]
         [HttpPost("update-order-to-paid")]
         public async Task<IActionResult> UpdateOrderToPaid([FromBody] UpdateStatusOrderToPaidCommand query)
