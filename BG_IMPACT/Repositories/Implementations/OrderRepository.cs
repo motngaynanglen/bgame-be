@@ -19,9 +19,20 @@ namespace BG_IMPACT.Repositories.Implementations
             }
         }
 
+        public Task<object?> spOrderClaimRequest(object param)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<object?> spOrderCreate(object param)
         {
             object? result = await _connection.QueryFirstOrDefaultAsync("spOrderCreate", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spOrderGetById(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spOrderGetById", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
@@ -48,6 +59,12 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spOrderHistoryPageData", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+
+        public Task<object?> spOrderUpdateDeliveryInfo(object param)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<object?> spOrderUpdateStatusToPaid(object param)
         {
             object? result = await _connection.QueryFirstOrDefaultAsync("spOrderUpdateStatusToPaid", param, commandType: CommandType.StoredProcedure);

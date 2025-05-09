@@ -2,6 +2,7 @@
 using BG_IMPACT.Command.Account.Queries;
 using BG_IMPACT.Command.Order.Commands;
 using BG_IMPACT.Command.Order.Queries;
+using BG_IMPACT.Command.Product.Queries;
 using CloudinaryDotNet.Actions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -33,7 +34,26 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
-
+        [HttpPost("get-by-id")]
+        public async Task<IActionResult> GetById(GetOrderByIdQuery command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         [Authorize(Roles = "CUSTOMER,STAFF")]
         [HttpPost("get-order-history")]
         public async Task<IActionResult> GetOrderHistory([FromBody] GetOrderHistoryQuery query)
