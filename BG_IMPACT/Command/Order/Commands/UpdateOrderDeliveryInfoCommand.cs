@@ -5,7 +5,7 @@ using MediatR;
 
 namespace BG_IMPACT.Command.Order.Commands
 {
-    public class UpdaterOrderDeliveryInfoCommand : IRequest<ResponseObject>
+    public class UpdateOrderDeliveryInfoCommand : IRequest<ResponseObject>
     {
         public Guid? OrderID { get; set; }
         public string Email { get; set; } = string.Empty;
@@ -17,20 +17,20 @@ namespace BG_IMPACT.Command.Order.Commands
         public string DeliveryBrand { get; set; } = string.Empty;
 
 
-        public class UpdaterOrderDeliveryInfoCommandHandler : IRequestHandler<UpdaterOrderDeliveryInfoCommand, ResponseObject>
+        public class UpdateOrderDeliveryInfoCommandHandler : IRequestHandler<UpdateOrderDeliveryInfoCommand, ResponseObject>
         {
             private readonly IOrderRepository _orderRepository;
 
             private readonly IHttpContextAccessor _httpContextAccessor;
 
 
-            public UpdaterOrderDeliveryInfoCommandHandler(IOrderRepository orderRepository, IHttpContextAccessor httpContextAccessor)
+            public UpdateOrderDeliveryInfoCommandHandler(IOrderRepository orderRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _orderRepository = orderRepository;
                 _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<ResponseObject> Handle(UpdaterOrderDeliveryInfoCommand request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(UpdateOrderDeliveryInfoCommand request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
                 var context = _httpContextAccessor.HttpContext;

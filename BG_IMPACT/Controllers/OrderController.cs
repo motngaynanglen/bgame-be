@@ -70,7 +70,7 @@ namespace BG_IMPACT.Controllers
         }
         [Authorize(Roles = "STAFF")]
         [HttpPost("update-order-delivery-info")]
-        public async Task<IActionResult> UpdateOrderDeliveryInfo([FromBody] UpdaterOrderDeliveryInfoCommand query)
+        public async Task<IActionResult> UpdateOrderDeliveryInfo([FromBody] UpdateOrderDeliveryInfoCommand query)
         {
             try
             {
