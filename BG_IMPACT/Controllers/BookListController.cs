@@ -129,19 +129,5 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
-
-        [HttpPost("perform-booklist-transaction")]
-        public async Task<IActionResult> PerformBookListTransaction(PerformBookListTransactionQuery query)
-        {
-            try
-            {
-                var result = await _mediator.Send(query);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
     }
 }
