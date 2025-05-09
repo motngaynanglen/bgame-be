@@ -6,7 +6,7 @@ namespace BG_IMPACT.Command.Product.Queries
 {
     public class GetProductByCodeQuery : IRequest<ResponseObject>
     {
-        public string Code { get; set; }
+        public string Code { get; set; } = string.Empty;
         public class GetProductByCodeQueryHandler : IRequestHandler<GetProductByCodeQuery, ResponseObject>
         {
             private readonly IProductRepository _productRepository;
@@ -25,12 +25,14 @@ namespace BG_IMPACT.Command.Product.Queries
                 };
 
                 var result = await _productRepository.spProductGetByCode(param);
-                var dict = result as IDictionary<string, object>;
+                var list = ((IEnumerable<dynamic>)result).ToList();
 
-                if (dict != null && dict.Count > 0)
+                //var dict = result as IDictionary<string, object>;
+
+                if (list != null && list.Count > 0)
                 {
                     response.StatusCode = "200";
-                    response.Data = dict;
+                    response.Data = list;
                     response.Message = string.Empty;
                 }
                 else
