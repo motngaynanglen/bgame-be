@@ -6,22 +6,22 @@ using MediatR;
 
 namespace BG_IMPACT.Command.BookList.Queries
 {
-    public class GetConsignmentOrderQuery : IRequest<ResponseObject>
+    public class GetConsignmentOrderListQuery : IRequest<ResponseObject>
     {
 
         public Paging Paging { get; set; } = new Paging();
 
-        public class GetConsignmentOrderHandler : IRequestHandler<GetConsignmentOrderQuery, ResponseObject>
+        public class Handler : IRequestHandler<GetConsignmentOrderListQuery, ResponseObject>
         {
             private readonly IConsignmentOrderRepository _consignmentOrderRepository;
             private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetConsignmentOrderHandler(IConsignmentOrderRepository consignmentOrderRepository, IHttpContextAccessor httpContextAccessor)
+            public Handler(IConsignmentOrderRepository consignmentOrderRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _consignmentOrderRepository = consignmentOrderRepository;
                 _httpContextAccessor = httpContextAccessor;
             }
-            public async Task<ResponseObject> Handle(GetConsignmentOrderQuery request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(GetConsignmentOrderListQuery request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
                 var context = _httpContextAccessor.HttpContext;
