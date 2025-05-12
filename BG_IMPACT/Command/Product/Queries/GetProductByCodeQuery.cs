@@ -4,33 +4,35 @@ using MediatR;
 
 namespace BG_IMPACT.Command.Product.Queries
 {
-    public class GetProductByIdQuery : IRequest<ResponseObject>
+    public class GetProductByCodeQuery : IRequest<ResponseObject>
     {
-        public Guid ProductID { get; set; }
-        public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ResponseObject>
+        public string Code { get; set; } = string.Empty;
+        public class GetProductByCodeQueryHandler : IRequestHandler<GetProductByCodeQuery, ResponseObject>
         {
             private readonly IProductRepository _productRepository;
 
-            public GetProductByIdQueryHandler(IProductRepository productRepository)
+            public GetProductByCodeQueryHandler(IProductRepository productRepository)
             {
                 _productRepository = productRepository;
             }
-            public async Task<ResponseObject> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(GetProductByCodeQuery request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
 
                 object param = new
                 {
-                    request.ProductID,
+                    request.Code,
                 };
 
-                var result = await _productRepository.spProductGetById(param);
-                var dict = result as IDictionary<string, object>;
+                var result = await _productRepository.spProductGetByCode(param);
+                var list = ((IEnumerable<dynamic>)result).ToList();
 
-                if (dict != null && dict.Count > 0)
+                //var dict = result as IDictionary<string, object>;
+
+                if (list != null && list.Count > 0)
                 {
                     response.StatusCode = "200";
-                    response.Data = dict;
+                    response.Data = list;
                     response.Message = string.Empty;
                 }
                 else

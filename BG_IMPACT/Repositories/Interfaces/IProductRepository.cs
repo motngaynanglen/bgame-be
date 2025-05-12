@@ -3,6 +3,7 @@
 
 
 
+
 namespace BG_IMPACT.Repositories.Interfaces
 {
     public interface IProductRepository
@@ -22,5 +23,6 @@ namespace BG_IMPACT.Repositories.Interfaces
         Task<object?> spGetProductsByTemplateAndCondition(object param);
         Task<object?> spProductGetListByStoreIdPageData(object param);
         Task<object?> spProductUpdate(object param);
+        Task<object?> spProductGetByCode(object param);
     }
 }

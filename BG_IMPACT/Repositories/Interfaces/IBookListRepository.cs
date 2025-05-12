@@ -1,4 +1,5 @@
-﻿namespace BG_IMPACT.Repositories.Interfaces
+﻿
+namespace BG_IMPACT.Repositories.Interfaces
 {
     public interface IBookListRepository
     {

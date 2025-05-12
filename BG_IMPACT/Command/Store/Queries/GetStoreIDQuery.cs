@@ -3,7 +3,6 @@ using BG_IMPACT.Models;
 using BG_IMPACT.Repositories.Interfaces;
 using MediatR;
 using Microsoft.IdentityModel.Tokens;
-using Polly;
 
 namespace BG_IMPACT.Command.Store.Queries
 {
