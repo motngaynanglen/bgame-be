@@ -46,7 +46,7 @@ namespace BG_IMPACT.Command.BookList.Queries
                 var result = await _transactionRepository.spTransactionGetItemByRefId(param);
                 var list = ((IEnumerable<dynamic>)result).ToList();
                 var code = list.Select(x => x.code).FirstOrDefault()?.ToString();
-                var items = list.Select(x => new ItemData(x.product_name, 1, (int)x.rent_price)).ToList();
+                var items = list.Select(x => new ItemData(x.product_name, 1, (int)x.price)).ToList();
                 
                 var paymentLinkRequest = new PaymentData(
                     orderCode: int.Parse(DateTimeOffset.Now.ToString("ffffff")),
