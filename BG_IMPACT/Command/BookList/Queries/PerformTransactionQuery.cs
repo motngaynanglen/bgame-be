@@ -9,19 +9,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BG_IMPACT.Command.BookList.Queries
 {
-    public class PerformBookListTransactionQuery : IRequest<ResponseObject>
+    public class PerformTransactionQuery : IRequest<ResponseObject>
     {
         [Required]
-        public Guid BookListID { get; set; }
-        public class PerformBookListTransactionQueryHandler : IRequestHandler<PerformBookListTransactionQuery, ResponseObject>
+        public Guid ReferenceID { get; set; }
+        [Required]
+        public int Type { get; set; }
+        public class PerformTransactionQueryQueryHandler : IRequestHandler<PerformTransactionQuery, ResponseObject>
         {
-            public readonly IBookListRepository _bookListRepository;
-            public PerformBookListTransactionQueryHandler(IBookListRepository bookListRepository)
+            public readonly ITransactionRepository _transactionRepository;
+            public PerformTransactionQueryQueryHandler(ITransactionRepository transactionRepository)
             {
-                _bookListRepository = bookListRepository;
+                _transactionRepository = transactionRepository;
             }
 
-            public async Task<ResponseObject> Handle(PerformBookListTransactionQuery request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(PerformTransactionQuery request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
 
@@ -33,14 +35,15 @@ namespace BG_IMPACT.Command.BookList.Queries
                 var domain = "https://www.google.com";
 
                 object param = new { 
-                    request.BookListID
+                    request.ReferenceID,
+                    request.Type
                 };
 
                 await payOS.confirmWebhook("https://bg-impact.io.vn/api/Transaction/get-online-payment-response");
 
                 //WebhookData webhookData = payOS.verifyPaymentWebhookData(webhookBody);
 
-                var result = await _bookListRepository.spBookListGetListItemForTransactionById(param);
+                var result = await _transactionRepository.spTransactionGetItemByRefId(param);
                 var list = ((IEnumerable<dynamic>)result).ToList();
                 var code = list.Select(x => x.code).FirstOrDefault()?.ToString();
                 var items = list.Select(x => new ItemData(x.product_name, 1, (int)x.rent_price)).ToList();
