@@ -1,6 +1,5 @@
 ﻿using BG_IMPACT.Command.BookList.Queries;
 using BG_IMPACT.Command.ConsignmentOrder.Commands;
-using BG_IMPACT.Command.ConsignmentOrder.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
