@@ -69,21 +69,21 @@ namespace BG_IMPACT.Command.Order.Queries
                             x.Key.phone_number,
                             x.Key.address,
                             x.Key.total_price,
-                            x.Key.status,
                             items = x
                                 .Where(i => i.order_id == x.Key.id)
                                 .Select(t => new
                                 {
-                                    t.product_id,
-                                    t.semi_product_id,
-                                    t.current_price,
-                                    t.status
+                                    t.product_template_id,   
+                                    t.product_name,
+                                    //t.semi_product_id,
+                                    //t.semi_product_name,
+                                    t.current_price
                                 }).ToList()
                         })
                         .ToList();
 
                     response.StatusCode = "200";
-                    response.Data = list;
+                    response.Data = data;
                     response.Message = string.Empty;
                     response.Paging = new PagingModel
                     {
