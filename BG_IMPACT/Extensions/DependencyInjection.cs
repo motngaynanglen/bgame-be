@@ -1,14 +1,19 @@
 ﻿using BG_IMPACT.Repositories.Implementations;
 using BG_IMPACT.Repositories.Interfaces;
 using BG_IMPACT.Services;
+using Microsoft.Data.SqlClient;
 using System.Reflection;
 
 namespace BG_IMPACT.Extensions
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection DependencyInject(this IServiceCollection services)
+        public static IServiceCollection DependencyInject(this IServiceCollection services, IConfiguration configuration)
         {
+            string connectionString = configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+
+            services.AddScoped<SqlConnection>(_ => new SqlConnection(connectionString));
+
             services.AddHttpContextAccessor();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IStoreRepository, StoreRepository>();

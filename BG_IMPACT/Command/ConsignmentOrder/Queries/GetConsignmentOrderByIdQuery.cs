@@ -10,7 +10,7 @@ namespace BG_IMPACT.Command.BookList.Queries
     public class GetConsignmentOrderByIdQuery : IRequest<ResponseObject>
     {
         [Required]
-        private Guid ConsignmentOrderId { get; set; }
+        public Guid ConsignmentOrderId { get; set; }
 
         public class GetConsignmentOrderByIdHandler : IRequestHandler<GetConsignmentOrderByIdQuery, ResponseObject>
         {

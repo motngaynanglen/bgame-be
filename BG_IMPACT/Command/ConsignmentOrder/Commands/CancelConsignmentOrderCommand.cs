@@ -11,7 +11,7 @@ namespace BG_IMPACT.Command.ConsignmentOrder.Commands
     public class CancelConsignmentOrderCommand : IRequest<ResponseObject>
     {
         [Required]
-        private Guid ConsignmentOrderId { get; set; }
+        public Guid ConsignmentOrderId { get; set; }
         public class CancelConsignmentOrderCommandHandler : IRequestHandler<CancelConsignmentOrderCommand, ResponseObject>
         {
             private readonly IConsignmentOrderRepository _consignmentOrderRepository;
