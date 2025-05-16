@@ -12,6 +12,7 @@ namespace BG_IMPACT.Command.ConsignmentOrder.Commands
         public Guid? CustomerId { get; set; }
         public string CustomerName { get; set; } = string.Empty;
         public string CustomerPhone{ get; set; } = string.Empty ;
+        public string Email { get; set; } = string.Empty;
         public string ProductName {  get; set; } = string.Empty ;
         public string Description { get; set; } = string.Empty;
         public string Condition { get; set; } = string.Empty;
@@ -48,6 +49,7 @@ namespace BG_IMPACT.Command.ConsignmentOrder.Commands
                         request.CustomerId,
                         request.CustomerName,
                         request.CustomerPhone,
+                        request.Email,
                         request.ProductName,
                         request.Description,  
                         request.Condition,
