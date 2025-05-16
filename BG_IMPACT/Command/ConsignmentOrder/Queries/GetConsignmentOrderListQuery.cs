@@ -26,37 +26,35 @@ namespace BG_IMPACT.Command.BookList.Queries
                 ResponseObject response = new();
                 var context = _httpContextAccessor.HttpContext;
 
-                string? UserID = context?.GetName() ?? null;
-                string? Role = context?.GetRole() ?? null;
+                //string? UserID = context?.GetName() ?? null;
+                //string? Role = context?.GetRole() ?? null;
 
-                if (Role == null || Guid.TryParse(UserID, out _) == false)
+                //if (Role == null || Guid.TryParse(UserID, out _) == false)
+                //{
+                //    response.StatusCode = "404";
+                //    response.Message = "Token trả về không đúng.";
+                //}
+                //else
+                //{
+                //object param = new
+                //{
+                //    UserID,
+                //    Role,
+                //    request.Paging.PageNum,
+                //    request.Paging.PageSize
+                //};
+                //var UserID = "";
+                object param = new
                 {
-                    response.StatusCode = "404";
-                    response.Message = "Token trả về không đúng.";
-                }
-                else
-                {
-                    object param = new
-                    {
-                        UserID,
-                        Role,
-                        request.Paging.PageNum,
-                        request.Paging.PageSize
-                    };
+                    //UserID,
 
-                    object param2 = new
-                    {
-                        UserID,
-                        Role
-                    };
+                };
 
-                    var result = await _consignmentOrderRepository.spConsignmentOrderGetList(param);
+                var result = await _consignmentOrderRepository.spConsignmentOrderGetList(param);
                     var list = ((IEnumerable<dynamic>)result).ToList();
 
                     //var pageData = await _bookListRepository.spBookListGetPageData(param2);
                     //var dict = pageData as IDictionary<string, object>;
-                    long count = 0;
-
                     //if (dict != null && Int64.TryParse(dict["TotalRows"].ToString(), out _) == true)
                     //{
                     //    _ = Int64.TryParse(dict["TotalRows"].ToString(), out count);
@@ -81,7 +79,7 @@ namespace BG_IMPACT.Command.BookList.Queries
                         response.StatusCode = "404";
                         response.Message = "Không tìm thấy đơn thuê nào.";
                     }
-                }
+                //}
 
                 return response;
             }
