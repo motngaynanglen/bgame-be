@@ -135,6 +135,7 @@ namespace BG_IMPACT.Command.BookList.Commands
                     {
                         response.StatusCode = "200";
                         response.Message = "Đặt hàng thành công";
+                        response.Data = dict["id"] as string;
                     }
 
                 }
