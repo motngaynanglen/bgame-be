@@ -66,11 +66,8 @@ builder.Services.AddSwaggerGen(x =>
 });
 
 //builder.Services.AddSwaggerGen();
-builder.Services.DependencyInject();
+builder.Services.DependencyInject(builder.Configuration);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
-
-builder.Services.AddScoped<SqlConnection>(_ => new SqlConnection(connectionString));
 
 builder.Services.AddCors(options =>
 {
