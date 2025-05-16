@@ -15,7 +15,7 @@ namespace BG_IMPACT.Command.ConsignmentOrder.Commands
         public string Email { get; set; } = string.Empty;
         public string ProductName {  get; set; } = string.Empty ;
         public string Description { get; set; } = string.Empty;
-        public string Condition { get; set; } = string.Empty;
+        public int Condition { get; set; } = 1;
         public string Missing { get; set; } = string.Empty;
         public float ExpectedPrice {  get; set; } = 0;
         public float SalePrice { get; set; } = 0;
