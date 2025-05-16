@@ -11,17 +11,17 @@ namespace BG_IMPACT.Command.ConsignmentOrder.Commands
     public class UpdateConsignmentOrderCommand : IRequest<ResponseObject>
     {
         [Required]
-        private Guid ConsignmentOrderId { get; set; }
-        private Guid? CustomerId { get; set; } 
-        private string CustomerName { get; set; } = string.Empty;
-        private string CustomerPhone{ get; set; } = string.Empty ;
-        private string ProductName {  get; set; } = string.Empty ;
-        private string Description { get; set; } = string.Empty;
-        private string Condition { get; set; } = string.Empty;
-        private string Missing { get; set; } = string.Empty;
-        private float ExpectedPrice {  get; set; } = 0; 
-        private float SalePrice { get; set; } = 0;
-        private List<string> Images { get; set; } = [];
+        public Guid ConsignmentOrderId { get; set; }
+        public Guid? CustomerId { get; set; } 
+        public string CustomerName { get; set; } = string.Empty;
+        public string CustomerPhone{ get; set; } = string.Empty ;
+        public string ProductName {  get; set; } = string.Empty ;
+        public string Description { get; set; } = string.Empty;
+        public string Condition { get; set; } = string.Empty;
+        public string Missing { get; set; } = string.Empty;
+        public float ExpectedPrice {  get; set; } = 0; 
+        public float SalePrice { get; set; } = 0;
+        public List<string> Images { get; set; } = [];
         public class UpdateConsignmentOrderCommandHandler : IRequestHandler<UpdateConsignmentOrderCommand, ResponseObject>
         {
             private readonly IConsignmentOrderRepository _consignmentOrderRepository;
