@@ -1,7 +1,7 @@
 ﻿using BG_IMPACT.Command.BookList.Queries;
 using BG_IMPACT.Command.ConsignmentOrder.Commands;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BG_IMPACT.Controllers
@@ -10,9 +10,14 @@ namespace BG_IMPACT.Controllers
     [ApiController]
     public class ConsignmentOrderController : ControllerBase
     {
+        private readonly IMediator _mediator;
+        public ConsignmentOrderController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
         [Authorize(Roles = "STAFF,MANAGER")]
         [HttpPost("create")]
-        public async Task<IActionResult> Create(CreateConsignmentOrderCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateConsignmentOrderCommand command)
         {
             try
             {
@@ -26,7 +31,7 @@ namespace BG_IMPACT.Controllers
         }
         [Authorize(Roles = "STAFF,MANAGER")]
         [HttpPost("cancel")]
-        public async Task<IActionResult> Cancel(CancelConsignmentOrderCommand command)
+        public async Task<IActionResult> Cancel([FromBody] CancelConsignmentOrderCommand command)
         {
             try
             {
@@ -40,7 +45,7 @@ namespace BG_IMPACT.Controllers
         }
 
         [HttpPost("get-list")]
-        public async Task<IActionResult> GetList(GetConsignmentOrderListQuery command)
+        public async Task<IActionResult> GetList([FromBody] GetConsignmentOrderListQuery command)
         {
             try
             {
@@ -54,7 +59,7 @@ namespace BG_IMPACT.Controllers
         }
 
         [HttpPost("get-by-id")]
-        public async Task<IActionResult> GetById(GetConsignmentOrderByIdQuery command)
+        public async Task<IActionResult> GetById([FromBody] GetConsignmentOrderByIdQuery command)
         {
             try
             {
@@ -69,7 +74,7 @@ namespace BG_IMPACT.Controllers
 
         [Authorize(Roles = "STAFF,MANAGER")]
         [HttpPost("update")]
-        public async Task<IActionResult> Update( UpdateConsignmentOrderCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateConsignmentOrderCommand command)
         {
             try
             {
