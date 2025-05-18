@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Command\BookItem\Queries\" />
+    <Folder Include="Command\Dashboard\Commands\" />
     <Folder Include="Command\Login\Queries\" />
     <Folder Include="Command\OrderItem\Queries\" />
   </ItemGroup>
