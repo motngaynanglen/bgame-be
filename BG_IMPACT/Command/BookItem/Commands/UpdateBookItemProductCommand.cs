@@ -12,7 +12,7 @@ namespace BG_IMPACT.Command.BookItem.Commands
         [Required]
         public Guid OrderItemId { get; set; }
         [Required]
-        public Guid ProductId { get; set; }
+        public string ProductCode { get; set; } = string.Empty;
 
         public class UpdateBookItemProducCommandHandler : IRequestHandler<UpdateBookItemProductCommand, ResponseObject>
         {
@@ -41,7 +41,7 @@ namespace BG_IMPACT.Command.BookItem.Commands
                 {
                     StaffId,
                     request.OrderItemId,
-                    request.ProductId,
+                    request.ProductCode,
                 };
 
                 var result = await _bookItemRepository.spBookItemUpdateProduct(param);
