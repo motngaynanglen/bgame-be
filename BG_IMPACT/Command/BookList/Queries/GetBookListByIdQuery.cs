@@ -48,26 +48,26 @@ namespace BG_IMPACT.Command.BookList.Queries
             private class BookListDto
             {
                 public Guid id { get; set; }
-                public string code { get; set; }
-                public float total_price { get; set; }
-                public string status { get; set; }
-                public DateTime created_at { get; set; }
-                public List<BookItemDto> book_items { get; set; }
+                public string? code { get; set; }
+                public double total_price { get; set; }
+                public string? status { get; set; }
+                public DateTime? created_at { get; set; }
+                public List<BookItemDto>? book_items { get; set; }
             }
 
             private class BookItemDto
             {
                 public Guid book_item_id { get; set; }      
-                public float current_price { get; set; }
-                public string book_item_status { get; set; }
-                public DateTime book_item_created_at { get; set; }
+                public double current_price { get; set; }
+                public string? book_item_status { get; set; }
+                public DateTime? book_item_created_at { get; set; }
                 public Guid? product_id { get; set; }
-                public Guid product_template_id { get; set; }
-                public string template_product_name { get; set; }
-                public string template_image { get; set; }
+                public Guid? product_template_id { get; set; }
+                public string? template_product_name { get; set; }
+                public string? template_image { get; set; }
                 public double template_price { get; set; }
                 public double template_rent_price { get; set; }
-                public string template_description { get; set; }
+                public string? template_description { get; set; }
             }
         }
        
