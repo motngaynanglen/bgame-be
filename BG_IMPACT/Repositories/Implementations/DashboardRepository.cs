@@ -43,9 +43,37 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spGetPendingBookListCountToday", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+        public async Task<object?> spGetOrderRevenueByManager(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spGetOrderRevenueByManager", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        public async Task<object?> spGetBookListRevenueByManager(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spGetBooklistRevenueByManager", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        public async Task<object?> spGetOrderCountByManager(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spGetOrderCountByManager", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        public async Task<object?> spGetBookListCountByManager(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spGetBookListCountByManager", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        public async Task<object?> spGetRevenuePerDayByMonth(object param)
+        {
+            object? result = await _connection.QueryAsync("spGetRevenuePerDayByMonth", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        public async Task<object?> spGetRevenuePerMonth(object param)
+        {
+            object? result = await _connection.QueryAsync("spGetRevenuePerMonth", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
         
-
-
 
     }
 }

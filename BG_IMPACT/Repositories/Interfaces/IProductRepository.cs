@@ -4,6 +4,7 @@
 
 
 
+
 namespace BG_IMPACT.Repositories.Interfaces
 {
     public interface IProductRepository
