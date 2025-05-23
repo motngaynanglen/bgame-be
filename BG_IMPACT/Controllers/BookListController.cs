@@ -87,6 +87,20 @@ namespace BG_IMPACT.Controllers
             }
         }
 
+        [HttpPost("get-by-id")]
+        public async Task<IActionResult> GetBookListById([FromBody] GetBookListByIdQuery query)
+        {
+            try
+            {
+                var result = await _mediator.Send(query);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         [Authorize(Roles = "CUSTOMER,STAFF,MANAGER")]
         [HttpPost("get-booklist-history")]
         public async Task<IActionResult> GetBookListHistory([FromBody] GetBookListHistoryQuery query)
