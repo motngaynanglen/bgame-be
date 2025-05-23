@@ -46,6 +46,11 @@ namespace BG_IMPACT.Command.Product.Queries
                 var dict = pageData as IDictionary<string, object>;
                 long count = 0;
 
+                if (dict != null && Int64.TryParse(dict["TotalRows"].ToString(), out _) == true)
+                {
+                    _ = Int64.TryParse(dict["TotalRows"].ToString(), out count);
+                }
+
                 if (list.Count > 0)
                 {
                     long pageCount = count / request.Paging.PageSize;
