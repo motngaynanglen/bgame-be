@@ -29,6 +29,7 @@ namespace BG_IMPACT.Extensions
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IDashboardRepository, DashboardRepository>();
             services.AddScoped<IConsignmentOrderRepository, ConsignmentOrderRepository>();
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<CloudinaryService>();
 
             return services;
