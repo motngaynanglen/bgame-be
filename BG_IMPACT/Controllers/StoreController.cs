@@ -66,7 +66,19 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
-
+        [HttpPost("get-list-by-product-template-id")]
+        public async Task<IActionResult> GetStoreListAndProductCountByIdQuery(GetStoreListAndProductCountByIdQuery command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         [Authorize(Roles = "STAFF,MANAGER")]
         [HttpGet("get-store-id")]
         public async Task<IActionResult> GetStoreID([FromQuery]GetStoreIDQuery command)

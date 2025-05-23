@@ -48,6 +48,12 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
+        public async Task<object?> spStoreGetListAndProductCountById(object param)
+        {
+            object result = await _connection.QueryAsync("spStoreGetListAndProductCountById", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
         public async Task<object> spStoreGetListByGroupRefId(object param)
         {
             object result = await _connection.QueryAsync("spStoreGetListByGroupRefId", param, commandType: CommandType.StoredProcedure);
