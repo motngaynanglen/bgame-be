@@ -8,7 +8,7 @@ namespace BG_IMPACT.Command.Store.Queries
     public class GetStoreListAndProductCountByIdQuery : IRequest<ResponseObject>
     {
         [Required]
-        public Guid StoreId { get; set; }
+        public Guid ProductTemplateId { get; set; }
 
         public class GetStoreListAndProductCountByIdQueryHandler : IRequestHandler<GetStoreListAndProductCountByIdQuery, ResponseObject>
         {
@@ -24,7 +24,7 @@ namespace BG_IMPACT.Command.Store.Queries
 
                 object param = new
                 {
-                    request.StoreId
+                    request.ProductTemplateId
                 };
 
                 var result = await _storeRepository.spStoreGetListAndProductCountById(param);
