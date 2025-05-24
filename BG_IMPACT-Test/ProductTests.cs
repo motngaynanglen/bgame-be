@@ -48,7 +48,7 @@ namespace BG_IMPACT_Test
             // Arrange
             var param = new 
             {
-                  ProductGroupRefId = "559b3fcf-d970-417c-a22c-42115ec91129",
+                  ProductGroupRefId = "",
                   ProductName = "Tam quốc sát 2025",
                   Image = "https://res.cloudinary.com/dh8gc9kkz/image/upload/v1743335124/BGIMPACT/uynelzpje4tmj8mlh2kn.jpg",
                   Price = "100000",
@@ -60,6 +60,7 @@ namespace BG_IMPACT_Test
                   NumberOfPlayerMax = "4",
                   Description = "Tam Quốc Sát",
                   ManagerID = "14ece14e-ace2-416a-92b8-56d92a7abcca",
+                  IsTest = true
             };
             var result = await _productRepository.spProductCreateTemplate(param);
 
@@ -70,7 +71,7 @@ namespace BG_IMPACT_Test
             Assert.IsNotNull(dict["Status"]);
             //_ = Int64.TryParse(dict["Status"].ToString(), out long count);
 
-            bool check = Guid.TryParse(dict["Status"].ToString(), out _);
+            bool check = Int64.TryParse(dict["Status"].ToString(), out _);
             Assert.IsTrue(check);
         }
     }
