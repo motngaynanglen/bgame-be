@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using BG_IMPACT.Command.Store.Commands;
 using BG_IMPACT.Extensions;
+using BG_IMPACT.Repositories.Implementations;
 using BG_IMPACT.Repositories.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,21 +16,17 @@ namespace BG_IMPACT_Test
 {
     public class StoreTests
     {
-        private ServiceProvider _serviceProvider; //Luôn có đi kèm với Setup
+        private ServiceProvider _serviceProvider; 
         private IStoreRepository _storeRepository;
         [SetUp]
         public void Setup()
         {
-            //Giữ nguyên và copy lại
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
-
             var services = new ServiceCollection();
             services.DependencyInject(configuration);
             _serviceProvider = services.BuildServiceProvider();
-
-            //Inject các Repo vào để sử dụng
             _storeRepository = _serviceProvider.GetRequiredService<IStoreRepository>();
         }
 
@@ -43,27 +40,55 @@ namespace BG_IMPACT_Test
         [Test]
         public async Task Create_Successful()
         {
-            // Arrange
-            var request = new CreateStoreCommand
+            var param = new
             {
-                StoreName = "Cửa hàng Boardgame HĐ mới 2025",
-                Address = "333 Đinh Tiên Hoàng, phường 26, quận Bình Thạnh",
+                StoreName = "Cửa hàng Boardgame & Cafe Sinh Viên",
+                Address = "222 Đinh Bộ Lĩnh, phường 26, quận Bình Thạnh",
                 Hotline = "0123456789",
                 Longtitude = "10.123456",
                 Lattitude = "106.123456",
-                Email = "bgvnsshcm@gmail.com"
+                Email = "bgcf@gmail.com",
+                IsTest = true
             };
+            var result = await _storeRepository.spStoreCreate(param);
 
-            var handler = new CreateStoreCommandHandler(_storeRepository);
+            var dict = result as IDictionary<string, object>;
 
-            // Act
-            var result = await handler.Handle(request, CancellationToken.None);
+            Assert.IsNotNull(dict);
+            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsNotNull(dict["Status"]);
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual("200", result.StatusCode);
-            Assert.IsTrue(result.Message.Contains("thành công"));
+            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            Assert.IsTrue(check);
+            Assert.That(count, Is.EqualTo(0));
         }
 
+        [Test]
+        public async Task Create_ExistStoreName()
+        {
+            var param = new
+            {
+                StoreName = "Cửa hàng Boardgame HĐ mới 2025",
+                Address = "222 Đinh Bộ Lĩnh, phường 26, quận Bình Thạnh",
+                Hotline = "0123456789",
+                Longtitude = "10.123456",
+                Lattitude = "106.123456",
+                Email = "bgcf@gmail.com",
+                IsTest = true
+            };
+            var result = await _storeRepository.spStoreCreate(param);
+
+            var dict = result as IDictionary<string, object>;
+
+            Assert.IsNotNull(dict);
+            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsNotNull(dict["Status"]);
+
+            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            Assert.IsTrue(check);
+            Assert.That(count, Is.EqualTo(1));
+        }
+
+        
     }
 }

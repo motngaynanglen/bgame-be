@@ -12,13 +12,12 @@ namespace BG_IMPACT_Test
 {
     public class ProductGroupTests
     {
-        private ServiceProvider _serviceProvider; //Luôn có đi kèm với Setup
-        private IProductGroupRepository _productGroupRepository; //Phụ thuộc vào API có sử dụng hay không
+        private ServiceProvider _serviceProvider; 
+        private IProductGroupRepository _productGroupRepository; 
 
         [SetUp]
         public void Setup()
         {
-            //Giữ nguyên và copy lại
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
@@ -27,7 +26,6 @@ namespace BG_IMPACT_Test
             services.DependencyInject(configuration);
             _serviceProvider = services.BuildServiceProvider();
 
-            //Inject các Repo vào để sử dụng
             _productGroupRepository = _serviceProvider.GetRequiredService<IProductGroupRepository>();
         }
 
@@ -43,7 +41,7 @@ namespace BG_IMPACT_Test
         {
             var param = new
             {
-                GroupName = "BumbleBee",
+                GroupName = "BumbleBeeeeeee1e",
                 ManagerID = "14ece14e-ace2-416a-92b8-56d92a7abcca",
                 IsTest = true
             };
@@ -51,14 +49,14 @@ namespace BG_IMPACT_Test
             var result = await _productGroupRepository.spProductGroupCreate(param);
 
             var dict = result as IDictionary<string, object>;
-            //1 if = 1 assert
-            Assert.IsNotNull(dict); // = if (dict != null ...)
+           
+            Assert.IsNotNull(dict); 
             Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
-            //_ = Int64.TryParse(dict["Status"].ToString(), out long count);
 
-            bool check = Int64.TryParse(dict["Status"].ToString(), out _);
+            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
+            Assert.That(count, Is.EqualTo(0));
         }
 
         [Test]
@@ -66,7 +64,7 @@ namespace BG_IMPACT_Test
         {
             var param = new
             {
-                GroupName = "UITEST 2",
+                GroupName = "UITEST 3",
                 ManagerID = "14ece14e-ace2-416a-92b8-56d92a7abcca",
                 IsTest = true
             };
@@ -74,30 +72,61 @@ namespace BG_IMPACT_Test
             var result = await _productGroupRepository.spProductGroupCreate(param);
 
             var dict = result as IDictionary<string, object>;
-            //1 if = 1 assert
-            Assert.IsNotNull(dict); // = if (dict != null ...)
+            Assert.IsNotNull(dict); 
             Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
-            //_ = Int64.TryParse(dict["Status"].ToString(), out long count);
 
-            bool check = Int64.TryParse(dict["Status"].ToString(), out _);
+            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
+            Assert.That(count, Is.EqualTo(1));
         }
 
-        /*[Test]
-        public async Task LoginTest_WrongUsernameOrPassword()
+        [Test]
+        public async Task UpdateProductGroup_Successful()
         {
             var param = new
             {
-                Username = "staffhang1",
-                Password = "staffhang2",
+                ProductGroupID = "62aa0d3b-edfa-414d-99e6-039ceaf62a19",
+                GroupName = "UITEST 1",
                 IsTest = true
             };
 
-            var result = await _productGroupRepository.spLogin(param);
+            var result = await _productGroupRepository.spProductGroupUpdate(param);
 
             var dict = result as IDictionary<string, object>;
-            Assert.IsNull(dict);
-        }*/
+            
+            Assert.IsNotNull(dict); 
+            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsNotNull(dict["Status"]);
+
+            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            Assert.IsTrue(check);
+            Assert.That(count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task UpdateProductGroup_NotFoundProductGroup()
+        {
+            var param = new
+            {
+                ProductGroupID = "62aa0d3b-edfa-414d-99e6-039ceaf62a11",
+                GroupName = "UITEST 111111",
+                IsTest = true
+            };
+
+            var result = await _productGroupRepository.spProductGroupUpdate(param);
+
+            var dict = result as IDictionary<string, object>;
+            
+            Assert.IsNotNull(dict); 
+            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsNotNull(dict["Status"]);
+
+            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            Assert.IsTrue(check);
+            Assert.That(count, Is.EqualTo(2));
+        }
+
+
     }
 }

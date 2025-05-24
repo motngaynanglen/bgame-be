@@ -12,6 +12,7 @@ namespace BG_IMPACT.Command.ProductGroup.Commands
         [Required]
         public string GroupName { get; set; } = string.Empty;
 
+
         public class CreateProductGroupCommandHandler : IRequestHandler<CreateProductGroupCommand, ResponseObject>
         {
             public readonly IProductGroupRepository _productGroupRepository;
