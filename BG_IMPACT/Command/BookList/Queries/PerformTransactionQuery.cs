@@ -53,7 +53,7 @@ namespace BG_IMPACT.Command.BookList.Queries
                     amount: items.Sum(x => x.price),
                     description: code,
                     items: items,
-                    returnUrl: domain,
+                    returnUrl: domain,  
                     cancelUrl: domain
                 );  
 

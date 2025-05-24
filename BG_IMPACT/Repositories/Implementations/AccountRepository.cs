@@ -85,7 +85,11 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spGetCustomerListByPhoneAndEmail", param, commandType: CommandType.StoredProcedure);
             return result;
         }
-        
 
+        public async Task<object?> spAccountGetProfile(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spAccountGetProfile", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
     }
 }

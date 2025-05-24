@@ -16,5 +16,6 @@ namespace BG_IMPACT.Repositories.Interfaces
         Task<object?> spAccountReverseStaffStatus(object param);
         Task<object?> spAccountReverseStatusForAdmin(object param);
         Task<object?> spGetCustomerListByPhoneAndEmail(object param);
+        Task<object?> spAccountGetProfile(object param);
     }
 }

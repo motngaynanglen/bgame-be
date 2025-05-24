@@ -1,4 +1,4 @@
-﻿using BG_IMPACT.Command.Product.Commands;
+using BG_IMPACT.Command.Product.Commands;
 using BG_IMPACT.Command.Store.Commands;
 using BG_IMPACT.Extensions;
 using BG_IMPACT.Repositories.Implementations;
@@ -71,8 +71,9 @@ namespace BG_IMPACT_Test
             Assert.IsNotNull(dict["Status"]);
             //_ = Int64.TryParse(dict["Status"].ToString(), out long count);
 
-            bool check = Int64.TryParse(dict["Status"].ToString(), out _);
+            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
+            Assert.That(count, Is.EqualTo(0));
         }
     }
 }

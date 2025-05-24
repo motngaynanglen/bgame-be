@@ -134,5 +134,19 @@ namespace BG_IMPACT.Controllers
             }
         }
 
+        [HttpGet("get-profile")]
+        [Authorize(Roles = "STAFF,MANAGER,CUSTOMER")]
+        public async Task<IActionResult> GetProfile([FromQuery] GetAccountProfileQuery query)
+        {
+            try
+            {
+                var result = await _mediator.Send(query);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
