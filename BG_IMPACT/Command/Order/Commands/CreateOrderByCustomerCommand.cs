@@ -1,8 +1,10 @@
 ﻿using BG_IMPACT.Extensions;
 using BG_IMPACT.Models;
 using BG_IMPACT.Repositories.Interfaces;
+using Dapper;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace BG_IMPACT.Command.Order.Commands
 {
@@ -26,7 +28,7 @@ namespace BG_IMPACT.Command.Order.Commands
         {
             private readonly IOrderRepository _orderRepository;
             private readonly IHttpContextAccessor _httpContextAccessor;
-            public CreateOrderByCustomerCommandHandler(IOrderRepository orderRepository, IHttpContextAccessor httpContextAccessor)  
+            public CreateOrderByCustomerCommandHandler(IOrderRepository orderRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _orderRepository = orderRepository;
                 _httpContextAccessor = httpContextAccessor;
@@ -37,34 +39,27 @@ namespace BG_IMPACT.Command.Order.Commands
 
                 var context = _httpContextAccessor.HttpContext;
 
-                string? StaffID = null;
-                string Role = context?.GetRole() ?? string.Empty;
-
-                if (context != null && context.GetRole() == "STAFF")
-                {
-                    StaffID = context.GetName();
-                }
-
                 if (context != null && context.GetRole() == "CUSTOMER")
                 {
                     _ = Guid.TryParse(context.GetName(), out Guid cusId);
                     request.CustomerID = cusId;
                 }
+                else
+                {
+                    response.StatusCode = "403";
+                    response.Message = "Phương thức chỉ cho khách hàng sử dụng";
+                    return response;
+                }
 
-                string ListProductTemplateIDs = string.Join(",", request.Orders
-                    .SelectMany(item => Enumerable.Repeat(item.ProductTemplateId, item.Quantity))
-                );
 
                 object param = new
                 {
                     request.CustomerID,
-                    StaffID,
-                    ListProductTemplateIDs,
                     request.Email,
                     request.FullName,
                     request.PhoneNumber,
                     request.Address,
-                    Role
+                    OrdersCreateForm = ConvertToDataTable(request.Orders).AsTableValuedParameter("OrdersCreateFormItemType")
                 };
 
                 var result = await _orderRepository.spOrderCreate(param);
@@ -73,71 +68,55 @@ namespace BG_IMPACT.Command.Order.Commands
                 if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
                 {
                     _ = Int64.TryParse(dict["Status"].ToString(), out long count);
-
+                    var message = dict["Message"].ToString() ?? "";
                     if (count == 1)
                     {
                         response.StatusCode = "404";
-                        response.Message = "Khách hàng không tồn tại.";
+                        response.Message = message;
                     }
                     else if (count == 2)
                     {
-                        response.StatusCode = "404";
-                        response.Message = "Phương thức đặt không tồn tại.";
+                        response.StatusCode = "403";
+                        response.Message = message;
                     }
                     else if (count == 3)
                     {
                         response.StatusCode = "404";
-                        response.Message = "Danh sách ID có dữ liệu lạ.";
+                        response.Message = message;
                     }
                     else if (count == 4)
                     {
                         response.StatusCode = "404";
-                        response.Message = "Ngày đặt và kết thúc không cùng 1 ngày.";
-                    }
-                    else if (count == 5)
-                    {
-                        response.StatusCode = "404";
-                        response.Message = "Giờ đặt lớn hơn giờ kết thúc.";
-                    }
-                    else if (count == 6)
-                    {
-                        response.StatusCode = "404";
-                        response.Message = "Có ID template không tồn tại.";
-                    }
-                    else if (count == 7)
-                    {
-                        response.StatusCode = "404";
-                        response.Message = "Không có đủ mặt hàng để cho thuê.";
-                    }
-                    else if (count == 8)
-                    {
-                        response.StatusCode = "404";
-                        response.Message = "Dữ liệu đặt hàng nhập vào đơn không đủ.";
-                    }
-                    else if (count == 9)
-                    {
-                        response.StatusCode = "404";
-                        response.Message = "Nhân viên không tồn tại.";
-                    }
-                    else if (count == 10)
-                    {
-                        response.StatusCode = "404";
-                        response.Message = "Nhân viên không thuộc cửa hàng này.";
+                        response.Message = message;
                     }
                     else
                     {
-                        response.StatusCode = "200";
-                        response.Message = "Mua hàng thành công.";
+                        response.StatusCode = "500";
+                        response.Message = message;
                     }
                 }
                 else
                 {
-                    response.StatusCode = "404";
+                    response.StatusCode = "500";
                     response.Message = "Mua hàng thất bại. Xin hãy thử lại sau.";
                 }
 
                 return response;
             }
+        }
+        private static DataTable ConvertToDataTable(List<OrderFormItem> orders)
+        {
+            var table = new DataTable();
+            table.Columns.Add("StoreID", typeof(Guid));
+            table.Columns.Add("ProductTemplateID", typeof(Guid));
+            table.Columns.Add("Quantity", typeof(int));
+
+            foreach (var item in orders)
+            {
+                table.Rows.Add(item.StoreId, item.ProductTemplateId, item.Quantity);
+            }
+
+            return table;
         }
     }
 }
