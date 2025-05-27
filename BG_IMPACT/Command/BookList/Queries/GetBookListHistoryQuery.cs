@@ -82,6 +82,7 @@ namespace BG_IMPACT.Command.BookList.Queries
                                 .Where(i => i.book_list_id == x.Key.id)
                                 .Select(t => new
                                 {
+                                    t.product_name,
                                     t.rent_price,
                                     t.rent_price_per_hour,
                                     t.condition,
