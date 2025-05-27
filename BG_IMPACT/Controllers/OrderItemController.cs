@@ -1,8 +1,4 @@
-﻿using BG_IMPACT.Command.OrderItem.Commands;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace BG_IMPACT.Controllers
+﻿namespace BG_IMPACT.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

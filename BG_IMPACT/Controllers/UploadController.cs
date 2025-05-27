@@ -1,10 +1,4 @@
-﻿using BG_IMPACT.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace BG_IMPACT.Controllers
+﻿namespace BG_IMPACT.Controllers
 {
     [Route("api/upload")]
     [ApiController]

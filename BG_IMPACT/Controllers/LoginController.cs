@@ -1,7 +1,3 @@
-using BG_IMPACT.Command.Login.Commands;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
 namespace BG_IMPACT.Controllers
 {
     [ApiController]

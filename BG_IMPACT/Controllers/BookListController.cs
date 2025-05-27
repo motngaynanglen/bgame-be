@@ -1,12 +1,4 @@
-﻿using BG_IMPACT.Command.BookList.Commands;
-using BG_IMPACT.Command.BookList.Queries;
-using BG_IMPACT.Command.Order.Queries;
-using BG_IMPACT.Command.Product.Commands;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace BG_IMPACT.Controllers
+﻿namespace BG_IMPACT.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

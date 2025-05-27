@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>BG_IMPACT.Business</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Command\BookItem\Queries\" />
+    <Folder Include="Command\Dashboard\Commands\" />
+    <Folder Include="Command\Login\Queries\" />
+    <Folder Include="Command\OrderItem\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BG_IMPACT.Infrastructure\BG_IMPACT.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

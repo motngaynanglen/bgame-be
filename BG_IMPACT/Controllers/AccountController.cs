@@ -1,12 +1,4 @@
-﻿using BG_IMPACT.Command.Account.Commands;
-using BG_IMPACT.Command.Account.Queries;
-using BG_IMPACT.Command.Login.Commands;
-using CloudinaryDotNet.Actions;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace BG_IMPACT.Controllers
+﻿namespace BG_IMPACT.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

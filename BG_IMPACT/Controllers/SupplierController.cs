@@ -1,10 +1,4 @@
-﻿using BG_IMPACT.Command.Product.Commands;
-using BG_IMPACT.Command.Supplier.Commands;
-using BG_IMPACT.Command.Supplier.Queries;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace BG_IMPACT.Controllers
+﻿namespace BG_IMPACT.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
