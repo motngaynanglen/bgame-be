@@ -1,3 +1,5 @@
+using BG_IMPACT.Business;
+using BG_IMPACT.Infrastructure.Extensions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -65,7 +67,14 @@ builder.Services.AddSwaggerGen(x =>
 
 //builder.Services.AddSwaggerGen();
 builder.Services.DependencyInject(builder.Configuration);
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssemblies(
+        Assembly.GetExecutingAssembly(),         
+        typeof(GlobalUsing).Assembly        
+    );  
+});
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddCors(options =>
 {

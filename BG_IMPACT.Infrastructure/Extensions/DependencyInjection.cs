@@ -15,7 +15,6 @@ namespace BG_IMPACT.Infrastructure.Extensions
 
             services.AddScoped<SqlConnection>(_ => new SqlConnection(connectionString));
 
-            services.AddHttpContextAccessor();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IStoreRepository, StoreRepository>();
             services.AddScoped<IProductGroupRepository, ProductGroupRepository>();

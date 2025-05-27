@@ -1,4 +1,7 @@
-﻿namespace BG_IMPACT.Business.Command.BookList.Commands
+﻿using Net.payOS;
+using Net.payOS.Types;
+
+namespace BG_IMPACT.Business.Command.BookList.Commands
 {
     public class CheckBookListTransactionCommand : IRequest<ResponseObject>
     {
