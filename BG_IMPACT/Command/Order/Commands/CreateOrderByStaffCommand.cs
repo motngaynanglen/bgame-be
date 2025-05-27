@@ -8,58 +8,55 @@ using System.Data;
 
 namespace BG_IMPACT.Command.Order.Commands
 {
-    public class OrderFormItem
+    public class ProductItem
     {
-        public Guid StoreId { get; set; }
-        public Guid ProductTemplateId { get; set; }
-        public int Quantity { get; set; }
+        public Guid ProductId { get; set; }
     }
-    public class CreateOrderByCustomerCommand : IRequest<ResponseObject>
+    public class CreateOrderByStaffCommand : IRequest<ResponseObject>
     {
+        public Guid? CustomerId { get; set; }
         [Required]
-        public List<OrderFormItem> Orders { get; set; } = new();
-        public string Email { get; set; } = string.Empty;
-        public string FullName { get; set; } = string.Empty;
+        public List<ProductItem> Orders { get; set; } = new();
         public string PhoneNumber { get; set; } = string.Empty;
-        public string Address { get; set; } = string.Empty;
 
-        public class CreateOrderByCustomerCommandHandler : IRequestHandler<CreateOrderByCustomerCommand, ResponseObject>
+        public class CreateOrderByStaffCommandHandler : IRequestHandler<CreateOrderByStaffCommand, ResponseObject>
         {
             private readonly IOrderRepository _orderRepository;
             private readonly IHttpContextAccessor _httpContextAccessor;
-            public CreateOrderByCustomerCommandHandler(IOrderRepository orderRepository, IHttpContextAccessor httpContextAccessor)
+            public CreateOrderByStaffCommandHandler(IOrderRepository orderRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _orderRepository = orderRepository;
                 _httpContextAccessor = httpContextAccessor;
             }
-            public async Task<ResponseObject> Handle(CreateOrderByCustomerCommand request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(CreateOrderByStaffCommand request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
 
                 var context = _httpContextAccessor.HttpContext;
-                string? CustomerID = string.Empty;
-                if (context != null && context.GetRole() == "CUSTOMER")
+                string? StaffId = string.Empty;
+                if (context != null && context.GetRole() == "STAFF")
                 {
                     _ = Guid.TryParse(context.GetName(), out Guid cusId);
-                    CustomerID = cusId.ToString();
+                    StaffId = cusId.ToString();
                 }
                 else
                 {
                     response.StatusCode = "403";
-                    response.Message = "Phương thức chỉ cho khách hàng sử dụng";
+                    response.Message = "Phương thức chỉ cho Staff";
                     return response;
                 }
 
+                string ListProductIDs = string.Join(",", request.Orders
+                   .SelectMany(item => Enumerable.Repeat(item.ProductId,1)));
 
                 object param = new
                 {
-                    CustomerID,
-                    request.Email,
-                    request.FullName,
+                    StaffId,
+                    request.CustomerId,
                     request.PhoneNumber,
-                    request.Address,
-                    OrdersCreateForm = ConvertToDataTable(request.Orders).AsTableValuedParameter("OrdersCreateFormItemType")
+                    ListProductIDs,
                 };
+
 
                 var result = await _orderRepository.spOrderCreateByCustomer(param);
                 var dict = result as IDictionary<string, object>;
@@ -109,20 +106,6 @@ namespace BG_IMPACT.Command.Order.Commands
 
                 return response;
             }
-        }
-        private static DataTable ConvertToDataTable(List<OrderFormItem> orders)
-        {
-            var table = new DataTable();
-            table.Columns.Add("StoreID", typeof(Guid));
-            table.Columns.Add("ProductTemplateID", typeof(Guid));
-            table.Columns.Add("Quantity", typeof(int));
-
-            foreach (var item in orders)
-            {
-                table.Rows.Add(item.StoreId, item.ProductTemplateId, item.Quantity);
-            }
-
-            return table;
         }
     }
 }
