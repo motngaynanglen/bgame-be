@@ -16,7 +16,6 @@ namespace BG_IMPACT.Command.Order.Commands
     }
     public class CreateOrderByCustomerCommand : IRequest<ResponseObject>
     {
-        public Guid? CustomerID { get; set; }
         [Required]
         public List<OrderFormItem> Orders { get; set; } = new();
         public string Email { get; set; } = string.Empty;
@@ -38,11 +37,11 @@ namespace BG_IMPACT.Command.Order.Commands
                 ResponseObject response = new();
 
                 var context = _httpContextAccessor.HttpContext;
-
+                string? CustomerID = string.Empty;
                 if (context != null && context.GetRole() == "CUSTOMER")
                 {
                     _ = Guid.TryParse(context.GetName(), out Guid cusId);
-                    request.CustomerID = cusId;
+                    CustomerID = cusId.ToString();
                 }
                 else
                 {
@@ -54,7 +53,7 @@ namespace BG_IMPACT.Command.Order.Commands
 
                 object param = new
                 {
-                    request.CustomerID,
+                    CustomerID,
                     request.Email,
                     request.FullName,
                     request.PhoneNumber,
@@ -62,14 +61,20 @@ namespace BG_IMPACT.Command.Order.Commands
                     OrdersCreateForm = ConvertToDataTable(request.Orders).AsTableValuedParameter("OrdersCreateFormItemType")
                 };
 
-                var result = await _orderRepository.spOrderCreate(param);
+                var result = await _orderRepository.spOrderCreateByCustomer(param);
                 var dict = result as IDictionary<string, object>;
 
                 if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
                 {
                     _ = Int64.TryParse(dict["Status"].ToString(), out long count);
                     var message = dict["Message"].ToString() ?? "";
-                    if (count == 1)
+                    if (count == 0)
+                    {
+                        response.StatusCode = "200";
+                        response.Message = message;
+                        return response;
+                    }
+                    else if (count == 1)
                     {
                         response.StatusCode = "404";
                         response.Message = message;
@@ -89,7 +94,7 @@ namespace BG_IMPACT.Command.Order.Commands
                         response.StatusCode = "404";
                         response.Message = message;
                     }
-                    else
+                    else if (count == 9)
                     {
                         response.StatusCode = "500";
                         response.Message = message;
