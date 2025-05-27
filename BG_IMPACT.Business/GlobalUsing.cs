@@ -1,4 +1,4 @@
-﻿global using BG_IMPACT.Extensions;
+﻿global using BG_IMPACT.Infrastructure.Extensions;
 global using BG_IMPACT.Models;
 global using BG_IMPACT.Repositories.Interfaces;
 global using MediatR;

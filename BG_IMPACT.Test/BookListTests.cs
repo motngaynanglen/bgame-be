@@ -1,8 +1,4 @@
-﻿using BG_IMPACT.Extensions;
-using BG_IMPACT.Repositories.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

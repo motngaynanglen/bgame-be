@@ -1,5 +1,4 @@
 ﻿using Azure.Core;
-using BG_IMPACT.Extensions;
 using BG_IMPACT.Repositories.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

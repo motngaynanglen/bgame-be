@@ -4,7 +4,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
-using System.IO;
 
 namespace BG_IMPACT.Repositories.Implementations
 {

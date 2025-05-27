@@ -5,7 +5,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BG_IMPACT.Extensions
+namespace BG_IMPACT.Infrastructure.Extensions
 {
     public static class DependencyInjection
     {

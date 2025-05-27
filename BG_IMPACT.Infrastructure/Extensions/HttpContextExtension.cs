@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace BG_IMPACT.Extensions
+namespace BG_IMPACT.Infrastructure.Extensions
 {
     public static class HttpContextExtension
     {

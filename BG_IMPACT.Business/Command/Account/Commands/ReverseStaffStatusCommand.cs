@@ -1,4 +1,6 @@
-﻿namespace BG_IMPACT.Business.Command.Account.Commands
+﻿using BG_IMPACT.Infrastructure.Extensions;
+
+namespace BG_IMPACT.Business.Command.Account.Commands
 {
     public class ReverseStaffStatusCommand : IRequest<ResponseObject>
     {
