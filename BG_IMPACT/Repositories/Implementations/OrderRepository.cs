@@ -30,6 +30,12 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
+        public async Task<object?> spOrderCreateByCustomer(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spOrderCreateByCustomer", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
         public async Task<object?> spOrderGetById(object param)
         {
             object? result = await _connection.QueryFirstOrDefaultAsync("spOrderGetById", param, commandType: CommandType.StoredProcedure);

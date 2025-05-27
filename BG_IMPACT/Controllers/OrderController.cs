@@ -34,6 +34,21 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+        [Authorize(Roles = "CUSTOMER")]
+        [HttpPost("create-order-by-customer")]
+        public async Task<IActionResult> CreateOrderByCustomer([FromBody] CreateOrderByCustomerCommand query)
+        {
+            try
+            {
+                var result = await _mediator.Send(query);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         [HttpPost("get-by-id")]
         public async Task<IActionResult> GetById(GetOrderByIdQuery command)
         {
