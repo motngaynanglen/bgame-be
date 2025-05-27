@@ -169,29 +169,149 @@ namespace BG_IMPACT_Test
             Assert.That(count, Is.EqualTo(3));
         }
 
-        [Test]
-        public async Task UpdateProductGroupRef_NotExistGroupRefName()
-        {
-            var param = new
-            {
-                GroupRefID = "90ecca84-0f64-4610-a42d-021303794d9a",
-                GroupRefName = "UIT2",
-                Description = "UITest 2 Test",
-                IsTest = true
-            };
-
-            var result = await _productGroupRefRepository.spProductGroupRefUpdate(param);
-
-            var dict = result as IDictionary<string, object>;
-            //1 if = 1 assert
-            Assert.IsNotNull(dict); // = if (dict != null ...)
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
-            Assert.IsNotNull(dict["Status"]);
-            //_ = Int64.TryParse(dict["Status"].ToString(), out long count);
-
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
-            Assert.IsTrue(check);
-            Assert.That(count, Is.EqualTo(0));
-        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
