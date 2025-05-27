@@ -1,4 +1,4 @@
-﻿using BG_IMPACT.Command.BookItem.Commands;
+﻿using BG_IMPACT.Business.Command.BookItem.Commands;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

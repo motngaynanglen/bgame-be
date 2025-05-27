@@ -1,0 +1,26 @@
+﻿global using BG_IMPACT.Business.Command.Account.Queries;
+global using BG_IMPACT.Business.Command.Account.Commands;
+global using BG_IMPACT.Business.Command.BookList.Commands;
+global using BG_IMPACT.Business.Command.BookList.Queries;
+global using BG_IMPACT.Business.Command.ConsignmentOrder.Commands;
+global using BG_IMPACT.Business.Command.Dashboard.Queries;
+global using BG_IMPACT.Business.Command.Login.Commands;
+global using BG_IMPACT.Business.Command.Order.Commands;
+global using BG_IMPACT.Business.Command.Order.Queries;
+global using BG_IMPACT.Business.Command.OrderItem.Commands;
+global using BG_IMPACT.Business.Command.Product.Commands;
+global using BG_IMPACT.Business.Command.Product.Queries;
+global using BG_IMPACT.Business.Command.ProductGroup.Commands;
+global using BG_IMPACT.Business.Command.ProductGroup.Queries;
+global using BG_IMPACT.Business.Command.ProductGroupRef.Commands;
+global using BG_IMPACT.Business.Command.ProductGroupRef.Queries;
+global using BG_IMPACT.Business.Command.Store.Commands;
+global using BG_IMPACT.Business.Command.Store.Queries;
+global using BG_IMPACT.Business.Command.Supplier.Commands;
+global using BG_IMPACT.Business.Command.Supplier.Queries;
+global using BG_IMPACT.Business.Command.Transaction.Commands;
+global using BG_IMPACT.Infrastructure.Services;
+
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Mvc;
+global using MediatR;
