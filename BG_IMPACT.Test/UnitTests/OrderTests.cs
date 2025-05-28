@@ -1,19 +1,6 @@
-﻿using Azure.Core;
-using BG_IMPACT.Command.Order.Commands;
-using BG_IMPACT.Extensions;
-using BG_IMPACT.Repositories.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BG_IMPACT_Test
+﻿namespace BG_IMPACT.Test.UnitTests
 {
-    
+
     public class OrderTests
     {
         private ServiceProvider _serviceProvider; //Luôn có đi kèm với Setup
@@ -37,11 +24,11 @@ namespace BG_IMPACT_Test
                 disposable.Dispose();
         }
 
-        
+
         [Test]
         public async Task CreateOrder_Success()
         {
-            var param = new 
+            var param = new
             {
                 CustomerID = Guid.Parse("1a5fcd3c-2c20-4c8d-8f84-89ef324c4971"), // Thay bằng ID hợp lệ
                 Email = "test@example.com",
@@ -68,10 +55,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(0));
         }
@@ -79,7 +66,7 @@ namespace BG_IMPACT_Test
         [Test]
         public async Task UpdateOrderDeliveryInfo_Success()
         {
-            var param = new 
+            var param = new
             {
                 ProductGroupID = Guid.Parse("1a5fcd3c-2c20-4c8d-8f84-89ef324c4971"), // Thay bằng ID hợp lệ
                 GroupName = "test@example.com",
@@ -106,13 +93,13 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(0));
         }
-        
+
     }
 }

@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BG_IMPACT.Business\BG_IMPACT.Business.csproj" />
-    <ProjectReference Include="..\BG_IMPACT\BG_IMPACT.csproj" />
   </ItemGroup>
 
   <ItemGroup>

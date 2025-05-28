@@ -1,11 +1,4 @@
-﻿using BG_IMPACT.Extensions;
-using BG_IMPACT.Repositories.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Identity.Client;
-using System;
-
-namespace BG_IMPACT_Test
+﻿namespace BG_IMPACT.Test.UnitTests
 {
     public class LoginTests
     {
