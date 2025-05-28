@@ -39,6 +39,20 @@
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize(Roles = "STAFF")]
+        [HttpPost("create-order-by-staff")]
+        public async Task<IActionResult> CreateOrderByStaff([FromBody] CreateOrderByStaffCommand query)
+        {
+            try
+            {
+                var result = await _mediator.Send(query);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         [HttpPost("get-by-id")]
         public async Task<IActionResult> GetById(GetOrderByIdQuery command)
         {
