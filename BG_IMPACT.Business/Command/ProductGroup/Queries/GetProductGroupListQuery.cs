@@ -1,8 +1,8 @@
 ﻿namespace BG_IMPACT.Business.Command.ProductGroup.Queries
 {
-    public class GetProductGroupListQuery : IRequest<object>
+    public class GetProductGroupListQuery : IRequest<ResponseObject>
     {
-        public class GetProductGroupListQueryHandler : IRequestHandler<GetProductGroupListQuery, object>
+        public class GetProductGroupListQueryHandler : IRequestHandler<GetProductGroupListQuery, ResponseObject>
         {
             public readonly IProductGroupRepository _productGroupRepository;
 
@@ -11,11 +11,16 @@
                 _productGroupRepository = productGroupRepository;
             }
 
-            public async Task<object> Handle(GetProductGroupListQuery request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(GetProductGroupListQuery request, CancellationToken cancellationToken)
             {
+                ResponseObject response = new();
+
                 var result = await _productGroupRepository.spProductGroupGetList();
 
-                return result;
+                response.StatusCode = "200";
+                response.Data = result;
+
+                return response;
             }
         }
     }
