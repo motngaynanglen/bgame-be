@@ -7,7 +7,7 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
         public Guid ProductTemplateID { get; set; }
         public int Quantity { get; set; }
     }
-    public class CreateBookListCommand : IRequest<ResponseObject>
+    public class CreateBookListForCustomerCommand : IRequest<ResponseObject>
     {
         public Guid? CustomerId { get; set; }
         [Required]
@@ -22,18 +22,18 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
         [Range(0, 1, ErrorMessage = "Chỉ được nhập 0 và 1")]
         public int BookType { get; set; }
 
-        public class CreateBookListCommandHandler : IRequestHandler<CreateBookListCommand, ResponseObject>
+        public class CreateBookListForCustomerCommandHandler : IRequestHandler<CreateBookListForCustomerCommand, ResponseObject>
         {
             private readonly IBookListRepository _bookListRepository;
             private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public CreateBookListCommandHandler(IBookListRepository bookListRepository, IHttpContextAccessor httpContextAccessor)
+            public CreateBookListForCustomerCommandHandler(IBookListRepository bookListRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _bookListRepository = bookListRepository;
                 _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<ResponseObject> Handle(CreateBookListCommand request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(CreateBookListForCustomerCommand request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
 

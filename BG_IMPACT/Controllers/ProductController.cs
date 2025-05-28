@@ -1,4 +1,6 @@
-﻿namespace BG_IMPACT.Controllers
+﻿using BG_IMPACT.Models;
+
+namespace BG_IMPACT.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -11,12 +13,27 @@
         {
             try
             {
-                var result = await _mediator.Send(command);
-                return Ok(result);
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
 
@@ -25,12 +42,27 @@
         {
             try
             {
-                var result = await _mediator.Send(command);
-                return Ok(result);
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
         [HttpPost("create-product-unknown")]
@@ -38,12 +70,27 @@
         {
             try
             {
-                var result = await _mediator.Send(command);
-                return Ok(result);
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
 
@@ -52,12 +99,27 @@
         {
             try
             {
-                var result = await _mediator.Send(command);
-                return Ok(result);
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
 
@@ -67,12 +129,27 @@
         {
             try
             {
-                var result = await _mediator.Send(command);
-                return Ok(result);
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
 
@@ -81,12 +158,27 @@
         {
             try
             {
-                var result = await _mediator.Send(command);
-                return Ok(result);
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
 
@@ -95,12 +187,27 @@
         {
             try
             {
-                var result = await _mediator.Send(command);
-                return Ok(result);
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
 
@@ -109,12 +216,27 @@
         {
             try
             {
-                var result = await _mediator.Send(command);
-                return Ok(result);
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
 
@@ -123,18 +245,27 @@
         {
             try
             {
-                var result = await _mediator.Send(command);
+                ResponseObject result = await _mediator.Send(command);
                 if (result.StatusCode == "200")
                 {
                     return Ok(result);
-                } else
+                }
+                else if (result.StatusCode == "403")
                 {
-                    return BadRequest(result);
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
         [HttpPost("get-by-id")]
@@ -142,19 +273,27 @@
         {
             try
             {
-                var result = await _mediator.Send(command);
+                ResponseObject result = await _mediator.Send(command);
                 if (result.StatusCode == "200")
                 {
                     return Ok(result);
                 }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
                 else
                 {
-                    return BadRequest(result);
+                    return NotFound(result);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
 
@@ -164,15 +303,27 @@
         {
             try
             {
-                var result = await _mediator.Send(command);
+                ResponseObject result = await _mediator.Send(command);
                 if (result.StatusCode == "200")
+                {
                     return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
                 else
-                    return BadRequest(result);
+                {
+                    return NotFound(result);
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
 
@@ -182,12 +333,27 @@
         {
             try
             {
-                var result = await _mediator.Send(command);
-                return Ok(result);
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
         [HttpPost("get-by-code")]
@@ -195,19 +361,27 @@
         {
             try
             {
-                var result = await _mediator.Send(command);
+                ResponseObject result = await _mediator.Send(command);
                 if (result.StatusCode == "200")
                 {
                     return Ok(result);
                 }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
                 else
                 {
-                    return BadRequest(result);
+                    return NotFound(result);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
     }
