@@ -77,12 +77,27 @@ namespace BG_IMPACT.Controllers
         {
             try
             {
-                var result = await _mediator.Send(query);
-                return Ok(result);
+                ResponseObject result = await _mediator.Send(query);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
         [HttpPost("get-by-id")]
