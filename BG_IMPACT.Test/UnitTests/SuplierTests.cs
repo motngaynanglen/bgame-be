@@ -1,15 +1,4 @@
-﻿using Azure.Core;
-using BG_IMPACT.Extensions;
-using BG_IMPACT.Repositories.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BG_IMPACT_Test
+﻿namespace BG_IMPACT.Test.UnitTests
 {
     public class SuplierTests
     {
@@ -53,10 +42,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(0));
         }
@@ -73,7 +62,7 @@ namespace BG_IMPACT_Test
                 Latitude = "106.123456",
                 Email = "bgcf@gmail.com",
                 PhoneNumber = "03212256482",
-                Status =  "ACTIVE",
+                Status = "ACTIVE",
                 UpdatedBy = "14ece14e-ace2-416a-92b8-56d92a7abcca",
                 IsTest = true
             };
@@ -82,10 +71,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(0));
         }
@@ -111,10 +100,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(1));
         }

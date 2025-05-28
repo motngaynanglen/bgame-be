@@ -1,19 +1,4 @@
-using BG_IMPACT.Command.Product.Commands;
-using BG_IMPACT.Command.Store.Commands;
-using BG_IMPACT.Extensions;
-using BG_IMPACT.Repositories.Implementations;
-using BG_IMPACT.Repositories.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static BG_IMPACT.Command.Store.Commands.CreateStoreCommand;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace BG_IMPACT_Test
+namespace BG_IMPACT.Test.UnitTests
 {
     public class ProductTests
     {
@@ -42,31 +27,31 @@ namespace BG_IMPACT_Test
         [Test]
         public async Task CreateTemplate_Successful()
         {
-            var param = new 
+            var param = new
             {
-                  ProductGroupRefId = "559b3fcf-d970-417c-a22c-42115ec91129",
-                  ProductName = "Tam quốc sát 2027",
-                  Image = "https://res.cloudinary.com/dh8gc9kkz/image/upload/v1743335124/BGIMPACT/uynelzpje4tmj8mlh2kn.jpg",
-                  Price = "100000",
-                  RentPrice = "50000",
-                  RentPricePerHour = "10000",
-                  HardRank = "0",
-                  Age = "14",
-                  NumberOfPlayerMin = "3",
-                  NumberOfPlayerMax = "4",
-                  Description = "Tam Quốc Sát",
-                  ManagerID = "14ece14e-ace2-416a-92b8-56d92a7abcca",
-                  IsTest = true
+                ProductGroupRefId = "559b3fcf-d970-417c-a22c-42115ec91129",
+                ProductName = "Tam quốc sát 2027",
+                Image = "https://res.cloudinary.com/dh8gc9kkz/image/upload/v1743335124/BGIMPACT/uynelzpje4tmj8mlh2kn.jpg",
+                Price = "100000",
+                RentPrice = "50000",
+                RentPricePerHour = "10000",
+                HardRank = "0",
+                Age = "14",
+                NumberOfPlayerMin = "3",
+                NumberOfPlayerMax = "4",
+                Description = "Tam Quốc Sát",
+                ManagerID = "14ece14e-ace2-416a-92b8-56d92a7abcca",
+                IsTest = true
             };
             var result = await _productRepository.spProductCreateTemplate(param);
 
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(0));
         }
@@ -95,10 +80,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(1));
         }
@@ -117,11 +102,11 @@ namespace BG_IMPACT_Test
 
             var dict = result as IDictionary<string, object>;
 
-            Assert.IsNotNull(dict); 
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsNotNull(dict);
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
-            
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(0));
         }
@@ -141,10 +126,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(1));
         }
@@ -165,10 +150,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(2));
         }
@@ -188,10 +173,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(3));
         }
@@ -211,10 +196,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(4));
         }
@@ -240,10 +225,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(0));
         }
@@ -269,10 +254,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(1));
         }
@@ -298,10 +283,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(2));
         }
@@ -327,10 +312,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(3));
         }
@@ -356,10 +341,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(4));
         }
@@ -385,14 +370,14 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(5));
         }
-        
+
         [Test]
         public async Task ChangeProductToSales_Success()
         {
@@ -406,10 +391,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(0));
         }
@@ -427,10 +412,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(1));
         }
@@ -440,7 +425,7 @@ namespace BG_IMPACT_Test
         {
             var param = new
             {
-                Code = "UKN-T0001-0000068", 
+                Code = "UKN-T0001-0000068",
                 IsTest = true
             };
             var result = await _productRepository.spProductChangeToSales(param);
@@ -448,10 +433,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(2));
         }
@@ -469,14 +454,14 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(0));
         }
-        
+
         [Test]
         public async Task ChangeProductToRent_WrongCode()
         {
@@ -490,10 +475,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(1));
         }
@@ -524,10 +509,10 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
 
             Assert.IsNotNull(dict);
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(0));
         }

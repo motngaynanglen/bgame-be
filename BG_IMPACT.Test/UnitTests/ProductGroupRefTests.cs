@@ -1,14 +1,4 @@
-﻿using BG_IMPACT.Extensions;
-using BG_IMPACT.Repositories.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BG_IMPACT_Test
+﻿namespace BG_IMPACT.Test.UnitTests
 {
     public class ProductGroupRefTests
     {
@@ -56,11 +46,11 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
             //1 if = 1 assert
             Assert.IsNotNull(dict); // = if (dict != null ...)
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
             //_ = Int64.TryParse(dict["Status"].ToString(), out long count);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(0));
         }
@@ -83,11 +73,11 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
             //1 if = 1 assert
             Assert.IsNotNull(dict); // = if (dict != null ...)
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
             //_ = Int64.TryParse(dict["Status"].ToString(), out long count);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(1));
         }
@@ -110,11 +100,11 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
             //1 if = 1 assert
             Assert.IsNotNull(dict); // = if (dict != null ...)
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
             //_ = Int64.TryParse(dict["Status"].ToString(), out long count);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(2));
         }
@@ -135,11 +125,11 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
             //1 if = 1 assert
             Assert.IsNotNull(dict); // = if (dict != null ...)
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
             //_ = Int64.TryParse(dict["Status"].ToString(), out long count);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(1));
         }
@@ -160,11 +150,11 @@ namespace BG_IMPACT_Test
             var dict = result as IDictionary<string, object>;
             //1 if = 1 assert
             Assert.IsNotNull(dict); // = if (dict != null ...)
-            Assert.IsTrue(Int64.TryParse(dict["Status"].ToString(), out _));
+            Assert.IsTrue(long.TryParse(dict["Status"].ToString(), out _));
             Assert.IsNotNull(dict["Status"]);
             //_ = Int64.TryParse(dict["Status"].ToString(), out long count);
 
-            bool check = Int32.TryParse(dict["Status"].ToString(), out int count);
+            bool check = int.TryParse(dict["Status"].ToString(), out int count);
             Assert.IsTrue(check);
             Assert.That(count, Is.EqualTo(3));
         }
