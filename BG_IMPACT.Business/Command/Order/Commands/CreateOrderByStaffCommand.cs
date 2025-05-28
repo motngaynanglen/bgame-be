@@ -63,7 +63,7 @@ namespace BG_IMPACT.Business.Command.Order.Commands
                     {
                         response.StatusCode = "200";
                         response.Message = message;
-                        response.Data = dict["Data"] as string;
+                        response.Data = dict["Data"].ToString() ?? null;
                         return response;
                     }
                     else if (count == 1)
