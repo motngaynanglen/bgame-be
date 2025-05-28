@@ -6,7 +6,7 @@
     {
         [Authorize(Roles = "STAFF,CUSTOMER")]
         [HttpPost("create-booklist")]
-        public async Task<IActionResult> CreateBookList(CreateBookListCommand command)
+        public async Task<IActionResult> CreateBookList(CreateBookListForCustomerCommand command)
         {
             try
             {
