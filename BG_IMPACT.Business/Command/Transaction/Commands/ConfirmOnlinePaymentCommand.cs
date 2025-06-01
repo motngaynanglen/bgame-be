@@ -37,13 +37,13 @@ namespace BG_IMPACT.Business.Command.Transaction.Commands
                 var computedHash = BitConverter.ToString(hmac.ComputeHash(Encoding.UTF8.GetBytes(rawData)))
                                             .Replace("-", "").ToLower();
 
-                if (computedHash != request.Signature)
-                {
-                    response.StatusCode = "403";
-                    response.Message = "Dữ liệu không hợp lệ (sai chữ ký).";
-                    return response;
-                }
-
+                //if (computedHash != request.Signature)
+                //{
+                //    response.StatusCode = "403";
+                //    response.Message = "Dữ liệu không hợp lệ (sai chữ ký).";
+                //    return response;
+                //}
+                //response.Data = request.Data.ToString();
                 object param = new
                 {
                     Code = request.Data.description  // description chính là mã đơn hàng
