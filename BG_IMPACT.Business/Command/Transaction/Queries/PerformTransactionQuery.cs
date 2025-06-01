@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BG_IMPACT.Business.Command.BookList.Queries
+namespace BG_IMPACT.Business.Command.Transaction.Queries
 {
     public class PerformTransactionQuery : IRequest<ResponseObject>
     {
@@ -33,12 +33,13 @@ namespace BG_IMPACT.Business.Command.BookList.Queries
                     request.Type
                 };
 
-                await payOS.confirmWebhook("https://bg-impact.io.vn/api/Transaction/get-online-payment-response");
+                //await payOS.confirmWebhook("https://bg-impact.io.vn/api/Transaction/get-online-payment-response");
 
                 //WebhookData webhookData = payOS.verifyPaymentWebhookData(webhookBody);
 
                 var result = await _transactionRepository.spTransactionGetItemByRefId(param);
                 var list = ((IEnumerable<dynamic>)result).ToList();
+
                 var code = list.Select(x => x.code).FirstOrDefault()?.ToString();
                 var items = list.Select(x => new ItemData(x.product_name, 1, (int)x.price)).ToList();
 

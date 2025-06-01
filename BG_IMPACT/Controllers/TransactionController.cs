@@ -1,4 +1,5 @@
-﻿using BG_IMPACT.Models;
+﻿using BG_IMPACT.Business.Command.Transaction.Queries;
+using BG_IMPACT.Models;
 
 namespace BG_IMPACT.Controllers
 {
@@ -7,7 +8,7 @@ namespace BG_IMPACT.Controllers
     public class TransactionController : ControllerBase
     {
         [HttpPost("get-online-payment-response")]
-        public async Task<IActionResult> Create(GetOnlinePaymentResponseCommand command)
+        public async Task<IActionResult> ConfirmPayment([FromBody] ConfirmOnlinePaymentCommand command)
         {
             try
             {
@@ -58,9 +59,9 @@ namespace BG_IMPACT.Controllers
                     return NotFound(result);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
+                return NotFound(new ResponseObject { StatusCode = "404", Message = ex.ToString() });
             }
         }
     }
