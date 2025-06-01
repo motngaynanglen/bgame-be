@@ -34,11 +34,11 @@ namespace BG_IMPACT.Business.Command.Supplier.Commands
 
                 var context = _httpContextAccessor.HttpContext;
 
-                string? UpdatedBy = null;
+                string? ManagerId = null;
 
                 if (context != null && context.GetRole() == "MANAGER")
                 {
-                    UpdatedBy = context.GetName();
+                    ManagerId = context.GetName();
 
                     object param = new
                     {
@@ -50,7 +50,7 @@ namespace BG_IMPACT.Business.Command.Supplier.Commands
                         request.Email,
                         request.PhoneNumber,
                         request.Status,
-                        UpdatedBy
+                        ManagerId
                     };
 
                     var result = await _supplierRepository.spSupplierUpdate(param);
