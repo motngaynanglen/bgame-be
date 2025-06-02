@@ -15,8 +15,6 @@ namespace BG_IMPACT.Business.Command.News.Commands
         [Required]
         public string Title { get; set; }
         [Required]
-        public string Author { get; set; }
-        [Required]
         public double Content { get; set; }
         [Required]
         public string Status { get; set; }
@@ -50,7 +48,6 @@ namespace BG_IMPACT.Business.Command.News.Commands
 
                         request.NewsId,
                         request.Title,
-                        request.Author,
                         request.Content,
                         request.Status,
                         UserId,

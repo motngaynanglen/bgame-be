@@ -14,8 +14,6 @@ namespace BG_IMPACT.Business.Command.News.Commands
         [Required]
         public string Title { get; set; }
         [Required]
-        public string Author { get; set; }
-        [Required]
         public string Content { get; set; }
 
         public class CreateNewsCommandHandler : IRequestHandler<CreateNewsCommand, ResponseObject>
@@ -44,7 +42,6 @@ namespace BG_IMPACT.Business.Command.News.Commands
                     object param = new
                     {
                         request.Title,
-                        request.Author,
                         request.Content,
                         UserId,
                     };
