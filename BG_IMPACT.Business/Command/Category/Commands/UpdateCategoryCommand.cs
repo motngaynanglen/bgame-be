@@ -1,6 +1,7 @@
 ﻿using BG_IMPACT.Business.Command.News.Commands;
 using BG_IMPACT.Repository.Repositories.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -34,10 +35,9 @@ namespace BG_IMPACT.Business.Command.Category.Commands
                 ResponseObject response = new();
 
                 var context = _httpContextAccessor.HttpContext;
-
                 string? UserId = null;
 
-                if (context != null && context.GetRole() == "MANAGER")
+                if (context != null && context.GetRole() == "MANAGER" || context.GetRole() == "STAFF")
                 {
                     UserId = context.GetName();
 
