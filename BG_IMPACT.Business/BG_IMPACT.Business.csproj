@@ -11,7 +11,10 @@
     <Folder Include="Command\BookItem\Queries\" />
     <Folder Include="Command\Dashboard\Commands\" />
     <Folder Include="Command\Login\Queries\" />
+    <Folder Include="Command\SupplyItem\Commands\" />
     <Folder Include="Command\OrderItem\Queries\" />
+    <Folder Include="Command\SupplyItem\Queries\" />
+    <Folder Include="Command\SupplyOrder\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

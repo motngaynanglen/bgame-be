@@ -2,10 +2,7 @@
 {
     public class GetSupplierListQuery : IRequest<ResponseObject>
     {
-        public string Search { get; set; } = string.Empty;
-        public List<string> Filter { get; set; } = [];
-        public Paging Paging { get; set; } = new();
-
+       
         public class GetSupplierListQueryHandler : IRequestHandler<GetSupplierListQuery, ResponseObject>
         {
             private readonly ISupplierRepository _supplierRepository;

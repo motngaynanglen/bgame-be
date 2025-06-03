@@ -1,0 +1,106 @@
+﻿using BG_IMPACT.Business.Command.Order.Commands;
+using BG_IMPACT.Repository.Repositories.Interfaces;
+using Dapper;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BG_IMPACT.Business.Command.SupplyOrder.Commands
+{
+    public class SupplyItem
+    {
+        public string Name { get; set; } = string.Empty;
+        public float Price { get; set; }
+        public string Condition { get; set; } = string.Empty;
+        public string Quantity { get; set; } = "0"; // Dùng string vì trong SQL là nchar(10)
+    }
+
+    public class CreateSupplyOrderCommand : IRequest<ResponseObject>
+    {
+        public Guid StoreId { get; set; } 
+        public Guid SupplierId { get; set; }
+        public string Title { get; set; }
+        public bool IsPaid { get; set; }
+
+        [Required]
+        public List<SupplyItem> SupplyOrders { get; set; } = new();
+        
+
+        public class CreateSupplyOrderCommandHandler : IRequestHandler<CreateSupplyOrderCommand, ResponseObject>
+        {
+            private readonly ISupplyOrderRepository _supplyOrderRepository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
+            public CreateSupplyOrderCommandHandler(ISupplyOrderRepository supplyOrderRepository, IHttpContextAccessor httpContextAccessor)
+            {
+                _supplyOrderRepository = supplyOrderRepository;
+                _httpContextAccessor = httpContextAccessor;
+            }
+            public async Task<ResponseObject> Handle(CreateSupplyOrderCommand request, CancellationToken cancellationToken)
+            {
+                var response = new ResponseObject();
+
+                var context = _httpContextAccessor.HttpContext;
+                string? UserId = string.Empty;
+
+                if (context != null && context.GetRole() == "ADMIN" || context.GetRole() == "MANAGER" )
+                {
+                    UserId = context.GetName();
+                }
+                else
+                {
+                    response.StatusCode = "403";
+                    response.Message = "Bạn không có quyền thực hiện thao tác này.";
+                    return response;
+                }
+
+                object param = new
+                {
+                    StoreId = request.StoreId,
+                    Title = request.Title,
+                    SupplierId = request.SupplierId,
+                    IsPaid = request.IsPaid,
+                    UserId,
+                    SupplyItems = ConvertToDataTable(request.SupplyOrders).AsTableValuedParameter("SupplyItemInputType")
+                };
+
+                var result = await _supplyOrderRepository.spSupplyOrderCreate(param);
+                var dict = result as IDictionary<string, object>;
+
+                if (dict != null && dict.ContainsKey("Status"))
+                {
+                    response.StatusCode = dict["Status"].ToString();
+                    response.Message = dict["Message"].ToString();
+                    response.Data = dict.ContainsKey("SupplyOrderId") ? dict["SupplyOrderId"] : null;
+                }
+                else
+                {
+                    response.StatusCode = "500";
+                    response.Message = "Tạo phiếu nhập thất bại. Vui lòng thử lại sau.";
+                }
+
+                return response;
+            }
+
+            private static DataTable ConvertToDataTable(List<SupplyItem> items)
+            {
+                var table = new DataTable();
+                table.Columns.Add("name", typeof(string));
+                table.Columns.Add("price", typeof(float));
+                table.Columns.Add("condition", typeof(string));
+                table.Columns.Add("quantity", typeof(string)); // vì trong SQL là nchar(10)
+
+                foreach (var item in items)
+                {
+                    table.Rows.Add(item.Name, item.Price, item.Condition, item.Quantity);
+                }
+
+                return table;
+            }
+
+        }
+    }
+}
