@@ -42,6 +42,12 @@ namespace BG_IMPACT.Repository.Repositories.Implementations
             object? result = await _connection.QueryAsync("spNewsGetList", commandType: CommandType.StoredProcedure);
             return result;
         }
+        public async Task<object> spNewsDeactive(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spNewsDeactive", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        
 
 
 
