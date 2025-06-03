@@ -35,7 +35,6 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryAsync("spSupplierGetList", commandType: CommandType.StoredProcedure);
             return result;
         }
-        
 
 
     }

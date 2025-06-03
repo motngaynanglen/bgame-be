@@ -39,7 +39,7 @@ namespace BG_IMPACT.Business.Command.News.Commands
 
                 string? UserId = null;
 
-                if (context != null && context.GetRole() == "MANAGER")
+                if (context != null && context.GetRole() == "MANAGER" || context.GetRole() == "STAFF")
                 {
                     UserId = context.GetName();
 
