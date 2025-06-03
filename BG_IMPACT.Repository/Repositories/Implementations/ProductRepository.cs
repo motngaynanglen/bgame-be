@@ -30,7 +30,11 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spProductCreateTemplate", param, commandType: CommandType.StoredProcedure);
             return result;
         }
-
+        public async Task<object> spProductGetListByGroupRefId(object param)
+        {
+            object? result = await _connection.QueryAsync("spProductGetListByGroupRefId", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
         public async Task<object> spProductGetList(object param)
         {
             object? result = await _connection.QueryAsync("spProductGetList", param, commandType: CommandType.StoredProcedure);
