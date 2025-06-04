@@ -25,7 +25,7 @@ namespace BG_IMPACT.Repository.Repositories.Implementations
         {
             var mailMessage = new MailMessage
             {
-                From = new MailAddress(_emailSettings.FromAddress, _emailSettings.FromName),
+                From = new MailAddress(_emailSettings.SmtpUsername, _emailSettings.FromName),
                 Subject = subject,
                 Body = htmlMessage,
                 IsBodyHtml = true
