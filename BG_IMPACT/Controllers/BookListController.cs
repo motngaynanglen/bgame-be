@@ -5,8 +5,8 @@
     public class BookListController : ControllerBase
     {
         [Authorize(Roles = "STAFF,CUSTOMER")]
-        [HttpPost("create-booklist")]
-        public async Task<IActionResult> CreateBookList(CreateBookListForCustomerCommand command)
+        [HttpPost("create-booklist-by-customer")]
+        public async Task<IActionResult> CreateBookList(CreateBookListByCustomerCommand command)
         {
             try
             {

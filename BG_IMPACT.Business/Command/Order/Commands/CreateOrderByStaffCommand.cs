@@ -52,7 +52,7 @@ namespace BG_IMPACT.Business.Command.Order.Commands
                 };
 
 
-                var result = await _orderRepository.spOrderCreateByCustomer(param);
+                var result = await _orderRepository.spOrderCreateByStaff(param);
                 var dict = result as IDictionary<string, object>;
 
                 if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
