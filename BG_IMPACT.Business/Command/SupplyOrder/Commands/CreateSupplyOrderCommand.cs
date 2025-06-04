@@ -14,8 +14,6 @@ namespace BG_IMPACT.Business.Command.SupplyOrder.Commands
     public class SupplyItem
     {
         public string Name { get; set; } = string.Empty;
-        public float Price { get; set; }
-        public string Condition { get; set; } = string.Empty;
         public long Quantity { get; set; } 
     }
 
@@ -57,10 +55,10 @@ namespace BG_IMPACT.Business.Command.SupplyOrder.Commands
 
                 object param = new
                 {
-                    request.StoreId,
-                    request.Title,
-                    request.SupplierId,
-                    UserId,
+                    StoreId = request.StoreId,
+                    Title = request.Title,
+                    SupplierId = request.SupplierId,
+                    UserId = UserId,
                     SupplyItems = ConvertToDataTable(request.SupplyOrders).AsTableValuedParameter("SupplyItemInputType")
                 };
 
@@ -69,13 +67,13 @@ namespace BG_IMPACT.Business.Command.SupplyOrder.Commands
 
                 if (dict != null && dict.ContainsKey("Status"))
                 {
-                    response.StatusCode = dict["Status"].ToString();
-                    response.Message = dict["Message"].ToString();
+                    response.StatusCode = "200";
+                    response.Message = dict["Message"].ToString() ?? "Tạo phiếu nhập thành công.";
                     response.Data = dict.ContainsKey("SupplyOrderId") ? dict["SupplyOrderId"] : null;
                 }
                 else
                 {
-                    response.StatusCode = "500";
+                    response.StatusCode = "404";
                     response.Message = "Tạo phiếu nhập thất bại. Vui lòng thử lại sau.";
                 }
 
@@ -86,13 +84,11 @@ namespace BG_IMPACT.Business.Command.SupplyOrder.Commands
             {
                 var table = new DataTable();
                 table.Columns.Add("name", typeof(string));
-                table.Columns.Add("price", typeof(float));
-                table.Columns.Add("condition", typeof(string));
                 table.Columns.Add("quantity", typeof(string)); // vì trong SQL là nchar(10)
 
                 foreach (var item in items)
                 {
-                    table.Rows.Add(item.Name, item.Price, item.Condition, item.Quantity);
+                    table.Rows.Add(item.Name, item.Quantity);
                 }
 
                 return table;
