@@ -8,6 +8,7 @@ namespace BG_IMPACT.Controllers
     [ApiController]
     public class SupplyOrderController : ControllerBase
     {
+        [Authorize(Roles = "ADMIN,MANAGER")]
         
         [HttpPost("create-supply-order")]
         public async Task<IActionResult> CreateSupplyOrder(CreateSupplyOrderCommand command)

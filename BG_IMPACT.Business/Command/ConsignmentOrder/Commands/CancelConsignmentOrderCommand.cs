@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace BG_IMPACT.Business.Command.ConsignmentOrder.Commands
 {
