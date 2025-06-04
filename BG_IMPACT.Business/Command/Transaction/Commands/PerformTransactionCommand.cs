@@ -1,22 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BG_IMPACT.Business.Command.Transaction.Queries
+namespace BG_IMPACT.Business.Command.Transaction.Commands
 {
-    public class PerformTransactionQuery : IRequest<ResponseObject>
+    public class PerformTransactionCommand : IRequest<ResponseObject>
     {
         [Required]
         public Guid ReferenceID { get; set; }
         [Required]
         public int Type { get; set; }
-        public class PerformTransactionQueryQueryHandler : IRequestHandler<PerformTransactionQuery, ResponseObject>
+        public class PerformTransactionCommandHandler : IRequestHandler<PerformTransactionCommand, ResponseObject>
         {
             public readonly ITransactionRepository _transactionRepository;
-            public PerformTransactionQueryQueryHandler(ITransactionRepository transactionRepository)
+            public PerformTransactionCommandHandler(ITransactionRepository transactionRepository)
             {
                 _transactionRepository = transactionRepository;
             }
 
-            public async Task<ResponseObject> Handle(PerformTransactionQuery request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(PerformTransactionCommand request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
 
@@ -33,13 +33,12 @@ namespace BG_IMPACT.Business.Command.Transaction.Queries
                     request.Type
                 };
 
-                //await payOS.confirmWebhook("https://bg-impact.io.vn/api/Transaction/get-online-payment-response");
+                await payOS.confirmWebhook("https://bg-impact.io.vn/api/Transaction/get-online-payment-response");
 
                 //WebhookData webhookData = payOS.verifyPaymentWebhookData(webhookBody);
 
                 var result = await _transactionRepository.spTransactionGetItemByRefId(param);
                 var list = ((IEnumerable<dynamic>)result).ToList();
-
                 var code = list.Select(x => x.code).FirstOrDefault()?.ToString();
                 var items = list.Select(x => new ItemData(x.product_name, 1, (int)x.price)).ToList();
 
@@ -54,7 +53,6 @@ namespace BG_IMPACT.Business.Command.Transaction.Queries
 
                 var url = await payOS.createPaymentLink(paymentLinkRequest);
 
-                response.StatusCode = "200";
                 response.Data = url.checkoutUrl;
 
                 return response;

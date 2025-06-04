@@ -18,7 +18,7 @@ namespace BG_IMPACT.Business.Command.Product.Commands
         public int Age { get; set; }
         public int NumberOfPlayerMin { get; set; }
         public int NumberOfPlayerMax { get; set; }
-        public int HardRank { get; set; }
+        public int Difficulty { get; set; }
         public string Description { get; set; } = string.Empty;
     }
 
@@ -57,7 +57,7 @@ namespace BG_IMPACT.Business.Command.Product.Commands
                     request.Age,
                     request.NumberOfPlayerMin,
                     request.NumberOfPlayerMax,
-                    request.HardRank,
+                    request.Difficulty,
                     request.Description,
                     ManagerID
                 };

@@ -1,4 +1,5 @@
 using BG_IMPACT.Business;
+using BG_IMPACT.DTO.Models;
 using BG_IMPACT.Infrastructure.Extensions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -31,6 +32,10 @@ builder.Services.AddAuthentication(x =>
         ValidateIssuerSigningKey = true
     };
 });
+
+AppGlobals.Username = builder.Configuration["Admin:Username"] ?? string.Empty;
+AppGlobals.Password = builder.Configuration["Admin:Password"] ?? string.Empty;
+AppGlobals.ID = Guid.Parse(builder.Configuration["Admin:ID"] ?? string.Empty);
 
 builder.Services.AddAuthorization();
 builder.Services.AddSwaggerGen(x =>
