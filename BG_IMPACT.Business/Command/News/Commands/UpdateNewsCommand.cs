@@ -15,7 +15,7 @@ namespace BG_IMPACT.Business.Command.News.Commands
         [Required]
         public string Title { get; set; }
         [Required]
-        public double Content { get; set; }
+        public string Content { get; set; }
         [Required]
         public string Status { get; set; }
         

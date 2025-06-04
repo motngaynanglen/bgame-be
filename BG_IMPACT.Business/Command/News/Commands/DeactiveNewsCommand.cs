@@ -11,7 +11,7 @@ namespace BG_IMPACT.Business.Command.News.Commands
     public class DeactiveNewsCommand : IRequest<ResponseObject>
     {
         [Required]
-        public string NewsId { get; set; }
+        public Guid NewsId { get; set; }
 
 
         public class DeactiveNewsCommandHandler : IRequestHandler<DeactiveNewsCommand, ResponseObject>
