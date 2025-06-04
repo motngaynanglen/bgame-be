@@ -9,7 +9,6 @@ namespace BG_IMPACT.Controllers
     [ApiController]
     public class NewsController : ControllerBase
     {
-        [Authorize(Roles = "MANAGER,STAFF")]
         [HttpPost("get-news")]
         public async Task<IActionResult> GetNews(GetListNewsQuery command)
         {
