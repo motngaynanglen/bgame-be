@@ -10,6 +10,7 @@
   <ItemGroup>
     <Folder Include="Command\BookItem\Queries\" />
     <Folder Include="Command\Dashboard\Commands\" />
+    <Folder Include="Command\Email\Queries\" />
     <Folder Include="Command\Login\Queries\" />
     <Folder Include="Command\SupplyItem\Commands\" />
     <Folder Include="Command\OrderItem\Queries\" />

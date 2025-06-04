@@ -9,5 +9,9 @@ namespace BG_IMPACT.Repository.Repositories.Interfaces
     public interface ISupplyOrderRepository
     {
         Task<object> spSupplyOrderCreate(object param);
+        Task<object> spEmailGetSupplierEmailByOrderId(object param);
+        Task<object> spGetSupplyItemsByOrderId(object param);
+        
+
     }
 }
