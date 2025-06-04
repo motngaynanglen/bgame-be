@@ -61,8 +61,7 @@ namespace BG_IMPACT.Business.Command.Email.Commands
                             "<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3:N0} đ</td></tr>",
                             item.Index,
                             item.name,
-                            item.quantity,
-                            item.price
+                            item.quantity
                         );
                     }
 
