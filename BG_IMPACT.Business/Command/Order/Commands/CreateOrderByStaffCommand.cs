@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 
 namespace BG_IMPACT.Business.Command.Order.Commands
 {
@@ -59,6 +60,8 @@ namespace BG_IMPACT.Business.Command.Order.Commands
                 {
                     _ = Int64.TryParse(dict["Status"].ToString(), out long count);
                     var message = dict["Message"].ToString() ?? "";
+                    string data = dict["Data"]?.ToString() ?? "";
+
                     if (count == 0)
                     {
                         response.StatusCode = "200";
@@ -68,8 +71,15 @@ namespace BG_IMPACT.Business.Command.Order.Commands
                     }
                     else if (count == 1)
                     {
-                        response.StatusCode = "404";
+                        response.StatusCode = "422";
                         response.Message = message;
+                        if (!data.IsNullOrEmpty())
+                        {
+                            var invalidIds = data.Split("||", StringSplitOptions.RemoveEmptyEntries)
+                                 .Select(Guid.Parse)
+                                 .ToList();
+                            response.Data = invalidIds;
+                        }
                     }
                     else if (count == 2)
                     {
