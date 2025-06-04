@@ -28,17 +28,17 @@ namespace BG_IMPACT.Repository.Repositories.Implementations
         
         public async Task<object> spSupplyOrderCreate(object param)
         {
-            object? result = await _connection.QueryFirstOrDefaultAsync("spSupplyOrderCreate", commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryFirstOrDefaultAsync("spSupplyOrderCreate", param, commandType: CommandType.StoredProcedure);
             return result;
         }
         public async Task<object> spEmailGetSupplierEmailByOrderId(object param)
         {
-            object? result = await _connection.QueryFirstOrDefaultAsync("spEmailGetSupplierEmailByOrderId", commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryFirstOrDefaultAsync("spEmailGetSupplierEmailByOrderId", param, commandType: CommandType.StoredProcedure);
             return result;
         }
         public async Task<object> spGetSupplyItemsByOrderId(object param)
         {
-            object? result = await _connection.QueryFirstOrDefaultAsync("spGetSupplyItemsByOrderId", commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryFirstOrDefaultAsync("spGetSupplyItemsByOrderId", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 

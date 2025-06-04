@@ -58,6 +58,7 @@ namespace BG_IMPACT.Business.Command.Transaction.Commands
                     url.qrCode,
                 };
 
+                response.StatusCode = "200";
                 response.Data = resParam;
 
                 return response;

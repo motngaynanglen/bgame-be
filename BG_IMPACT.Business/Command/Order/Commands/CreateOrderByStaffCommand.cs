@@ -98,13 +98,13 @@ namespace BG_IMPACT.Business.Command.Order.Commands
                     }
                     else if (count == 9)
                     {
-                        response.StatusCode = "500";
+                        response.StatusCode = "404";
                         response.Message = message;
                     }
                 }
                 else
                 {
-                    response.StatusCode = "500";
+                    response.StatusCode = "404";
                     response.Message = "Mua hàng thất bại. Xin hãy thử lại sau.";
                 }
 
