@@ -6,7 +6,7 @@ namespace BG_IMPACT.Business.Command.BookItem.Commands
     {
         // public Guid StaffId { get; set; }
         [Required]
-        public Guid OrderItemId { get; set; }
+        public Guid BookItemId { get; set; }
         [Required]
         public string ProductCode { get; set; } = string.Empty;
 
@@ -36,7 +36,7 @@ namespace BG_IMPACT.Business.Command.BookItem.Commands
                 object param = new
                 {
                     StaffId,
-                    request.OrderItemId,
+                    request.BookItemId,
                     request.ProductCode,
                 };
 

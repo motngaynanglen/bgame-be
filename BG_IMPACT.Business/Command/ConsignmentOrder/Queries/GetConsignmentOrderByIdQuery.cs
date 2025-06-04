@@ -25,35 +25,26 @@ namespace BG_IMPACT.Business.Command.BookList.Queries
                 string? UserID = context?.GetName() ?? null;
                 string? Role = context?.GetRole() ?? null;
 
-                if (Role == null || Guid.TryParse(UserID, out _) == false)
+                object param = new
                 {
-                    response.StatusCode = "404";
-                    response.Message = "Token trả về không đúng.";
+                    UserID,
+                    request.ConsignmentOrderId,
+
+                };
+
+                var result = await _consignmentOrderRepository.spConsignmentOrderGetById(param);
+                var dict = result as IDictionary<string, object>;
+
+                if (dict != null && dict.Count > 0)
+                {
+                    response.StatusCode = "200";
+                    response.Data = dict;
+                    response.Message = string.Empty;
                 }
                 else
                 {
-                    object param = new
-                    {
-                        UserID,
-                        request.ConsignmentOrderId,
-
-                    };
-
-
-                    var result = await _consignmentOrderRepository.spConsignmentOrderGetById(param);
-                    var dict = result as IDictionary<string, object>;
-
-                    if (dict != null && dict.Count > 0)
-                    {
-                        response.StatusCode = "200";
-                        response.Data = dict;
-                        response.Message = string.Empty;
-                    }
-                    else
-                    {
-                        response.StatusCode = "404";
-                        response.Message = "Không tìm thấy vật phẩm.";
-                    }
+                    response.StatusCode = "404";
+                    response.Message = "Không tìm thấy vật phẩm.";
                 }
 
                 return response;
