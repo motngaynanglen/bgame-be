@@ -4,6 +4,7 @@
     {
         public Guid TemplateID { get; set; }
         public int ConditionFilter { get; set; } = 0;
+        public Paging Paging { get; set; } = new();
 
         public class GetProductByTemplateAndConditionQueryHandler : IRequestHandler<GetProductByTemplateAndConditionQuery, ResponseObject>
         {
