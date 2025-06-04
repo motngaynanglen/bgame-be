@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 
 namespace BG_IMPACT.Business.Command.Order.Commands
 {
@@ -72,10 +73,13 @@ namespace BG_IMPACT.Business.Command.Order.Commands
                     {
                         response.StatusCode = "422";
                         response.Message = message;
-                        var invalidIds = data.Split("||", StringSplitOptions.RemoveEmptyEntries)
-                             .Select(Guid.Parse)
-                             .ToList();
-                        response.Data = invalidIds;
+                        if (!data.IsNullOrEmpty())
+                        {
+                            var invalidIds = data.Split("||", StringSplitOptions.RemoveEmptyEntries)
+                                 .Select(Guid.Parse)
+                                 .ToList();
+                            response.Data = invalidIds;
+                        }
                     }
                     else if (count == 2)
                     {
