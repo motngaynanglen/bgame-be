@@ -53,12 +53,12 @@ namespace BG_IMPACT.Business.Command.Email.Commands
                     var htmlBuilder = new StringBuilder();
                     htmlBuilder.Append("<h2>Danh sách sản phẩm trong đơn hàng</h2>");
                     htmlBuilder.Append("<table border='1' cellpadding='6' cellspacing='0' style='border-collapse: collapse;'>");
-                    htmlBuilder.Append("<tr><th>STT</th><th>Tên</th><th>Số lượng</th><th>Giá</th></tr>");
+                    htmlBuilder.Append("<tr><th>STT</th><th>Tên</th><th>Số lượng</th></tr>");
 
                     foreach (var item in itemList)
                     {
                         htmlBuilder.AppendFormat(
-                            "<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3:N0} đ</td></tr>",
+                            "<tr><td>{0}</td><td>{1}</td><td>{2}</td></tr>",
                             item.Index,
                             item.name,
                             item.quantity
