@@ -12,11 +12,8 @@ namespace BG_IMPACT.Business.Command.News.Commands
     {
         [Required]
         public string NewsId { get; set; }
-        [Required]
         public string Title { get; set; }
-        [Required]
-        public double Content { get; set; }
-        [Required]
+        public string Content { get; set; }
         public string Status { get; set; }
         
 
