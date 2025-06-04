@@ -6,17 +6,28 @@
         public class GetProductByCodeQueryHandler : IRequestHandler<GetProductByCodeQuery, ResponseObject>
         {
             private readonly IProductRepository _productRepository;
-
-            public GetProductByCodeQueryHandler(IProductRepository productRepository)
+            private readonly IHttpContextAccessor _httpContextAccessor;
+            public GetProductByCodeQueryHandler(IProductRepository productRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _productRepository = productRepository;
+                _httpContextAccessor = httpContextAccessor;
             }
             public async Task<ResponseObject> Handle(GetProductByCodeQuery request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
-
+                var context = _httpContextAccessor.HttpContext;
+                string AccountId = string.Empty;
+                string Role = string.Empty;
+                if (context != null)
+                {
+                    _ = Guid.TryParse(context.GetName(), out Guid cusId);
+                    AccountId = cusId.ToString();
+                    Role = context.GetName();
+                }
                 object param = new
                 {
+                    AccountId,
+                    Role,
                     request.Code,
                 };
 
