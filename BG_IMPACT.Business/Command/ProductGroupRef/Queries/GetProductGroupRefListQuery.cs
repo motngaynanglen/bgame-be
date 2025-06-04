@@ -2,11 +2,11 @@
 
 namespace BG_IMPACT.Business.Command.ProductGroupRef.Queries
 {
-    public class GetProductGroupRefListQuery : IRequest<object>
+    public class GetProductGroupRefListQuery : IRequest<ResponseObject>
     {
         [Required]
         public Guid GroupId { get; set; }
-        public class GetProductGroupRefListQueryHandler : IRequestHandler<GetProductGroupRefListQuery, object>
+        public class GetProductGroupRefListQueryHandler : IRequestHandler<GetProductGroupRefListQuery, ResponseObject>
         {
             public readonly IProductGroupRefRepository _productGroupRefRepository;
 
@@ -14,8 +14,10 @@ namespace BG_IMPACT.Business.Command.ProductGroupRef.Queries
             {
                 _productGroupRefRepository = productGroupRefRepository;
             }
-            public async Task<object> Handle(GetProductGroupRefListQuery request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(GetProductGroupRefListQuery request, CancellationToken cancellationToken)
             {
+                ResponseObject response = new();
+
                 object param = new
                 {
                     GroupId = request.GroupId
@@ -23,7 +25,10 @@ namespace BG_IMPACT.Business.Command.ProductGroupRef.Queries
 
                 var result = await _productGroupRefRepository.spProductGroupRefGetList(param);
 
-                return result;
+                response.StatusCode = "200";
+                response.Data = result;
+
+                return response;
             }
         }
     }

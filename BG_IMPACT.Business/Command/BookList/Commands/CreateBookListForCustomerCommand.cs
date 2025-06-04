@@ -7,7 +7,7 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
         public Guid ProductTemplateID { get; set; }
         public int Quantity { get; set; }
     }
-    public class CreateBookListForCustomerCommand : IRequest<ResponseObject>
+    public class CreateBookListByCustomerCommand : IRequest<ResponseObject>
     {
         public Guid? CustomerId { get; set; }
         [Required]
@@ -22,18 +22,18 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
         [Range(0, 1, ErrorMessage = "Chỉ được nhập 0 và 1")]
         public int BookType { get; set; }
 
-        public class CreateBookListForCustomerCommandHandler : IRequestHandler<CreateBookListForCustomerCommand, ResponseObject>
+        public class CreateBookListByCustomerCommandHandler : IRequestHandler<CreateBookListByCustomerCommand, ResponseObject>
         {
             private readonly IBookListRepository _bookListRepository;
             private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public CreateBookListForCustomerCommandHandler(IBookListRepository bookListRepository, IHttpContextAccessor httpContextAccessor)
+            public CreateBookListByCustomerCommandHandler(IBookListRepository bookListRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _bookListRepository = bookListRepository;
                 _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<ResponseObject> Handle(CreateBookListForCustomerCommand request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(CreateBookListByCustomerCommand request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
 
@@ -67,7 +67,7 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
                     request.BookType
                 };
 
-                var result = await _bookListRepository.spBookListCreate(param);
+                var result = await _bookListRepository.spBookListCreateByCustomer(param);
                 var dict = result as IDictionary<string, object>;
 
                 if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
@@ -102,7 +102,7 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
                     else if (count == 6)
                     {
                         response.StatusCode = "404";
-                        response.Message = "Có ID product group ref không tồn tại";
+                        response.Message = "Có mã hàng không tồn tại";
                     }
                     else if (count == 7)
                     {

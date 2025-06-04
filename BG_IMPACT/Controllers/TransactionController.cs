@@ -13,22 +13,7 @@ namespace BG_IMPACT.Controllers
             try
             {
                 ResponseObject result = await _mediator.Send(command);
-                if (result.StatusCode == "200")
-                {
-                    return Ok(result);
-                }
-                else if (result.StatusCode == "403")
-                {
-                    return Forbid();
-                }
-                else if (result.StatusCode == "422")
-                {
-                    return UnprocessableEntity(result);
-                }
-                else
-                {
-                    return NotFound(result);
-                }
+                return Ok(result);
             }
             catch
             {

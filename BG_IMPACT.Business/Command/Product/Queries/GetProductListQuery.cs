@@ -1,9 +1,11 @@
-﻿namespace BG_IMPACT.Business.Command.Product.Queries
+﻿using BG_IMPACT.DTO.Models;
+
+namespace BG_IMPACT.Business.Command.Product.Queries
 {
     public class GetProductListQuery : IRequest<ResponseObject>
     {
         public string Search { get; set; } = string.Empty;
-        public List<string> Filter { get; set; } = [];
+        public Filter? Filter { get; set; } 
         public Paging Paging { get; set; } = new();
 
         public class GetProductListQueryHandler : IRequestHandler<GetProductListQuery, ResponseObject>
