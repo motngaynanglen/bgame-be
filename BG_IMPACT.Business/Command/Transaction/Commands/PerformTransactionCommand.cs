@@ -52,8 +52,13 @@ namespace BG_IMPACT.Business.Command.Transaction.Commands
                 );
 
                 var url = await payOS.createPaymentLink(paymentLinkRequest);
+                object resParam = new
+                {
+                    url.checkoutUrl,
+                    url.qrCode,
+                };
 
-                response.Data = url.checkoutUrl;
+                response.Data = resParam;
 
                 return response;
             }
