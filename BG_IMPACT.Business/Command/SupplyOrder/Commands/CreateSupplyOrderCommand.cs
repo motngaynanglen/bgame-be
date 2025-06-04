@@ -16,20 +16,18 @@ namespace BG_IMPACT.Business.Command.SupplyOrder.Commands
         public string Name { get; set; } = string.Empty;
         public float Price { get; set; }
         public string Condition { get; set; } = string.Empty;
-        public string Quantity { get; set; } = "0"; // Dùng string vì trong SQL là nchar(10)
+        public long Quantity { get; set; } 
     }
 
     public class CreateSupplyOrderCommand : IRequest<ResponseObject>
     {
         public Guid StoreId { get; set; } 
         public Guid SupplierId { get; set; }
-        public string Title { get; set; }
-        public bool IsPaid { get; set; }
-
+        [Required]
+        public string Title { get; set; } = string.Empty;
         [Required]
         public List<SupplyItem> SupplyOrders { get; set; } = new();
         
-
         public class CreateSupplyOrderCommandHandler : IRequestHandler<CreateSupplyOrderCommand, ResponseObject>
         {
             private readonly ISupplyOrderRepository _supplyOrderRepository;
@@ -46,7 +44,7 @@ namespace BG_IMPACT.Business.Command.SupplyOrder.Commands
                 var context = _httpContextAccessor.HttpContext;
                 string? UserId = string.Empty;
 
-                if (context != null && context.GetRole() == "ADMIN" || context.GetRole() == "MANAGER" )
+                if (context != null && (context.GetRole() == "ADMIN" || context.GetRole() == "MANAGER"))
                 {
                     UserId = context.GetName();
                 }
@@ -59,10 +57,9 @@ namespace BG_IMPACT.Business.Command.SupplyOrder.Commands
 
                 object param = new
                 {
-                    StoreId = request.StoreId,
-                    Title = request.Title,
-                    SupplierId = request.SupplierId,
-                    IsPaid = request.IsPaid,
+                    request.StoreId,
+                    request.Title,
+                    request.SupplierId,
                     UserId,
                     SupplyItems = ConvertToDataTable(request.SupplyOrders).AsTableValuedParameter("SupplyItemInputType")
                 };

@@ -20,14 +20,9 @@ namespace BG_IMPACT.Business.Command.BookList.Queries
             public async Task<ResponseObject> Handle(GetConsignmentOrderByIdQuery request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
-                var context = _httpContextAccessor.HttpContext;
-
-                string? UserID = context?.GetName() ?? null;
-                string? Role = context?.GetRole() ?? null;
 
                 object param = new
                 {
-                    UserID,
                     request.ConsignmentOrderId,
 
                 };
