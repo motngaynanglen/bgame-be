@@ -12,8 +12,6 @@ namespace BG_IMPACT.Business.Command.Category.Commands
     {
         [Required]
         public string CategoryId { get; set; }
-        [Required]
-        public string Status { get; set; }
 
         public class DeactiveCategoryCommandCommandHandler : IRequestHandler<DeactiveCategoryCommand, ResponseObject>
         {
@@ -41,7 +39,6 @@ namespace BG_IMPACT.Business.Command.Category.Commands
                     {
 
                         request.CategoryId,
-                        request.Status,
                         UserId,
                     };
 

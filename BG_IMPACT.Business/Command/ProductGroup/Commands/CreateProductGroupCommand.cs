@@ -53,6 +53,8 @@ namespace BG_IMPACT.Business.Command.ProductGroup.Commands
                         {
                             response.StatusCode = "200";
                             response.Message = "Thêm nhóm lớn sản phẩm thành công.";
+                            string ID = dict["ID"].ToString() ?? string.Empty;
+                            response.Data = ID;
                         }
 
                     }

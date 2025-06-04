@@ -1,6 +1,8 @@
 using BG_IMPACT.Business;
 using BG_IMPACT.DTO.Models;
 using BG_IMPACT.Infrastructure.Extensions;
+using BG_IMPACT.Repository.Repositories.Implementations;
+using BG_IMPACT.Repository.Repositories.Interfaces;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -37,6 +39,8 @@ AppGlobals.Username = builder.Configuration["Admin:Username"] ?? string.Empty;
 AppGlobals.Password = builder.Configuration["Admin:Password"] ?? string.Empty;
 AppGlobals.ID = Guid.Parse(builder.Configuration["Admin:ID"] ?? string.Empty);
 
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddTransient<IEmailServiceRepository, EmailServiceRepository>();
 builder.Services.AddAuthorization();
 builder.Services.AddSwaggerGen(x =>
 {

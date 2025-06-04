@@ -47,12 +47,21 @@ namespace BG_IMPACT.Business.Command.ConsignmentOrder.Commands
                             response.StatusCode = "404";
                             response.Message = "Không tìm thấy nhóm sản phẩm.";
                         }
+                        else if (count == 2)
+                        {
+                            response.StatusCode = "404";
+                            response.Message = "Bạn không có quyền cập nhật đơn hàng này";
+                        }
+                        else if (count == 3)
+                        {
+                            response.StatusCode = "404";
+                            response.Message = "Không tìm thấy nhân viên thuộc cửa hàng đó";
+                        }
                         else
                         {
                             response.StatusCode = "200";
                             response.Message = "Hủy sản phẩm thành công.";
-                            string consignmentOrderID = dict["ConsignmentOrderID"].ToString() ?? string.Empty;
-                            response.Data = consignmentOrderID;
+                            
                         }
 
                     }
