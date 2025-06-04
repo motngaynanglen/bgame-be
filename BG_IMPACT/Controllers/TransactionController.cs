@@ -22,7 +22,7 @@ namespace BG_IMPACT.Controllers
         }
 
         [HttpPost("perform-transaction")]
-        public async Task<IActionResult> PerformTransaction(PerformTransactionQuery query)
+        public async Task<IActionResult> PerformTransaction(PerformTransactionCommand query)
         {
             try
             {
