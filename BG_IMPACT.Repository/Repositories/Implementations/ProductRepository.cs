@@ -117,5 +117,12 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryAsync("spProductGetByCode", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+
+        public async Task<object?> spProductGetTemplateByAdmin(object param)
+        {
+            object? result = await _connection.QueryAsync("spProductGetTemplateByAdmin", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        
     }
 }
