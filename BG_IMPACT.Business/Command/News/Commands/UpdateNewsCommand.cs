@@ -14,6 +14,7 @@ namespace BG_IMPACT.Business.Command.News.Commands
         public string NewsId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        public string Image { get; set; }
         public string Status { get; set; }
         
 
@@ -46,6 +47,7 @@ namespace BG_IMPACT.Business.Command.News.Commands
                         request.NewsId,
                         request.Title,
                         request.Content,
+                        request.Image,
                         request.Status,
                         UserId,
                     };

@@ -15,6 +15,8 @@ namespace BG_IMPACT.Business.Command.News.Commands
         public string Title { get; set; }
         [Required]
         public string Content { get; set; }
+        
+        public string Image { get; set; }
 
         public class CreateNewsCommandHandler : IRequestHandler<CreateNewsCommand, ResponseObject>
         {
@@ -43,6 +45,7 @@ namespace BG_IMPACT.Business.Command.News.Commands
                     {
                         request.Title,
                         request.Content,
+                        request.Image,
                         UserId,
                     };
 
