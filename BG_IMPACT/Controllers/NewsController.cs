@@ -101,7 +101,7 @@ namespace BG_IMPACT.Controllers
         }
 
         [Authorize(Roles = "MANAGER,STAFF")]
-        [HttpPost("deactive-news")]
+        [HttpPost("deactive-active-news")]
         public async Task<IActionResult> DeactiveNews(DeactiveNewsCommand command)
         {
             try
