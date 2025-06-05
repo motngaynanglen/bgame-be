@@ -1,7 +1,10 @@
-﻿namespace BG_IMPACT.Business.Command.Order.Queries
+﻿using BG_IMPACT.DTO.Models;
+
+namespace BG_IMPACT.Business.Command.Order.Queries
 {
     public class GetOrderHistoryQuery : IRequest<ResponseObject>
     {
+        public Filter? Filter { get; set; }
         public Paging Paging { get; set; } = new();
         public class GetOrderHistoryQueryHandler : IRequestHandler<GetOrderHistoryQuery, ResponseObject>
         {
@@ -26,6 +29,7 @@
                 {
                     UserID,
                     Role,
+                    request.Filter?.Status,
                     request.Paging.PageNum,
                     request.Paging.PageSize
                 };
