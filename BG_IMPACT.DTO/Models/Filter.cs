@@ -13,5 +13,6 @@ namespace BG_IMPACT.DTO.Models
         public List<string>? Categories { get; set; } = [];
         public string CategoryList { get => String.Join(", ", Categories ?? []) ?? string.Empty;}
         public bool? InStock { get; set; }
+        public string? Status { get; set; }
     }
 }
