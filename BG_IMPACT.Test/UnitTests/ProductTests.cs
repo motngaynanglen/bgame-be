@@ -425,7 +425,7 @@ namespace BG_IMPACT.Test.UnitTests
         {
             var param = new
             {
-                Code = "Nana-T0001-0000025",
+                Code = "CCN-T0001-0000002",
                 IsTest = true
             };
             var result = await _productRepository.spProductChangeToSales(param);
@@ -489,7 +489,7 @@ namespace BG_IMPACT.Test.UnitTests
         {
             var param = new
             {
-                ProductID = "021BF68A-7C2C-4D1F-A2A3-16DA4C5CB747",
+                ProductID = "529E76BD-3FFE-4B5D-8727-283620453E30",
                 ProductName = "Nana",
                 Image = "Nana",
                 Price = 1,
