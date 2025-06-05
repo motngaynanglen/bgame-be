@@ -11,6 +11,7 @@ namespace BG_IMPACT.Repository.Repositories.Interfaces
         Task<object> spNewsCreate(object param);
         Task<object> spNewsUpdate(object param);
         Task<object> spNewsGetList(object param);
+        Task<object> spNewsGetById(object param);
         Task<object> spNewsGetListPageData(object param);
         Task<object> spNewsDeactive(object param);
     }
