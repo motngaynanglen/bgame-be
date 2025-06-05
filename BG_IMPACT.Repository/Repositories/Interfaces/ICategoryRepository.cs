@@ -11,7 +11,8 @@ namespace BG_IMPACT.Repository.Repositories.Interfaces
         Task<object> spCategoryCreate(object param);
         Task<object> spCategoryUpdate(object param);
         Task<object> spCategoryGetList();
-        Task<object> spCategoryGetListByAdmin();
+        Task<object> spCategoryGetListByAdmin(object param);
+        Task<object> spCategoryGetListByAdminPageData(object param);
         Task<object> spCategoryDeactive(object param);
         
     }
