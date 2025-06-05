@@ -73,7 +73,7 @@ namespace BG_IMPACT.Controllers
         }
         
 
-        [Authorize(Roles = "MANAGER,STAFF")]
+        [Authorize(Roles = "ADMIN")]
         [HttpPost("create-category")]
         public async Task<IActionResult> CreateCategory(CreateCategoryCommand command)
         {
