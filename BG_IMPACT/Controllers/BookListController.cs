@@ -4,9 +4,24 @@
     [ApiController]
     public class BookListController : ControllerBase
     {
-        [Authorize(Roles = "STAFF,CUSTOMER")]
+        [Authorize(Roles = "CUSTOMER")]
         [HttpPost("create-booklist-by-customer")]
         public async Task<IActionResult> CreateBookList(CreateBookListByCustomerCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "STAFF")]
+        [HttpPost("create-booklist-by-staff")]
+        public async Task<IActionResult> CreateBookListByStaff(CreateBookListByStaffCommand command)
         {
             try
             {
