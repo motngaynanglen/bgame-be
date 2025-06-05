@@ -53,6 +53,7 @@ namespace BG_IMPACT.Business.Command.Order.Queries
                 public double total_price { get; set; }
                 public string order_status { get; set; }
                 public DateTime order_created_at { get; set; }
+                public bool is_delivery {  get; set; }
                 public List<OrderItemDto> order_items { get; set; }
             }
 
