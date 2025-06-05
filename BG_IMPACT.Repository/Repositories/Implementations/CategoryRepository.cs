@@ -37,9 +37,9 @@ namespace BG_IMPACT.Repository.Repositories.Implementations
             object? result = await _connection.QueryAsync("spCategoryGetList", commandType: CommandType.StoredProcedure);
             return result;
         }
-        public async Task<object> spCategoryGetListByAdmin(object param)
+        public async Task<object> spCategoryGetListByAdmin()
         {
-            object? result = await _connection.QueryAsync("spCategoryGetListByAdmin", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryAsync("spCategoryGetListByAdmin", commandType: CommandType.StoredProcedure);
             return result;
         }
         public async Task<object> spCategoryGetListByAdminPageData(object param)
