@@ -24,7 +24,15 @@ namespace BG_IMPACT.Business.Command.Product.Queries
                 {
                     request.Search,
                     request.Paging.PageNum,
-                    request.Paging.PageSize
+                    request.Paging.PageSize,
+                    request.Filter?.MinPrice,
+                    request.Filter?.MaxPrice,
+                    request.Filter?.MinNumberOfPlayers,
+                    request.Filter?.MaxNumberOfPlayer,
+                    request.Filter?.Age,
+                    request.Filter?.Duration,
+                    request.Filter?.CategoryList,
+                    request.Filter?.InStock
                 };
 
                 object param2 = new

@@ -63,7 +63,7 @@
                 Email = "bgcf@gmail.com",
                 PhoneNumber = "03212256482",
                 Status = "ACTIVE",
-                UpdatedBy = "14ece14e-ace2-416a-92b8-56d92a7abcca",
+                ManagerId = "14ece14e-ace2-416a-92b8-56d92a7abcca",
                 IsTest = true
             };
             var result = await _supplierRepository.spSupplierUpdate(param);
@@ -92,7 +92,7 @@
                 Email = "bgcf@gmail.com",
                 PhoneNumber = "03212256482",
                 Status = "ACTIVE",
-                UpdatedBy = "14ece14e-ace2-416a-92b8-56d92a7abcca",
+                ManagerId = "14ece14e-ace2-416a-92b8-56d92a7abcca",
                 IsTest = true
             };
             var result = await _supplierRepository.spSupplierUpdate(param);
