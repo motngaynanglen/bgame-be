@@ -58,6 +58,7 @@ namespace BG_IMPACT.Business.Command.BookList.Queries
                 public string? book_item_status { get; set; }
                 public DateTime? book_item_created_at { get; set; }
                 public Guid? product_id { get; set; }
+                public string? product_code { get; set; }
                 public Guid? product_template_id { get; set; }
                 public string? template_product_name { get; set; }
                 public string? template_image { get; set; }
