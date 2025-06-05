@@ -157,6 +157,38 @@ namespace BG_IMPACT.Controllers
                 return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
+
+        [Authorize(Roles = "CUSTOMER")]
+        [HttpPost("cancel-order-by-customer")]
+        public async Task<IActionResult> CancelOrderByCus([FromBody] CancelOrderCommand query)
+        {
+            try
+            {
+                ResponseObject result = await _mediator.Send(query);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
+            }
+            catch
+            {
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
+            }
+        }
+
+        
         [Authorize(Roles = "STAFF")]
         [HttpPost("update-order-delivery-info")]
         public async Task<IActionResult> UpdateOrderDeliveryInfo([FromBody] UpdateOrderDeliveryInfoCommand query)
