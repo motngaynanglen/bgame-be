@@ -13,6 +13,7 @@
         Task<object?> spGetBookListCountByManager(object param);
         Task<object?> spGetRevenuePerDayByMonth(object param);
         Task<object?> spGetRevenuePerMonth(object param);
+        Task<object?> spDashboardAdminRevenue();
 
 
     }
