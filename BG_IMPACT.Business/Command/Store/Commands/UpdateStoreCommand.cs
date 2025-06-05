@@ -12,8 +12,8 @@ namespace BG_IMPACT.Business.Command.Store.Commands
         public string Image { get; set; }
         public string Address { get; set; }
         public string Hotline { get; set; }
-        public string Lattitude { get; set; }
-        public string Longtitude { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
         public string Email { get; set; }
 
 
@@ -38,8 +38,8 @@ namespace BG_IMPACT.Business.Command.Store.Commands
                         request.Image,
                         request.Address,
                         request.Hotline,
-                        request.Lattitude,
-                        request.Longtitude,
+                        request.Latitude,
+                        request.Longitude,
                         request.Email,
                     };
 
