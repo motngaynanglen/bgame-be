@@ -12,6 +12,5 @@ namespace BG_IMPACT.DTO.Models
         public static string Username {  get; set; } = string.Empty;
         public static string Password { get; set; } = string.Empty;
         public static Guid ID { get; set; }
-
     }
 }
