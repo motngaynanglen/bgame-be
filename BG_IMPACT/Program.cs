@@ -35,9 +35,8 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-AppGlobals.Username = builder.Configuration["Admin:Username"] ?? string.Empty;
-AppGlobals.Password = builder.Configuration["Admin:Password"] ?? string.Empty;
-AppGlobals.ID = Guid.Parse(builder.Configuration["Admin:ID"] ?? string.Empty);
+AppGlobalsConfig.Initialize(builder.Configuration);
+MessageCode.Initialize();
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddTransient<IEmailServiceRepository, EmailServiceRepository>();
