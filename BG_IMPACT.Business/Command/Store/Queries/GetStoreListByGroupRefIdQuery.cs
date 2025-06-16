@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BG_IMPACT.DTO.Models.PagingModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace BG_IMPACT.Business.Command.Store.Queries
 {

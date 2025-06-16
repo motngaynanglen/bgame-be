@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BG_IMPACT.DTO.Models
+namespace BG_IMPACT.DTO.Models.Configs.GlobalSetting
 {
     public class EmailSettings
     {

@@ -1,10 +1,7 @@
 using BG_IMPACT.Business;
 using BG_IMPACT.Config;
-using BG_IMPACT.DTO.Models;
+using BG_IMPACT.DTO.Models.Configs.Message;
 using BG_IMPACT.Infrastructure.Extensions;
-using BG_IMPACT.Repository.Repositories.Implementations;
-using BG_IMPACT.Repository.Repositories.Interfaces;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
