@@ -1,5 +1,4 @@
 ﻿using BG_IMPACT.Business.Command.Supplier.Queries;
-using BG_IMPACT.DTO.Models.PagingModels;
 using BG_IMPACT.Repository.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;

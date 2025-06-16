@@ -1,6 +1,4 @@
-﻿using BG_IMPACT.DTO.Models.PagingModels;
-
-namespace BG_IMPACT.Business.Command.BookList.Queries
+﻿namespace BG_IMPACT.Business.Command.BookList.Queries
 {
     public class GetBookListHistoryQuery : IRequest<ResponseObject>
     {

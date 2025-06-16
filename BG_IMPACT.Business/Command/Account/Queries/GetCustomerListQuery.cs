@@ -1,6 +1,4 @@
-﻿using BG_IMPACT.DTO.Models.PagingModels;
-
-namespace BG_IMPACT.Business.Command.Account.Queries
+﻿namespace BG_IMPACT.Business.Command.Account.Queries
 {
     public class GetCustomerListQuery : IRequest<ResponseObject>
     {
