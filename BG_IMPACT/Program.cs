@@ -1,4 +1,5 @@
 using BG_IMPACT.Business;
+using BG_IMPACT.Config;
 using BG_IMPACT.DTO.Models;
 using BG_IMPACT.Infrastructure.Extensions;
 using BG_IMPACT.Repository.Repositories.Implementations;
@@ -38,8 +39,6 @@ builder.Services.AddAuthentication(x =>
 AppGlobalsConfig.Initialize(builder.Configuration);
 MessageCode.Initialize();
 
-builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
-builder.Services.AddTransient<IEmailServiceRepository, EmailServiceRepository>();
 builder.Services.AddAuthorization();
 builder.Services.AddSwaggerGen(x =>
 {
@@ -73,7 +72,7 @@ builder.Services.AddSwaggerGen(x =>
     });
 });
 
-//builder.Services.AddSwaggerGen();
+builder.Services.EmailConfiguration(builder.Configuration);
 builder.Services.DependencyInject(builder.Configuration);
 builder.Services.AddMediatR(cfg =>
 {
