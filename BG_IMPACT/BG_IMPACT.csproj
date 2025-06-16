@@ -30,4 +30,8 @@
     <ProjectReference Include="..\BG_IMPACT.Business\BG_IMPACT.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Middleware\" />
+  </ItemGroup>
+
 </Project>

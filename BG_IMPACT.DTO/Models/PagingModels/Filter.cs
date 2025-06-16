@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace BG_IMPACT.DTO.Models
+namespace BG_IMPACT.DTO.Models.PagingModels
 {
     public class Filter
     {
@@ -11,7 +11,7 @@ namespace BG_IMPACT.DTO.Models
         public long? Age { get; set; }
         public long? Duration { get; set; }
         public List<string>? Categories { get; set; } = [];
-        public string CategoryList { get => String.Join(", ", Categories ?? []) ?? string.Empty;}
+        public string CategoryList { get => string.Join(", ", Categories ?? []) ?? string.Empty;}
         public bool? InStock { get; set; }
         public string? Status { get; set; }
     }

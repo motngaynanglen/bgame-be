@@ -75,7 +75,10 @@
 
         private static void AddMessage(string key, string status, string message)
         {
-            Messages.Add(key, new MessageData { StatusCode = status, Message = message });
+            if (!Messages.ContainsKey(key))
+            {
+                Messages.Add(key, new MessageData { StatusCode = status, Message = message });
+            }
         }
 
         public static MessageData Get(string code)

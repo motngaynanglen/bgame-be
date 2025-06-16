@@ -1,4 +1,4 @@
-﻿using BG_IMPACT.DTO.Models;
+﻿using BG_IMPACT.DTO.Models.Configs.GlobalSetting;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;

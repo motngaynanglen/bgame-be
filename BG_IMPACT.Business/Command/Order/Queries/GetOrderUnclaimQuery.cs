@@ -1,6 +1,4 @@
-﻿using BG_IMPACT.DTO.Models.PagingModels;
-
-namespace BG_IMPACT.Business.Command.Order.Queries
+﻿namespace BG_IMPACT.Business.Command.Order.Queries
 {
     public class GetOrderGetUnclaimQuery : IRequest<ResponseObject>
     {
