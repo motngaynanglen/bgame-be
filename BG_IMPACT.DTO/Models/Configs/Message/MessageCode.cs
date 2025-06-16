@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BG_IMPACT.DTO.Models
+﻿namespace BG_IMPACT.DTO.Models.Configs.Message
 {
-    public class MessageData {
-        public string StatusCode { get; set; } = string.Empty;
-        public string Message { get; set; } = string.Empty;
-    }
     public static class MessageCode
     {
         public static Dictionary<string, MessageData> Messages { get; set; } = new();
@@ -26,7 +16,7 @@ namespace BG_IMPACT.DTO.Models
         private static void AccountInitialize()
         {
             //StatusCode - 200
-            AddMessage("XXX", "200", "XXX");
+            AddMessage("100", "200", "Tạo tài khoản thành công.");
 
             //StatusCode - 403
             AddMessage("XXX", "403", "XXX");

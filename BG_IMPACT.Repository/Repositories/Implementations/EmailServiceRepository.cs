@@ -6,8 +6,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using BG_IMPACT.Repository.Repositories.Interfaces;
-using BG_IMPACT.DTO.Models;
 using Microsoft.Extensions.Options;
+using BG_IMPACT.DTO.Models.Configs.GlobalSetting;
 
 
 namespace BG_IMPACT.Repository.Repositories.Implementations

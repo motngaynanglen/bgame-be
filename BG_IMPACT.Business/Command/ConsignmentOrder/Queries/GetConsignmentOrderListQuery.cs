@@ -1,4 +1,6 @@
-﻿namespace BG_IMPACT.Business.Command.BookList.Queries
+﻿using BG_IMPACT.DTO.Models.PagingModels;
+
+namespace BG_IMPACT.Business.Command.BookList.Queries
 {
     public class GetConsignmentOrderListQuery : IRequest<ResponseObject>
     {

@@ -1,4 +1,6 @@
-﻿namespace BG_IMPACT.Business.Command.Product.Queries
+﻿using BG_IMPACT.DTO.Models.PagingModels;
+
+namespace BG_IMPACT.Business.Command.Product.Queries
 {
     public class GetProductByTemplateAndConditionQuery : IRequest<ResponseObject>
     {

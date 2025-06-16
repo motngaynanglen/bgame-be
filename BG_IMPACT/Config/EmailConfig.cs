@@ -1,4 +1,4 @@
-﻿using BG_IMPACT.DTO.Models;
+﻿using BG_IMPACT.DTO.Models.Configs.GlobalSetting;
 using BG_IMPACT.Repository.Repositories.Implementations;
 using BG_IMPACT.Repository.Repositories.Interfaces;
 

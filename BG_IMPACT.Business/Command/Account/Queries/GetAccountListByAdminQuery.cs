@@ -1,4 +1,6 @@
-﻿namespace BG_IMPACT.Business.Command.Account.Queries
+﻿using BG_IMPACT.DTO.Models.PagingModels;
+
+namespace BG_IMPACT.Business.Command.Account.Queries
 {
     public class GetAccountListByAdminQuery : IRequest<ResponseObject>
     {
