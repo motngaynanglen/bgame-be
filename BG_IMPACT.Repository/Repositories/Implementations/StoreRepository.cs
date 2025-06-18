@@ -59,10 +59,10 @@ namespace BG_IMPACT.Repositories.Implementations
             object result = await _connection.QueryAsync("spStoreGetListByGroupRefId", param, commandType: CommandType.StoredProcedure);
             return result;
         }
-
-        public Task<object?> spStoreUpdate(object param)
+        public async Task<object> spStoreUpdate(object param)
         {
-            throw new NotImplementedException();
+            object result = await _connection.QueryFirstOrDefaultAsync("spStoreUpdate", param, commandType: CommandType.StoredProcedure);
+            return result;
         }
     }
 }

@@ -425,7 +425,7 @@ namespace BG_IMPACT.Test.UnitTests
         {
             var param = new
             {
-                Code = "UKN-T0001-0000068",
+                Code = "CCN-T0001-0000002",
                 IsTest = true
             };
             var result = await _productRepository.spProductChangeToSales(param);
@@ -489,19 +489,19 @@ namespace BG_IMPACT.Test.UnitTests
         {
             var param = new
             {
-                ProductID = "3a11988f-6597-489d-961d-001927834a33",
+                ProductID = "529E76BD-3FFE-4B5D-8727-283620453E30",
                 ProductName = "Nana",
                 Image = "Nana",
-                Price = "Nana",
-                RentPrice = "Nana",
-                RentPricePerHour = "Nana",
-                ProducPublishertID = "Nana",
-                Age = "Nana",
-                NumberOfPlayerMin = "Nana",
-                NumberOfPlayerMax = "Nana",
-                HardRank = "Nana",
+                Price = 1,
+                RentPrice = 1,
+                RentPricePerHour = 1,
+                Publisher = "Nana",
+                Age = 1,
+                NumberOfPlayerMin = 1,
+                NumberOfPlayerMax = 1,
+                Difficulty = 1,
                 Description = "Nana",
-                ManagerID = "Nana",
+                UserID = "14ece14e-ace2-416a-92b8-56d92a7abcca",
                 IsTest = true
             };
             var result = await _productRepository.spProductUpdate(param);

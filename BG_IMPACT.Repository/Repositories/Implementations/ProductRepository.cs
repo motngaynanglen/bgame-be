@@ -100,6 +100,12 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
+        public async Task<object?> spGetProductsByTemplateAndConditionPageData(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spGetProductsByTemplateAndConditionPageData", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
         public async Task<object?> spProductGetListPageData(object param)
         {
             object? result = await _connection.QueryFirstOrDefaultAsync("spProductGetListPageData", param, commandType: CommandType.StoredProcedure);

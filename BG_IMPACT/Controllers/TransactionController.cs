@@ -1,5 +1,4 @@
-﻿using BG_IMPACT.Business.Command.Transaction.Queries;
-using BG_IMPACT.Models;
+﻿using BG_IMPACT.Models;
 
 namespace BG_IMPACT.Controllers
 {

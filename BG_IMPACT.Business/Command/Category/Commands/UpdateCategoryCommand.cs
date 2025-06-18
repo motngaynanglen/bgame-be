@@ -37,7 +37,7 @@ namespace BG_IMPACT.Business.Command.Category.Commands
                 var context = _httpContextAccessor.HttpContext;
                 string? UserId = null;
 
-                if (context != null && context.GetRole() == "MANAGER" || context.GetRole() == "STAFF")
+                if (context != null && (context.GetRole() == "ADMIN"))
                 {
                     UserId = context.GetName();
 

@@ -1,4 +1,5 @@
-﻿using BG_IMPACT.Infrastructure.Services;
+﻿using BG_IMPACT.DTO.Models;
+using BG_IMPACT.Infrastructure.Services;
 using BG_IMPACT.Repositories.Implementations;
 using BG_IMPACT.Repositories.Interfaces;
 using BG_IMPACT.Repository.Repositories.Implementations;
@@ -6,6 +7,7 @@ using BG_IMPACT.Repository.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace BG_IMPACT.Infrastructure.Extensions
 {

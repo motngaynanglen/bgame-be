@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CloudinaryDotNet;
+using System.ComponentModel.DataAnnotations;
 
 namespace BG_IMPACT.Business.Command.Transaction.Commands
 {
@@ -8,6 +9,7 @@ namespace BG_IMPACT.Business.Command.Transaction.Commands
         public Guid ReferenceID { get; set; }
         [Required]
         public int Type { get; set; }
+        public bool? IsOffline { get; set; } = false;
         public class PerformTransactionCommandHandler : IRequestHandler<PerformTransactionCommand, ResponseObject>
         {
             public readonly ITransactionRepository _transactionRepository;
@@ -30,7 +32,8 @@ namespace BG_IMPACT.Business.Command.Transaction.Commands
                 object param = new
                 {
                     request.ReferenceID,
-                    request.Type
+                    request.Type,
+                    request.IsOffline
                 };
 
                 await payOS.confirmWebhook("https://bg-impact.io.vn/api/Transaction/get-online-payment-response");
@@ -42,7 +45,9 @@ namespace BG_IMPACT.Business.Command.Transaction.Commands
                 var code = list.Select(x => x.code).FirstOrDefault()?.ToString();
                 var items = list.Select(x => new ItemData(x.product_name, 1, (int)x.price)).ToList();
 
-                var paymentLinkRequest = new PaymentData(
+                if (request.IsOffline == null || request.IsOffline == false)
+                {
+                    var paymentLinkRequest = new PaymentData(
                     orderCode: int.Parse(DateTimeOffset.Now.ToString("ffffff")),
                     amount: items.Sum(x => x.price),
                     description: code,
@@ -51,14 +56,28 @@ namespace BG_IMPACT.Business.Command.Transaction.Commands
                     cancelUrl: domain
                 );
 
-                var url = await payOS.createPaymentLink(paymentLinkRequest);
-                object resParam = new
-                {
-                    url.checkoutUrl,
-                    url.qrCode,
-                };
+                    var url = await payOS.createPaymentLink(paymentLinkRequest);
+                    object resParam = new
+                    {
+                        url.checkoutUrl,
+                        url.qrCode,
+                    };
 
-                response.Data = resParam;
+                    response.StatusCode = "200";
+                    response.Data = resParam;
+                }
+                else
+                { 
+                    object param2 = new
+                    {
+                        Code = code
+                    };
+
+                    var result2 = await _transactionRepository.spCheckOnlinePayment(param2);
+
+                    response.StatusCode = "200";
+                    response.Data = "Đã thanh toán thành công.";
+                }
 
                 return response;
             }

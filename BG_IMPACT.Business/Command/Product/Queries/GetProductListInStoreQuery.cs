@@ -1,4 +1,4 @@
-﻿using BG_IMPACT.DTO.Models;
+﻿using BG_IMPACT.DTO.Models.PagingModels;
 
 namespace BG_IMPACT.Business.Command.Product.Queries
 {

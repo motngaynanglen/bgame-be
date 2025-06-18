@@ -336,6 +336,35 @@ namespace BG_IMPACT.Controllers
             }
         }
 
+        [Authorize(Roles = "ADMIN")]
+        [HttpPost("get-revenue-by-admin")]
+        public async Task<IActionResult> GetAllRevenueByAdnin(GetAllRevenueByAdminQuery command)
+        {
+            try
+            {
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
+            }
+        }
 
     }
 }

@@ -139,7 +139,7 @@
         {
             var param = new
             {
-                GroupRefID = "90ecca84-0f64-4610-a42d-021303794d9z",
+                GroupRefID = "AD3131E8-D130-47DD-919A-DB246F9D5A62",
                 GroupRefName = "UIT2",
                 Description = "UITest 2 Test",
                 IsTest = true

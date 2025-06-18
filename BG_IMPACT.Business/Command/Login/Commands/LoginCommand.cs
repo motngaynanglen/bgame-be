@@ -1,4 +1,4 @@
-﻿using BG_IMPACT.DTO.Models;
+﻿using BG_IMPACT.DTO.Models.Configs.GlobalSetting;
 using CloudinaryDotNet.Actions;
 using System.ComponentModel.DataAnnotations;
 using System.Data;

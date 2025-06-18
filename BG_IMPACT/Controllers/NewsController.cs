@@ -39,6 +39,35 @@ namespace BG_IMPACT.Controllers
 
         }
 
+        [HttpPost("get-news-by-id")]
+        public async Task<IActionResult> GetNewsById(GetNewsByIdQuery command)
+        {
+            try
+            {
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
+            }
+            catch
+            {
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
+            }
+
+        }
         [Authorize(Roles = "MANAGER,STAFF")]
         [HttpPost("create-news")]
         public async Task<IActionResult> CreateNews(CreateNewsCommand command)
@@ -101,7 +130,7 @@ namespace BG_IMPACT.Controllers
         }
 
         [Authorize(Roles = "MANAGER,STAFF")]
-        [HttpPost("deactive-news")]
+        [HttpPost("deactive-active-news")]
         public async Task<IActionResult> DeactiveNews(DeactiveNewsCommand command)
         {
             try

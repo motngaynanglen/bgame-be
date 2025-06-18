@@ -76,7 +76,8 @@
                                 .Where(i => i.book_list_id == x.Key.id)
                                 .Select(t => new
                                 {
-                                    t.product_name,
+                                    t.ProductName,
+                                    t.TemplateImage,
                                     t.rent_price,
                                     t.rent_price_per_hour,
                                     t.condition,
