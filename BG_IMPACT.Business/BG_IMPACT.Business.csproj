@@ -13,7 +13,6 @@
     <Folder Include="Command\Email\Queries\" />
     <Folder Include="Command\Login\Queries\" />
     <Folder Include="Command\SupplyItem\Commands\" />
-    <Folder Include="Command\OrderItem\Queries\" />
     <Folder Include="Command\SupplyItem\Queries\" />
     <Folder Include="Command\SupplyOrder\Queries\" />
   </ItemGroup>
