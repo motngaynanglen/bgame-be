@@ -74,14 +74,18 @@ namespace BG_IMPACT.Business.Command.Order.Queries
                     return orderDict;
                 }).ToList();
 
-                var orderIds = ordersCleaned.Select(o => (Guid)o["Id"]).ToList();
-                var orderItemsRaw = await _itemRepository.spOrderItemGetItemsByOrderIds(orderIds);
+                var orderIds = ordersCleaned.Select(o => (Guid)o["id"]).ToList();
+                object OrderIDListParam = new
+                {
+                    OrderIDList = string.Join(",", orderIds),
+                };
+                var orderItemsRaw = await _itemRepository.spOrderItemGetItemsByOrderIds(OrderIDListParam);
                 var orderItems = ((IEnumerable<dynamic>)orderItemsRaw).ToList();
 
                 foreach (var order in ordersCleaned)
                 {
-                    var orderId = (Guid)order["Id"];
-                    order["Items"] = orderItems.Where(i => i.OrderId == orderId).ToList();
+                    var orderId = (Guid)order["id"];
+                    order["Items"] = orderItems.Where(i => i.order_id == orderId).ToList();
                 }
                 var pageCount = (int)Math.Ceiling((double)totalCount / request.Paging.PageSize);
 
