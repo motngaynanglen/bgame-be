@@ -18,6 +18,22 @@ namespace BG_IMPACT.Repositories.Implementations
                 _connection.OpenAsync().GetAwaiter().GetResult();
             }
         }
+
+        public async Task<object?> spDashboardCountTodayActiveOrdersByStaff(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spDashboardCountTodayActiveOrdersByStaff", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        public async Task<object?> spDashboardCountTodayActiveBookListByStaff(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spDashboardCountTodayActiveBookListByStaff", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        public async Task<object?> spDashboardCountTodayAvaiableOrderByStaff(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spDashboardCountTodayAvaiableOrderByStaff", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
         public async Task<object?> spGetTodayOrderRevenueByStaff(object param)
         {
             object? result = await _connection.QueryFirstOrDefaultAsync("spGetTodayOrderRevenueByStaff", param, commandType: CommandType.StoredProcedure);
@@ -31,11 +47,6 @@ namespace BG_IMPACT.Repositories.Implementations
         public async Task<object?> spGetPendingOrdersCountByStaff(object param)
         {
             object? result = await _connection.QueryFirstOrDefaultAsync("spGetPendingOrdersCountByStaff", param, commandType: CommandType.StoredProcedure);
-            return result;
-        }
-        public async Task<object?> spGetTodayActiveOrdersByStaff(object param)
-        {
-            object? result = await _connection.QueryFirstOrDefaultAsync("spGetTodayActiveOrdersByStaff", param, commandType: CommandType.StoredProcedure);
             return result;
         }
         public async Task<object?> spGetPendingBookListCountToday(object param)

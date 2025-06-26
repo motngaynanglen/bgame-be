@@ -7,6 +7,96 @@ namespace BG_IMPACT.Controllers
     public class DashboardController : ControllerBase
     {
         [Authorize(Roles = "STAFF")]
+        [HttpPost("dashboard-get-active-order-today-by-staff")]
+        public async Task<IActionResult> GetActiveOrdersByStaff(GetActiveOrdersCountByStaffQuery command)
+        {
+            try
+            {
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
+            }
+        }
+
+        [Authorize(Roles = "STAFF")]
+        [HttpPost("dashboard-get-active-booklist-today-by-staff")]
+        public async Task<IActionResult> GetActiveBookListByStaff(GetActiveBookListsCountByStaffQuery command)
+        {
+            try
+            {
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
+            }
+        }
+        
+        [Authorize(Roles = "STAFF")]
+        [HttpPost("dashboard-get-avaiable-order-today-by-staff")]
+        public async Task<IActionResult> GetAvaiableOrderCountByStaff(GetAvaiableOrdersCountByStaffQuery command)
+        {
+            try
+            {
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
+            }
+        }
+
+        [Authorize(Roles = "STAFF")]
         [HttpPost("get-today-order-revenue")]
         public async Task<IActionResult> GetTodayOrderRevenueByStaff(GetTodayOrderRevenueByStaffQuery command)
         {
@@ -69,36 +159,6 @@ namespace BG_IMPACT.Controllers
         [Authorize(Roles = "STAFF")]
         [HttpPost("get-pending-order-today-by-staff")]
         public async Task<IActionResult> GetPendingOrdersByStaff(GetPendingOrdersCountByStaffQuery command)
-        {
-            try
-            {
-                ResponseObject result = await _mediator.Send(command);
-                if (result.StatusCode == "200")
-                {
-                    return Ok(result);
-                }
-                else if (result.StatusCode == "403")
-                {
-                    return Forbid();
-                }
-                else if (result.StatusCode == "422")
-                {
-                    return UnprocessableEntity(result);
-                }
-                else
-                {
-                    return NotFound(result);
-                }
-            }
-            catch (Exception ex)
-            {
-                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
-            }
-        }
-
-        [Authorize(Roles = "STAFF")]
-        [HttpPost("get-active-order-today-by-staff")]
-        public async Task<IActionResult> GetActiveOrdersByStaff(GetActiveOrdersCountByStaffQuery command)
         {
             try
             {

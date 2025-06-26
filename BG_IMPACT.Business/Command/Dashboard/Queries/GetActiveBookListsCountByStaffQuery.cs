@@ -1,18 +1,24 @@
-﻿namespace BG_IMPACT.Business.Command.Dashboard.Queries
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BG_IMPACT.Business.Command.Dashboard.Queries
 {
-    public class GetActiveOrdersCountByStaffQuery : IRequest<ResponseObject>
+    public class GetActiveBookListsCountByStaffQuery : IRequest<ResponseObject>
     {
-        public class GetActiveOrdersCountByStaffQueryHandler : IRequestHandler<GetActiveOrdersCountByStaffQuery, ResponseObject>
+        public class GetActiveBookListsCountByStaffQueryHandler : IRequestHandler<GetActiveBookListsCountByStaffQuery, ResponseObject>
         {
             private readonly IDashboardRepository _dashboardRepository;
             private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetActiveOrdersCountByStaffQueryHandler(IDashboardRepository dashboardRepository, IHttpContextAccessor httpContextAccessor)
+            public GetActiveBookListsCountByStaffQueryHandler(IDashboardRepository dashboardRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _dashboardRepository = dashboardRepository;
                 _httpContextAccessor = httpContextAccessor;
             }
-            public async Task<ResponseObject> Handle(GetActiveOrdersCountByStaffQuery request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(GetActiveBookListsCountByStaffQuery request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
                 var context = _httpContextAccessor.HttpContext;
@@ -24,7 +30,7 @@
                     UserID
                 };
 
-                var result = await _dashboardRepository.spDashboardCountTodayActiveOrdersByStaff(param);
+                var result = await _dashboardRepository.spDashboardCountTodayActiveBookListByStaff(param);
                 var dict = result as IDictionary<string, object>;
 
 

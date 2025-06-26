@@ -2,10 +2,12 @@
 {
     public interface IDashboardRepository
     {
+        Task<object?> spDashboardCountTodayActiveOrdersByStaff(object param);
+        Task<object?> spDashboardCountTodayActiveBookListByStaff(object param);
+        Task<object?> spDashboardCountTodayAvaiableOrderByStaff (object param);
         Task<object?> spGetTodayOrderRevenueByStaff(object param);
         Task<object?> spGetTodayBookListRevenueByStaff(object param);
         Task<object?> spGetPendingOrdersCountByStaff(object param);
-        Task<object?> spGetTodayActiveOrdersByStaff(object param);
         Task<object?> spGetPendingBookListCountToday(object param);
         Task<object?> spGetOrderRevenueByManager(object param);
         Task<object?> spGetBookListRevenueByManager(object param);
