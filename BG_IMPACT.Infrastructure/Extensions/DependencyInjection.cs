@@ -23,6 +23,7 @@ namespace BG_IMPACT.Infrastructure.Extensions
             services.AddScoped<IStoreRepository, StoreRepository>();
             services.AddScoped<IProductGroupRepository, ProductGroupRepository>();
             services.AddScoped<IProductGroupRefRepository, ProductGroupRefRepository>();
+            services.AddScoped<IProductTemplateRepository, ProductTemplateRepository>();
             services.AddScoped<IBookListRepository, BookListRepository>();
             services.AddScoped<IBookItemRepository, BookItemRepository>();
             services.AddScoped<IOrderItemRepository, OrderItemRepository>();
