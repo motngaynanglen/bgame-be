@@ -25,7 +25,9 @@ namespace BG_IMPACT.Business.Command.Product.Commands
         [Required]
         public int NumberOfPlayerMax { get; set; }
         public string Description { get; set; } = string.Empty;
-
+        public int? Duration { get; set; } = null;
+        public string ListCategories { get; set; } = string.Empty;
+        public string Publisher { get; set; } = string.Empty;
         public class CreateProductTemplateCommandHandler : IRequestHandler<CreateProductTemplateCommand, ResponseObject>
         {
             private readonly IProductRepository _productRepository;
@@ -64,6 +66,9 @@ namespace BG_IMPACT.Business.Command.Product.Commands
                         request.NumberOfPlayerMin,
                         request.NumberOfPlayerMax,
                         request.Description,
+                        request.Duration,
+                        request.ListCategories,
+                        request.Publisher,
                         ManagerID,
                     };
 
