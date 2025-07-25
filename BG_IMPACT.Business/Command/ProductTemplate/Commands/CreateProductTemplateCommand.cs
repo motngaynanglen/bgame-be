@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BG_IMPACT.Business.Command.Product.Commands
+namespace BG_IMPACT.Business.Command.ProductTemplate.Commands
 {
     public class CreateProductTemplateCommand : IRequest<ResponseObject>
     {
@@ -30,12 +30,12 @@ namespace BG_IMPACT.Business.Command.Product.Commands
         public string Publisher { get; set; } = string.Empty;
         public class CreateProductTemplateCommandHandler : IRequestHandler<CreateProductTemplateCommand, ResponseObject>
         {
-            private readonly IProductRepository _productRepository;
+            private readonly IProductTemplateRepository _productTemplateRepository;
             private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public CreateProductTemplateCommandHandler(IProductRepository productRepository, IHttpContextAccessor httpContextAccessor)
+            public CreateProductTemplateCommandHandler(IProductTemplateRepository productTemplateRepository, IHttpContextAccessor httpContextAccessor)
             {
-                _productRepository = productRepository;
+                _productTemplateRepository = productTemplateRepository;
                 _httpContextAccessor = httpContextAccessor;
             }
 
@@ -72,7 +72,7 @@ namespace BG_IMPACT.Business.Command.Product.Commands
                         ManagerID,
                     };
 
-                    var result = await _productRepository.spProductCreateTemplate(param);
+                    var result = await _productTemplateRepository.spProductTemplateCreate(param);
                     var dict = result as IDictionary<string, object>;
 
                     if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
