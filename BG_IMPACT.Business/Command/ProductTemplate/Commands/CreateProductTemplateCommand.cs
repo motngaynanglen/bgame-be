@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BG_IMPACT.Business.Command.Product.Commands
+namespace BG_IMPACT.Business.Command.ProductTemplate.Commands
 {
     public class CreateProductTemplateCommand : IRequest<ResponseObject>
     {
@@ -25,15 +25,17 @@ namespace BG_IMPACT.Business.Command.Product.Commands
         [Required]
         public int NumberOfPlayerMax { get; set; }
         public string Description { get; set; } = string.Empty;
-
+        public int? Duration { get; set; } = null;
+        public string ListCategories { get; set; } = string.Empty;
+        public string Publisher { get; set; } = string.Empty;
         public class CreateProductTemplateCommandHandler : IRequestHandler<CreateProductTemplateCommand, ResponseObject>
         {
-            private readonly IProductRepository _productRepository;
+            private readonly IProductTemplateRepository _productTemplateRepository;
             private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public CreateProductTemplateCommandHandler(IProductRepository productRepository, IHttpContextAccessor httpContextAccessor)
+            public CreateProductTemplateCommandHandler(IProductTemplateRepository productTemplateRepository, IHttpContextAccessor httpContextAccessor)
             {
-                _productRepository = productRepository;
+                _productTemplateRepository = productTemplateRepository;
                 _httpContextAccessor = httpContextAccessor;
             }
 
@@ -64,10 +66,13 @@ namespace BG_IMPACT.Business.Command.Product.Commands
                         request.NumberOfPlayerMin,
                         request.NumberOfPlayerMax,
                         request.Description,
+                        request.Duration,
+                        request.ListCategories,
+                        request.Publisher,
                         ManagerID,
                     };
 
-                    var result = await _productRepository.spProductCreateTemplate(param);
+                    var result = await _productTemplateRepository.spProductTemplateCreate(param);
                     var dict = result as IDictionary<string, object>;
 
                     if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
