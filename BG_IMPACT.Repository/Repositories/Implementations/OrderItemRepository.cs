@@ -18,6 +18,12 @@ namespace BG_IMPACT.Repositories.Interfaces
             }
         }
 
+        public async Task<object?> spOrderItemGetItemsByOrderIds(object param)
+        {
+            object? result = await _connection.QueryAsync("spOrderItemGetItemsByOrderIds", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
         public async Task<object?> spOrderItemUpdateProduct(object param)
         {
             object? result = await _connection.QueryFirstOrDefaultAsync("spOrderItemUpdateProduct", param, commandType: CommandType.StoredProcedure);

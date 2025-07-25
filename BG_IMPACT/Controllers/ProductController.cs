@@ -9,7 +9,7 @@ namespace BG_IMPACT.Controllers
 
         [Authorize(Roles = "MANAGER")]
         [HttpPost("create-template")]
-        public async Task<IActionResult> CreateTemplate(CreateProductTemplateCommand command)
+        public async Task<IActionResult> CreateTemplate(CreateProductTemplateOldCommand command)
         {
             try
             {
