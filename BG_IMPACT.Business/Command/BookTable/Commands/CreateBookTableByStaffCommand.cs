@@ -46,7 +46,7 @@ namespace BG_IMPACT.Business.Command.BookTable.Commands
                     TableIDListString,
                     UserId
                 };
-                var result = await _bookTableRepository.spBookTableCreateByCustomer(param);
+                var result = await _bookTableRepository.spBookTableCreateByStaff(param);
                 var dict = result as IDictionary<string, object>;
                 if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
                 {
