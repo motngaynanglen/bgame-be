@@ -10,7 +10,21 @@ namespace BG_IMPACT.Controllers
     {
         [Authorize(Roles = "CUSTOMER")]
         [HttpPost("create-booktable-by-customer")]
-        public async Task<IActionResult> CreateBookTable(CreateBookTableByCustomerCommand command)
+        public async Task<IActionResult> CreateBookTableByCustomer(CreateBookTableByCustomerCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        [Authorize(Roles = "STAFF")]
+        [HttpPost("create-booktable-by-staff")]
+        public async Task<IActionResult> CreateBookTableByStaff(CreateBookTableByStaffCommand command)
         {
             try
             {
