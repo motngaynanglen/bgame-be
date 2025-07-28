@@ -9,5 +9,8 @@ namespace BG_IMPACT.Repositories.Interfaces
     public interface IBookTableRepository
     {
         Task<object?> spBookTableCreateByCustomer(object param);
+        Task<object?> spBookTableGetStoreTimeTableByDate(object param);
+        Task<object?> spBookTableGetPaged(object param);
+
     }
 }

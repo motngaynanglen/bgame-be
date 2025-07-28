@@ -16,7 +16,8 @@ namespace BG_IMPACT.Business.Command.BookTable.Commands
         public DateTimeOffset BookDate { get; set; }
         public int FromSlot { get; set; }
         public int ToSlot { get; set; }
-        public List<string> TableIDList { get; set; } = new List<string>();
+        [Required]
+        public List<Guid> TableIDList { get; set; } = new List<Guid>();
         public class CreateBookTableByCustomerCommandHandler : IRequestHandler<CreateBookTableByCustomerCommand, ResponseObject>
         {
             private readonly IHttpContextAccessor _httpContextAccessor;
