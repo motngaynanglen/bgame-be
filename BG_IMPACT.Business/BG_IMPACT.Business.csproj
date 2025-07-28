@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Command\BookItem\Queries\" />
-    <Folder Include="Command\BookTable\Queries\" />
     <Folder Include="Command\Dashboard\Commands\" />
     <Folder Include="Command\Email\Queries\" />
     <Folder Include="Command\Login\Queries\" />

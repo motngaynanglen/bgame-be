@@ -28,5 +28,17 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spBookTableCreateByCustomer", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+
+        public async Task<object?> spBookTableGetPaged(object param)
+        {
+            object? result = await _connection.QueryAsync("spBookTableGetPaged", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spBookTableGetStoreTimeTableByDate(object param)
+        {
+            object? result = await _connection.QueryAsync("spBookTableGetStoreTimeTableByDate", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
     }
 }
