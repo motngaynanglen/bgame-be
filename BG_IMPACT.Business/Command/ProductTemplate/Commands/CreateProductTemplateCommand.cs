@@ -17,7 +17,7 @@ namespace BG_IMPACT.Business.Command.ProductTemplate.Commands
         [Required]
         public double RentPricePerHour { get; set; }
         [Required]
-        public int HardRank { get; set; }
+        public int Difficulty { get; set; }
         [Required]
         public int Age { get; set; }
         [Required]
@@ -26,7 +26,6 @@ namespace BG_IMPACT.Business.Command.ProductTemplate.Commands
         public int NumberOfPlayerMax { get; set; }
         [Required]
         public string Description { get; set; } = string.Empty;
-        [Required]
         public int? Duration { get; set; } = null;
  
         public string ListCategories { get; set; } = string.Empty;
@@ -64,7 +63,7 @@ namespace BG_IMPACT.Business.Command.ProductTemplate.Commands
                         request.Price,
                         request.RentPrice,
                         request.RentPricePerHour,
-                        request.HardRank,
+                        request.Difficulty,
                         request.Age,
                         request.NumberOfPlayerMin,
                         request.NumberOfPlayerMax,
