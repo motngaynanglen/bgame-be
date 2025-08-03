@@ -8,5 +8,7 @@ namespace BG_IMPACT.Repository.Repositories.Interfaces
 {
     public interface ISupplyItemRepository
     {
+        Task<object> spSupplyItemUpdatePrice(object param);
+
     }
 }

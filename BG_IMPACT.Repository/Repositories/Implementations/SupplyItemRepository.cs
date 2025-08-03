@@ -1,4 +1,5 @@
 ﻿using BG_IMPACT.Repository.Repositories.Interfaces;
+using Dapper;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -25,11 +26,15 @@ namespace BG_IMPACT.Repository.Repositories.Implementations
 
 
         //public async Task<object> spSupplyOrderCreate(object param)
-       //{
-            //object? result = await _connection.QueryFirstOrDefaultAsync("spSupplyOrderCreate", commandType: CommandType.StoredProcedure);
-            //return result;
+        //{
+        //object? result = await _connection.QueryFirstOrDefaultAsync("spSupplyOrderCreate", commandType: CommandType.StoredProcedure);
+        //return result;
         //}
 
-
+        public async Task<object> spSupplyItemUpdatePrice(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spSupplyItemUpdatePrice", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
     }
 }

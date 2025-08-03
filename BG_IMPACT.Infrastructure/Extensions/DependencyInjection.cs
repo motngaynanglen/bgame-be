@@ -41,6 +41,8 @@ namespace BG_IMPACT.Infrastructure.Extensions
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ISupplyOrderRepository, SupplyOrderRepository>();
             services.AddScoped<IEmailServiceRepository, EmailServiceRepository>();
+            services.AddScoped<ISupplyItemRepository, SupplyItemRepository>();
+
             services.AddScoped<CloudinaryService>();
 
             return services;
