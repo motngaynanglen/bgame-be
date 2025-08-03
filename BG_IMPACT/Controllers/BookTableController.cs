@@ -49,5 +49,18 @@ namespace BG_IMPACT.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [HttpPost("get-booktable-paged")]
+        public async Task<IActionResult> GetBookTablePage(GetBookTablePagedQuery command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
