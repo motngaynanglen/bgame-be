@@ -12,12 +12,14 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
         [Required]
         public List<BookListItemByStaff> BookListItems { get; set; } = [];
         [Required]
-        public DateTimeOffset From { get; set; }
+        public int FromSlot { get; set; }
         [Required]
-        public DateTimeOffset To { get; set; }
+        public int ToSlot { get; set; }
         [Required]
-        [Range(0, 1, ErrorMessage = "Chỉ được nhập 0 và 1")]
-        public int BookType { get; set; }
+        public DateTimeOffset BookDate { get; set; }
+        [Required]
+        public List<Guid> TableIDs { get; set; } = new List<Guid>();
+
 
         public class CreateBookListByStaffCommandHandler : IRequestHandler<CreateBookListByStaffCommand, ResponseObject>
         {
@@ -43,16 +45,20 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
                     StaffId = context.GetName();
                 }
 
-                string ListProductIDs = string.Join(",", request.BookListItems.Select(x => x.ProductID));
+                string ProductIDListString = string.Join(",", request.BookListItems.Select(x => x.ProductID));
+                string TableIDListString = string.Join(",", request.TableIDs);
 
                 object param = new
                 {
                     request.CustomerId,
                     StaffId,
-                    ListProductIDs,
-                    request.From,
-                    request.To,
-                    request.BookType
+
+                    request.FromSlot,
+                    request.ToSlot,
+                    request.BookDate,
+
+                    TableIDListString,
+                    ProductIDListString,
                 };
 
                 var result = await _bookListRepository.spBookListCreateByStaff(param);
