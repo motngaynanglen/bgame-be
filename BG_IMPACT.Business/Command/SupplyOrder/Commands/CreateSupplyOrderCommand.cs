@@ -19,7 +19,8 @@ namespace BG_IMPACT.Business.Command.SupplyOrder.Commands
 
     public class CreateSupplyOrderCommand : IRequest<ResponseObject>
     {
-        public Guid StoreId { get; set; } 
+        public Guid? StoreId { get; set; }
+        [Required]
         public Guid SupplierId { get; set; }
         [Required]
         public string Title { get; set; } = string.Empty;
@@ -29,10 +30,12 @@ namespace BG_IMPACT.Business.Command.SupplyOrder.Commands
         public class CreateSupplyOrderCommandHandler : IRequestHandler<CreateSupplyOrderCommand, ResponseObject>
         {
             private readonly ISupplyOrderRepository _supplyOrderRepository;
+            private readonly IStoreRepository _storeRepository;
             private readonly IHttpContextAccessor _httpContextAccessor;
-            public CreateSupplyOrderCommandHandler(ISupplyOrderRepository supplyOrderRepository, IHttpContextAccessor httpContextAccessor)
+            public CreateSupplyOrderCommandHandler(ISupplyOrderRepository supplyOrderRepository, IStoreRepository storeRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _supplyOrderRepository = supplyOrderRepository;
+                _storeRepository = storeRepository;
                 _httpContextAccessor = httpContextAccessor;
             }
             public async Task<ResponseObject> Handle(CreateSupplyOrderCommand request, CancellationToken cancellationToken)
@@ -50,6 +53,13 @@ namespace BG_IMPACT.Business.Command.SupplyOrder.Commands
                 {
                     response.StatusCode = "403";
                     response.Message = "Bạn không có quyền thực hiện thao tác này.";
+                    return response;
+                }
+
+                if (context.GetRole() == "ADMIN" && request.StoreId == null)
+                {
+                    response.StatusCode = "404";
+                    response.Message = "Bạn chưa nhập cửa hàng. Xin hãy bổ sung thông tin còn thiếu.";
                     return response;
                 }
 

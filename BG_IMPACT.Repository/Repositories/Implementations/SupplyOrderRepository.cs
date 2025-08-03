@@ -41,9 +41,5 @@ namespace BG_IMPACT.Repository.Repositories.Implementations
             object? result = await _connection.QueryAsync("spGetSupplyItemsByOrderId", param, commandType: CommandType.StoredProcedure);
             return result;
         }
-
-        
-
-
     }
 }
