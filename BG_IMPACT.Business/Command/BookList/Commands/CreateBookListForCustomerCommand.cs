@@ -10,17 +10,22 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
     public class CreateBookListByCustomerCommand : IRequest<ResponseObject>
     {
         public Guid? CustomerId { get; set; }
-        [Required]
-        public List<BookListItem> BookListItems { get; set; } = [];
+        
         [Required]
         public Guid StoreId { get; set; }
         [Required]
-        public DateTimeOffset From { get; set; }
+        public int FromSlot { get; set; }
         [Required]
-        public DateTimeOffset To { get; set; }
+        public int ToSlot { get; set; }
         [Required]
-        [Range(0, 1, ErrorMessage = "Chỉ được nhập 0 và 1")]
-        public int BookType { get; set; }
+        public DateTimeOffset BookDate { get; set; }
+        [Required]
+        public List<Guid> TableIDs { get; set; } = new List<Guid>();
+        [Required]
+        public List<BookListItem> BookListItems { get; set; } = [];
+        //[Required]
+        //[Range(0, 1, ErrorMessage = "Chỉ được nhập 0 và 1")]
+        //public int BookType { get; set; }
 
         public class CreateBookListByCustomerCommandHandler : IRequestHandler<CreateBookListByCustomerCommand, ResponseObject>
         {
@@ -52,19 +57,22 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
                     request.CustomerId = cusId;
                 }
 
-                string ListProductTemplateIDs = string.Join(",", request.BookListItems
+                string ProductTemplateIDListString = string.Join(",", request.BookListItems
                                     .SelectMany(item => Enumerable.Repeat(item.ProductTemplateID, item.Quantity))
                                 );
-
+                string TableIDListString = string.Join(",", request.TableIDs);
                 object param = new
                 {
                     request.CustomerId,
                     StaffId,
-                    ListProductTemplateIDs,
+                    
                     request.StoreId,
-                    request.From,
-                    request.To,
-                    request.BookType
+                    request.FromSlot,
+                    request.ToSlot,
+                    request.BookDate,
+
+                    ProductTemplateIDListString,
+                    TableIDListString,
                 };
 
                 var result = await _bookListRepository.spBookListCreateByCustomer(param);

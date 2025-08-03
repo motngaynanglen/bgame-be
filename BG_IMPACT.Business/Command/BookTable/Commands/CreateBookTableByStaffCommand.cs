@@ -9,30 +9,29 @@ using System.Threading.Tasks;
 
 namespace BG_IMPACT.Business.Command.BookTable.Commands
 {
-    public class CreateBookTableByCustomerCommand : IRequest<ResponseObject>
+    public class CreateBookTableByStaffCommand : IRequest<ResponseObject>
     {
         [Required]
-        public Guid StoreId { get; set; }  
         public DateTimeOffset BookDate { get; set; }
         public int FromSlot { get; set; }
         public int ToSlot { get; set; }
         [Required]
         public List<Guid> TableIDList { get; set; } = new List<Guid>();
-        public class CreateBookTableByCustomerCommandHandler : IRequestHandler<CreateBookTableByCustomerCommand, ResponseObject>
+        public class CreateBookTableByStaffCommandHandler : IRequestHandler<CreateBookTableByStaffCommand, ResponseObject>
         {
             private readonly IHttpContextAccessor _httpContextAccessor;
             private readonly IBookTableRepository _bookTableRepository;
-            public CreateBookTableByCustomerCommandHandler(IBookTableRepository bookTableRepository, IHttpContextAccessor httpContextAccessor)
+            public CreateBookTableByStaffCommandHandler(IBookTableRepository bookTableRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _bookTableRepository = bookTableRepository;
                 _httpContextAccessor = httpContextAccessor;
             }
-            public async Task<ResponseObject> Handle(CreateBookTableByCustomerCommand request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(CreateBookTableByStaffCommand request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
                 var context = _httpContextAccessor.HttpContext;
                 Guid? UserId = null;
-                if (context != null && context.GetRole() == "CUSTOMER")
+                if (context != null && context.GetRole() == "STAFF")
                 {
                     _ = Guid.TryParse(context.GetName(), out Guid cusId);
                     UserId = cusId;
@@ -41,14 +40,13 @@ namespace BG_IMPACT.Business.Command.BookTable.Commands
                 
                 object param = new
                 {
-                    request.StoreId,
                     request.BookDate,
                     request.FromSlot,
                     request.ToSlot,
                     TableIDListString,
                     UserId
                 };
-                var result = await _bookTableRepository.spBookTableCreateByCustomer(param);
+                var result = await _bookTableRepository.spBookTableCreateByStaff(param);
                 var dict = result as IDictionary<string, object>;
                 if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
                 {

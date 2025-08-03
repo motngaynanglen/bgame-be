@@ -6,7 +6,7 @@ namespace BG_IMPACT.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StoreTableTableController : ControllerBase
+    public class StoreTableController : ControllerBase
     {
 
         [HttpPost("create")]

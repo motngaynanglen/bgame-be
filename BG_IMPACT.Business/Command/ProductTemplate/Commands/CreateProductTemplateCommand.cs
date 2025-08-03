@@ -17,15 +17,17 @@ namespace BG_IMPACT.Business.Command.ProductTemplate.Commands
         [Required]
         public double RentPricePerHour { get; set; }
         [Required]
-        public int HardRank { get; set; }
+        public int Difficulty { get; set; }
         [Required]
         public int Age { get; set; }
         [Required]
         public int NumberOfPlayerMin { get; set; }
         [Required]
         public int NumberOfPlayerMax { get; set; }
+        [Required]
         public string Description { get; set; } = string.Empty;
         public int? Duration { get; set; } = null;
+ 
         public string ListCategories { get; set; } = string.Empty;
         public string Publisher { get; set; } = string.Empty;
         public class CreateProductTemplateCommandHandler : IRequestHandler<CreateProductTemplateCommand, ResponseObject>
@@ -61,7 +63,7 @@ namespace BG_IMPACT.Business.Command.ProductTemplate.Commands
                         request.Price,
                         request.RentPrice,
                         request.RentPricePerHour,
-                        request.HardRank,
+                        request.Difficulty,
                         request.Age,
                         request.NumberOfPlayerMin,
                         request.NumberOfPlayerMax,
