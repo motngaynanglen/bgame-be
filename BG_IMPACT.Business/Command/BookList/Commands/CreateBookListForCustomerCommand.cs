@@ -44,13 +44,6 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
 
                 var context = _httpContextAccessor.HttpContext;
 
-                string? StaffId = null;
-
-                if (context != null && context.GetRole() == "STAFF")
-                {
-                    StaffId = context.GetName();
-                }
-
                 if (context != null && context.GetRole() == "CUSTOMER")
                 {
                     _ = Guid.TryParse(context.GetName(), out Guid cusId);
@@ -64,7 +57,6 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
                 object param = new
                 {
                     request.CustomerId,
-                    StaffId,
                     
                     request.StoreId,
                     request.FromSlot,
