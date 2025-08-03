@@ -11,7 +11,5 @@ namespace BG_IMPACT.Repository.Repositories.Interfaces
         Task<object> spSupplyOrderCreate(object param);
         Task<object> spEmailGetSupplierEmailByOrderId(object param);
         Task<object> spGetSupplyItemsByOrderId(object param);
-        
-
     }
 }

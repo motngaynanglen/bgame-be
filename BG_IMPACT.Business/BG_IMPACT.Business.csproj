@@ -13,10 +13,13 @@
     <Folder Include="Command\Email\Queries\" />
     <Folder Include="Command\Login\Queries\" />
     <Folder Include="Command\OrderItem\Queries\" />
-    <Folder Include="Command\SupplyItem\Commands\" />
     <Folder Include="Command\SupplyItem\Queries\" />
     <Folder Include="Command\SupplyOrder\Queries\" />
     <Folder Include="Command\Transaction\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Command\Product\Commands\AddProductFromSupplyItemCommand.cs" />
   </ItemGroup>
 
   <ItemGroup>
