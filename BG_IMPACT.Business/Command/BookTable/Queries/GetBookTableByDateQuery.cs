@@ -12,20 +12,30 @@ namespace BG_IMPACT.Business.Command.BookTable.Queries
         public class GetBookTableByDateQueryHandler : IRequestHandler<GetBookTableByDateQuery, ResponseObject>
         {
             private readonly IBookTableRepository _bookTableRepository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetBookTableByDateQueryHandler(IBookTableRepository bookTableRepository)
+            public GetBookTableByDateQueryHandler(IBookTableRepository bookTableRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _bookTableRepository = bookTableRepository;
+                _httpContextAccessor = httpContextAccessor;
             }
             public async Task<ResponseObject> Handle(GetBookTableByDateQuery request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
 
+                var context = _httpContextAccessor.HttpContext;
+                string? UserId = null;
+
+                if (context != null && context.GetRole() == "STAFF")
+                {
+                    UserId = context.GetName();
+                }
+
                 object param = new
                 {
                     request.StoreId,
                     request.BookDate,
-
+                    UserId,
                 };
 
                 var result = await _bookTableRepository.spBookTableGetStoreTimeTableByDate(param);
