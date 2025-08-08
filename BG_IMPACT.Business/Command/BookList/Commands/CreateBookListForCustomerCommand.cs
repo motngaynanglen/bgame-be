@@ -128,7 +128,7 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
                     {
                         response.StatusCode = "200";
                         response.Message = "Đặt hàng thành công";
-                        response.Data = dict["id"] as string;
+                        response.Data = ((IDictionary<string, object>)dict)["id"].ToString();
                     }
 
                 }
