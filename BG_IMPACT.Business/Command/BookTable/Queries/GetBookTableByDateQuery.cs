@@ -26,7 +26,7 @@ namespace BG_IMPACT.Business.Command.BookTable.Queries
                 var context = _httpContextAccessor.HttpContext;
                 string? UserId = null;
 
-                if (context != null && context.GetRole() == "STAFF")
+                if (context != null)
                 {
                     UserId = context.GetName();
                 }
