@@ -1,4 +1,5 @@
 using BG_IMPACT.Business;
+using BG_IMPACT.Business.Config;
 using BG_IMPACT.Config;
 using BG_IMPACT.DTO.Models.Configs.Message;
 using BG_IMPACT.Infrastructure.Extensions;
@@ -68,7 +69,8 @@ builder.Services.AddSwaggerGen(x =>
         }
     });
 });
-
+builder.Services.AddSingleton<PayOsCodeGenerator>();
+builder.Services.Configure<PayOsSettings>(builder.Configuration.GetSection("PayOs"));
 builder.Services.EmailConfiguration(builder.Configuration);
 builder.Services.DependencyInject(builder.Configuration);
 builder.Services.AddMediatR(cfg =>
