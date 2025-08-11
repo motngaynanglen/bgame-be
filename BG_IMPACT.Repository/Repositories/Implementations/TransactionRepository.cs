@@ -30,9 +30,22 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spTransactionCreateOffline", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+
+        public async Task<object?> spTransactionGetByRefId(object param)
+        {
+            object? result = await _connection.QueryAsync("spTransactionGetByRefId", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
         public async Task<object?> spTransactionGetItemByRefId(object param)
         {
             object? result = await _connection.QueryAsync("spTransactionGetItemByRefId", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spTransactionUpdatePaymentRef(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spTransactionUpdatePaymentRef", param, commandType: CommandType.StoredProcedure);
             return result;
         }
     }
