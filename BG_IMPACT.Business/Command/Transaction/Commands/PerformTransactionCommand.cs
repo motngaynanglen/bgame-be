@@ -1,4 +1,5 @@
 ﻿using BG_IMPACT.Business.Config;
+using BG_IMPACT.DTO.Utils;
 using CloudinaryDotNet;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -65,7 +66,7 @@ namespace BG_IMPACT.Business.Command.Transaction.Commands
                         };
 
                         response.StatusCode = "200";
-                        response.Message = "";
+                        response.Message = existUrl.checkoutUrl == null ? "Đơn hàng đã được thanh toán" : "Đã lấy link thanh toán";
                         response.Data = existUrl;
                         return response;
                     }
@@ -98,13 +99,13 @@ namespace BG_IMPACT.Business.Command.Transaction.Commands
                 );
 
                 var url = await payOS.createPaymentLink(paymentRequest);
-
+                
                 object updateParam = new
                 {
                     ReferenceID = request.ReferenceID,
                     PaymentId = orderCode,
                     PaymentLink = url.checkoutUrl,
-                    ExpiredAt = DateTime.UtcNow.AddMinutes(10)
+                    ExpiredAt = CoreHelper.UtcToOffsetSystemTime(DateTime.UtcNow.AddMinutes(10)),
                 };
 
                 await _transactionRepository.spTransactionUpdatePaymentRef(updateParam);
