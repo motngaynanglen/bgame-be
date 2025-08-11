@@ -70,7 +70,7 @@ namespace BG_IMPACT.Business.Command.Transaction.Commands
                 else
                 {
                     response.StatusCode = "404";
-                    response.Message = "Thanh toán thất bại. Xin hãy thử lại sau.";
+                    response.Message = "Thanh toán thất bại. Xin hãy liên hệ admin.";
                 }
 
                 return response;
