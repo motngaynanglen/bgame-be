@@ -1,4 +1,5 @@
-﻿using BG_IMPACT.Models;
+﻿using BG_IMPACT.Business.Command.Transaction.Queries;
+using BG_IMPACT.Models;
 
 namespace BG_IMPACT.Controllers
 {
@@ -22,6 +23,34 @@ namespace BG_IMPACT.Controllers
 
         [HttpPost("perform-transaction")]
         public async Task<IActionResult> PerformTransaction(PerformTransactionCommand query)
+        {
+            try
+            {
+                ResponseObject result = await _mediator.Send(query);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new ResponseObject { StatusCode = "404", Message = ex.ToString() });
+            }
+        }
+        [HttpPost("get-by-ref-id")]
+        public async Task<IActionResult> GetByRefId(GetTransactionByRefIdQuery query)
         {
             try
             {
