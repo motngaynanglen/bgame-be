@@ -15,7 +15,6 @@
     <Folder Include="Command\OrderItem\Queries\" />
     <Folder Include="Command\SupplyItem\Queries\" />
     <Folder Include="Command\SupplyOrder\Queries\" />
-    <Folder Include="Command\Transaction\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
