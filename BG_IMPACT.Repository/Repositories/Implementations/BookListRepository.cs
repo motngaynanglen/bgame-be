@@ -67,6 +67,28 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
+        public async Task<(object? bookLists, int totalCount)> spBookListGetPaged(object param)
+        {
+            using var multi = await _connection.QueryMultipleAsync("spBookListGetPaged", param, commandType: CommandType.StoredProcedure);
+
+            var bookLists = (await multi.ReadAsync()).ToList();     
+            var products = (await multi.ReadAsync()).ToList();   
+            var totalCount = await multi.ReadFirstOrDefaultAsync<int>();
+
+            foreach (var bookList in bookLists)
+            {
+                var bookListId = (Guid)bookList.id; 
+                var bookListProducts = products
+                    .Where(p => (Guid)p.id == bookListId) 
+                    .ToList();
+
+                var dict = ((IDictionary<string, object>)bookList);
+                dict["products"] = bookListProducts;
+            }
+
+            return (bookLists, totalCount);
+        }
+
         public async Task<object?> spBookListGetPageData(object param)
         {
             object? result = await _connection.QueryFirstOrDefaultAsync("spBookListGetPageData", param, commandType: CommandType.StoredProcedure);
