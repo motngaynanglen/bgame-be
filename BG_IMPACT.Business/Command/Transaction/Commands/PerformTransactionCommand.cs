@@ -61,8 +61,9 @@ namespace BG_IMPACT.Business.Command.Transaction.Commands
                     {
                         var existUrl = new
                         {
-                            Code = ((IDictionary<string, object>)list[0])["PaymentId"]?.ToString(),
+                            code = ((IDictionary<string, object>)list[0])["PaymentId"]?.ToString(),
                             checkoutUrl = ((IDictionary<string, object>)list[0])["PaymentLink"]?.ToString(),
+                            qrCode = ((IDictionary<string, object>)list[0])["QrCode"]?.ToString(),
                         };
 
                         response.StatusCode = "200";
@@ -105,6 +106,7 @@ namespace BG_IMPACT.Business.Command.Transaction.Commands
                     ReferenceID = request.ReferenceID,
                     PaymentId = orderCode,
                     PaymentLink = url.checkoutUrl,
+                    QrCode = url.qrCode,
                     ExpiredAt = CoreHelper.UtcToOffsetSystemTime(DateTime.UtcNow.AddMinutes(10)),
                 };
 
