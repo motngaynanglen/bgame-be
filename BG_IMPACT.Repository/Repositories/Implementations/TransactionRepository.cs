@@ -33,7 +33,7 @@ namespace BG_IMPACT.Repositories.Implementations
 
         public async Task<object?> spTransactionGetByRefId(object param)
         {
-            object? result = await _connection.QueryAsync("spTransactionGetByRefId", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryFirstOrDefaultAsync("spTransactionGetByRefId", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
