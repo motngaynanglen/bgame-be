@@ -70,7 +70,7 @@
                     else
                     {
                         response.StatusCode = "404";
-                        response.Message = "Không tìm thấy đơn thuê nào.";
+                        response.Message = "Không tìm thấy đơn hàng nào.";
                     }
                 }
 
