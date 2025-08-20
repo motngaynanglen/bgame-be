@@ -48,10 +48,38 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
-        public async Task<object?> spOrderGetPaged(object param)
+        public async Task<(object? orderGroups, int totalCount)> spOrderGetPaged(object param)
         {
-            object? result = await _connection.QueryAsync("spOrderGetPaged", param, commandType: CommandType.StoredProcedure);
-            return result;
+            using var multi = await _connection.QueryMultipleAsync("spOrderGetPaged", param, commandType: CommandType.StoredProcedure);
+
+            var orderGroups = (await multi.ReadAsync()).ToList(); 
+            var orders = (await multi.ReadAsync()).ToList();         
+            var orderItems = (await multi.ReadAsync()).ToList();      
+            var totalCount = await multi.ReadFirstOrDefaultAsync<int>();
+
+            foreach (var order in orders)
+            {
+                var orderId = (Guid)order.id;
+                var items = orderItems
+                    .Where(i => (Guid)i.order_id == orderId)
+                    .ToList();
+
+                var dict = (IDictionary<string, object>)order;
+                dict["items"] = items;
+            }
+
+            foreach (var group in orderGroups)
+            {
+                var groupId = (Guid)group.id;
+                var groupOrders = orders
+                    .Where(o => (Guid)o.order_group_id == groupId)
+                    .ToList();
+
+                var dict = (IDictionary<string, object>)group;
+                dict["orders"] = groupOrders;
+            }
+
+            return (orderGroups, totalCount);
         }
         
 
