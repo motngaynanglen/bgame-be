@@ -35,11 +35,17 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryAsync("spProductGetListByGroupRefId", param, commandType: CommandType.StoredProcedure);
             return result;
         }
-        public async Task<object> spProductGetList(object param)
+
+        public async Task<(object? products, int totalCount)> spProductGetList(object param)
         {
-            object? result = await _connection.QueryAsync("spProductGetList", param, commandType: CommandType.StoredProcedure);
-            return result;
+            using var multi = await _connection.QueryMultipleAsync("spProductGetList", param, commandType: CommandType.StoredProcedure);
+            
+            var products = (await multi.ReadAsync()).ToList();
+            var totalCount = await multi.ReadFirstOrDefaultAsync<int>();
+
+            return (products, totalCount);
         }
+
         public async Task<object> spProductCreateUnknown(object param)
         {
             object? result = await _connection.QueryFirstOrDefaultAsync("spProductCreateUnknown", param, commandType: CommandType.StoredProcedure);
