@@ -50,16 +50,8 @@
                     };
 
                     var result = await _bookListRepository.spBookListGet(param);
-                    var list = ((IEnumerable<dynamic>)result).ToList();
-
-                    var pageData = await _bookListRepository.spBookListGetPageData(param2);
-                    var dict = pageData as IDictionary<string, object>;
-                    long count = 0;
-
-                    if (dict != null && Int64.TryParse(dict["TotalRows"].ToString(), out _) == true)
-                    {
-                        _ = Int64.TryParse(dict["TotalRows"].ToString(), out count);
-                    }
+                    var list = ((IEnumerable<dynamic>)result.bookLists).ToList();
+                    long count = result.totalCount;
 
                     if (list.Count > 0)
                     {
@@ -78,7 +70,7 @@
                     else
                     {
                         response.StatusCode = "404";
-                        response.Message = "Không tìm thấy đơn thuê nào.";
+                        response.Message = "Không tìm thấy đơn hàng nào.";
                     }
                 }
 

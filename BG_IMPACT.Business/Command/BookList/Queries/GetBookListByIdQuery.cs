@@ -24,20 +24,29 @@ namespace BG_IMPACT.Business.Command.BookList.Queries
 
                 var result = await _BookListRepository.spBookListGetById(param);
                 var rawData = result as IDictionary<string, object>;
-                var BookList = JsonConvert.DeserializeObject<BookListDto>(rawData["json"] as string);
-                var dict = BookList;
-
-                if (dict != null)//&& dict.Count > 0
+                if (rawData["Status"] == null)
                 {
-                    response.StatusCode = "200";
-                    response.Data = dict;
-                    response.Message = string.Empty;
+                    var BookList = JsonConvert.DeserializeObject<BookListDto>(rawData["json"] as string);
+                    var dict = BookList;
+
+                    if (dict != null)//&& dict.Count > 0
+                    {
+                        response.StatusCode = "200";
+                        response.Data = dict;
+                        response.Message = string.Empty;
+                    }
+                    else
+                    {
+                        response.StatusCode = "404";
+                        response.Message = "Không tìm thấy vật phẩm.";
+                    }
                 }
                 else
                 {
                     response.StatusCode = "404";
                     response.Message = "Không tìm thấy vật phẩm.";
                 }
+                
 
                 return response;
             }

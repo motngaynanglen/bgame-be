@@ -1,6 +1,9 @@
-﻿using Dapper;
+﻿using BG_IMPACT.Repository.Repositories.Interfaces;
+using Dapper;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using static BG_IMPACT.Repository.Repositories.Implementations.EmailServiceRepository;
 
 namespace BG_IMPACT.Business.Command.Order.Commands
 {
@@ -23,10 +26,13 @@ namespace BG_IMPACT.Business.Command.Order.Commands
         {
             private readonly IOrderRepository _orderRepository;
             private readonly IHttpContextAccessor _httpContextAccessor;
-            public CreateOrderByCustomerCommandHandler(IOrderRepository orderRepository, IHttpContextAccessor httpContextAccessor)
+            private readonly IEmailServiceRepository _emailServiceRepository;
+
+            public CreateOrderByCustomerCommandHandler(IOrderRepository orderRepository, IHttpContextAccessor httpContextAccessor, IEmailServiceRepository emailServiceRepository)
             {
                 _orderRepository = orderRepository;
                 _httpContextAccessor = httpContextAccessor;
+                _emailServiceRepository = emailServiceRepository;
             }
             public async Task<ResponseObject> Handle(CreateOrderByCustomerCommand request, CancellationToken cancellationToken)
             {
@@ -69,6 +75,19 @@ namespace BG_IMPACT.Business.Command.Order.Commands
                         response.StatusCode = "200";
                         response.Message = message;
                         response.Data = dict["Data"].ToString() ?? null;
+
+                        object param3 = new
+                        {
+                            OrderId = response.Data
+                        };
+
+                        var result2 = await _orderRepository.spOrderGetById(param3);
+                        var rawData = result2 as IDictionary<string, object>;
+                        var order = JsonConvert.DeserializeObject<OrderGroupModel>(rawData["json"] as string);
+                        var items = order.orders.SelectMany(x => x.order_items).ToList();
+
+                        await _emailServiceRepository.SendOrderSuccessfullyAsync(request.Email, order.order_code, items);
+
                         return response;
                     }
                     else if (count == 1)
@@ -119,6 +138,32 @@ namespace BG_IMPACT.Business.Command.Order.Commands
             }
 
             return table;
+        }
+
+        public class OrderGroupModel
+        {
+            public string order_id { get; set; }
+            public string order_code { get; set; }
+            public string email { get; set; }
+            public string full_name { get; set; }
+            public string phone_number { get; set; }
+            public string address { get; set; }
+            public int total_item { get; set; }
+            public double total_price { get; set; }
+            public string order_status { get; set; }
+            public DateTime order_created_at { get; set; }
+            public int is_delivery { get; set; }
+            public List<OrderModel> orders { get; set; }
+        }
+
+        public class OrderModel
+        {
+            public string id { get; set; }
+            public string code { get; set; }
+            public int total_item { get; set; }
+            public double total_price { get; set; }
+            public string status { get; set; }
+            public List<OrderItemModel> order_items { get; set; }
         }
     }
 }
