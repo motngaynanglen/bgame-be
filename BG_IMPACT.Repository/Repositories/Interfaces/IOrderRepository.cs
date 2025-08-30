@@ -17,7 +17,7 @@ namespace BG_IMPACT.Repositories.Interfaces
         Task<object?> spOrderGetById(object param);
         Task<object?> spOrderGetUnclaim(object param);
         Task<object?> spOrderGetUnclaimPageData(object param);
-        Task<object?> spOrderGetPaged(object param);
+        Task<(object? orderGroups, int totalCount)> spOrderGetPaged(object param);
         Task<object?> spOrderCancel(object param);
 
     }

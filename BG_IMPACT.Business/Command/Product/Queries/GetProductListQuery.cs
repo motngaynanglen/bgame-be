@@ -41,16 +41,8 @@ namespace BG_IMPACT.Business.Command.Product.Queries
                 };
 
                 var result = await _productRepository.spProductGetList(param);
-                var list = ((IEnumerable<dynamic>)result).ToList();
-
-                var pageData = await _productRepository.spProductGetListPageData(param2);
-                var dict = pageData as IDictionary<string, object>;
-                long count = 0;
-
-                if (dict != null && Int64.TryParse(dict["TotalRows"].ToString(), out _) == true)
-                {
-                    _ = Int64.TryParse(dict["TotalRows"].ToString(), out count);
-                }
+                var list = ((IEnumerable<dynamic>)result.products).ToList();
+                long count = result.totalCount;
 
                 if (list.Count > 0)
                 {

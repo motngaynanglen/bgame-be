@@ -6,7 +6,7 @@ namespace BG_IMPACT.Repositories.Interfaces
         Task<object?> spBookListCreateByCustomer(object param);
         Task<object?> spBookListCreateByStaff(object param);
         Task<object?> spBookListEnd(object param);
-        Task<object?> spBookListGet(object param);
+        Task<(object? bookLists, int totalCount)> spBookListGet(object param);
         Task<object?> spBookListExtend(object param);
         Task<(object? bookLists, int totalCount)> spBookListGetPaged(object param);
         Task<object?> spBookListStart(object param);
