@@ -150,5 +150,18 @@
                 throw new Exception(ex.Message);
             }
         }
+        [HttpPost("get-booklist-timetable-by-date")]
+        public async Task<IActionResult> GetBookListTimeTableByDate([FromBody] GetBookListTimeTableByDateQuery query)
+        {
+            try
+            {
+                var result = await _mediator.Send(query);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

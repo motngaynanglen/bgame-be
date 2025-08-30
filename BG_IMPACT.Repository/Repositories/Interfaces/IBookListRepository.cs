@@ -16,5 +16,7 @@ namespace BG_IMPACT.Repositories.Interfaces
         Task<object?> spBookListGetAvailableProduct(object param);
         Task<object?> spBookListGetById(object param);
         Task<object?> spBookListGetPageData(object param);
+        Task<object?> spBookListGetStoreTimeTableByDate(object param);
+
     }
 }
