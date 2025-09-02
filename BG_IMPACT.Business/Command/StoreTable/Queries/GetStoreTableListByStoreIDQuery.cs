@@ -12,33 +12,47 @@ namespace BG_IMPACT.Business.Command.StoreTable.Queries
     public class GetStoreTableListByStoreIDQuery : IRequest<ResponseObject>
     {
         [Required]
-        public Guid StoreId { get; set; }
+        public Guid? StoreId { get; set; } = null;
         public class GetStoreTableListByStoreIDQueryHandler : IRequestHandler<GetStoreTableListByStoreIDQuery, ResponseObject>
         {
             private readonly IStoreTableRepository _storeTableRepository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetStoreTableListByStoreIDQueryHandler(IStoreTableRepository storeTableRepository)
+            public GetStoreTableListByStoreIDQueryHandler(IStoreTableRepository storeTableRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _storeTableRepository = storeTableRepository;
+                _httpContextAccessor = httpContextAccessor;
             }
             public async Task<ResponseObject> Handle(GetStoreTableListByStoreIDQuery request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
+                var context = _httpContextAccessor.HttpContext;
 
                 object param = new
                 {
-                    request.StoreId
+                    request.StoreId,
                 };
 
+                _ = Guid.TryParse(context.GetName(), out Guid cusId);
+
+                if (context != null && context.GetRole() == "MANAGER")
+                {
+                    _ = Guid.TryParse(context.GetName(), out Guid userId);
+                    param = new
+                    {
+                        request.StoreId,
+                        cusId
+                    };
+                }
+               
                 var result = await _storeTableRepository.spStoreTableGetListByStoreID(param);
 
                 if (result == null)
                 {
                     response.StatusCode = "404";
-                    response.Message = "Không tìm thấy.";
+                    response.Message = "Hệ thống bảo trì hoặc đang nâng cấp.";
                     return response;
                 }
-
                 var list = ((IEnumerable<dynamic>)result).ToList();
 
                 if (list.Count > 0)
@@ -49,8 +63,8 @@ namespace BG_IMPACT.Business.Command.StoreTable.Queries
                 }
                 else
                 {
-                    response.StatusCode = "404";
-                    response.Message = "Không tìm thấy cửa hàng nào.";
+                    response.StatusCode = "200";
+                    response.Message = "Cửa hàng chưa thêm bàn";
                 }
 
                 return response;
