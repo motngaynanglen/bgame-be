@@ -111,6 +111,12 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
+        public async Task<object?> spBookListGetStoreTimeTableByDate(object param)
+        {
+            object? result = await _connection.QueryAsync("spBookListGetStoreTimeTableByDate", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
         public async Task<object?> spBookListHistory(object param)
         {
             object? result = await _connection.QueryAsync("spBookListHistory", param, commandType: CommandType.StoredProcedure);
