@@ -5,6 +5,8 @@
         public static Dictionary<string, MessageData> Messages { get; set; } = new();
 
         //Mỗi loại data đều phải phân loại ra 4 loại trạng thái cơ bản (200, 404, 403, 422, thêm vào nếu có)
+        //Cấu trúc báo lỗi
+        //Key: 4 chữ số (gửi về giữ nguyên int nhưng format lại theo XXYY - XX: mã table, YY: mã lỗi)
         public static void Initialize()
         {
             AccountInitialize();
@@ -16,61 +18,61 @@
         private static void AccountInitialize()
         {
             //StatusCode - 200
-            AddMessage("100", "200", "Tạo tài khoản thành công.");
+            AddMessage("0100", "200", "Tạo tài khoản thành công.");
 
             //StatusCode - 403
-            AddMessage("XXX", "403", "XXX");
+            AddMessage("XXYY", "403", "XXX");
 
             //StatusCode - 422
-            AddMessage("XXX", "422", "XXX");
+            AddMessage("XXYY", "422", "XXX");
 
             //StatusCode - 404
-            AddMessage("XXX", "404", "XXX");
+            AddMessage("XXYY", "404", "XXX");
         }
 
         private static void ProductInitialize()
         {
             //StatusCode - 200
-            AddMessage("XXX", "200", "XXX");
+            AddMessage("XXYY", "200", "XXX");
 
             //StatusCode - 403
-            AddMessage("XXX", "403", "XXX");
+            AddMessage("XXYY", "403", "XXX");
 
             //StatusCode - 422
-            AddMessage("XXX", "422", "XXX");
+            AddMessage("XXYY", "422", "XXX");
 
             //StatusCode - 404
-            AddMessage("XXX", "404", "XXX");
+            AddMessage("XXYY", "404", "XXX");
         }
 
         private static void OrderInitialize()
         {
             //StatusCode - 200
-            AddMessage("XXX", "200", "XXX");
+            AddMessage("XXYY", "200", "XXX");
 
             //StatusCode - 403
-            AddMessage("XXX", "403", "XXX");
+            AddMessage("XXYY", "403", "XXX");
 
             //StatusCode - 422
-            AddMessage("XXX", "422", "XXX");
+            AddMessage("XXYY", "422", "XXX");
 
             //StatusCode - 404
-            AddMessage("XXX", "404", "XXX");
+            AddMessage("XXYY", "404", "XXX");
         }
 
         private static void BookListInitialize()
         {
             //StatusCode - 200
-            AddMessage("XXX", "200", "XXX");
+            AddMessage("XXYY", "200", "XXX");
 
             //StatusCode - 403
-            AddMessage("XXX", "403", "XXX");
+            AddMessage("XXYY", "403", "XXX");
 
             //StatusCode - 422
-            AddMessage("XXX", "422", "XXX");
+            AddMessage("XXYY", "422", "XXX");
 
             //StatusCode - 404
-            AddMessage("XXX", "404", "XXX");
+            AddMessage("XXYY", "404", "XXX");
         }
 
         private static void AddMessage(string key, string status, string message)
