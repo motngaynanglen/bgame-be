@@ -14,5 +14,10 @@
             DISABLE = 2
         }
 
+        public enum ProductType
+        {
+            RENT_PRODUCT,
+            SALES_PRODUCT
+        }
     }
 }

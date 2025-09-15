@@ -3,6 +3,8 @@
     public class GetProductByCodeQuery : IRequest<ResponseObject>
     {
         public string Code { get; set; } = string.Empty;
+
+        public ProductType ProductType { get; set; }
         public class GetProductByCodeQueryHandler : IRequestHandler<GetProductByCodeQuery, ResponseObject>
         {
             private readonly IProductRepository _productRepository;
@@ -22,13 +24,14 @@
                 {
                     _ = Guid.TryParse(context.GetName(), out Guid cusId);
                     AccountId = cusId.ToString();
-                    Role = context.GetName();
+                    Role = context.GetRole();
                 }
                 object param = new
                 {
-                    AccountId,
+                    AccountId = new Guid(AccountId), 
                     Role,
                     request.Code,
+                    ProductType = request.ProductType.ToString() 
                 };
 
                 var result = await _productRepository.spProductGetByCode(param);

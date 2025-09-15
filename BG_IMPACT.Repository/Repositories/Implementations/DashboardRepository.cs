@@ -78,8 +78,18 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryAsync("spDashboardAdminRevenue", commandType: CommandType.StoredProcedure);
             return result;
         }
-        
 
+        public async Task<object?> spDashboardStatisticsByAdmin()
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spDashboardStatisticsByAdmin", commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spDashboardRevenueByAdmin(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spDashboardRevenueByAdmin", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
     }
 }
 

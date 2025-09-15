@@ -384,6 +384,7 @@ namespace BG_IMPACT.Controllers
                 return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
+        [Authorize(Roles = "MANAGER,STAFF")]
         [HttpPost("get-by-code")]
         public async Task<IActionResult> GetByCode(GetProductByCodeQuery command)
         {
