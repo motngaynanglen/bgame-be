@@ -1,4 +1,6 @@
-﻿using BG_IMPACT.Repository.Repositories.Interfaces;
+﻿using BG_IMPACT.Business.Jobs;
+using BG_IMPACT.Business.JobSchedulers.Jobs;
+using BG_IMPACT.Repository.Repositories.Interfaces;
 using Dapper;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
@@ -27,12 +29,14 @@ namespace BG_IMPACT.Business.Command.Order.Commands
             private readonly IOrderRepository _orderRepository;
             private readonly IHttpContextAccessor _httpContextAccessor;
             private readonly IEmailServiceRepository _emailServiceRepository;
+            private readonly IJobScheduler _jobScheduler;
 
-            public CreateOrderByCustomerCommandHandler(IOrderRepository orderRepository, IHttpContextAccessor httpContextAccessor, IEmailServiceRepository emailServiceRepository)
+            public CreateOrderByCustomerCommandHandler(IOrderRepository orderRepository, IHttpContextAccessor httpContextAccessor, IEmailServiceRepository emailServiceRepository, IJobScheduler jobScheduler)
             {
                 _orderRepository = orderRepository;
                 _httpContextAccessor = httpContextAccessor;
                 _emailServiceRepository = emailServiceRepository;
+                _jobScheduler = jobScheduler;
             }
             public async Task<ResponseObject> Handle(CreateOrderByCustomerCommand request, CancellationToken cancellationToken)
             {
@@ -84,9 +88,22 @@ namespace BG_IMPACT.Business.Command.Order.Commands
                         var result2 = await _orderRepository.spOrderGetById(param3);
                         var rawData = result2 as IDictionary<string, object>;
                         var order = JsonConvert.DeserializeObject<OrderGroupModel>(rawData["json"] as string);
-                        var items = order.orders.SelectMany(x => x.order_items).ToList();
 
-                        await _emailServiceRepository.SendOrderSuccessfullyAsync(request.Email, order.order_code, items);
+                        await _jobScheduler.ScheduleOnDemandJobAsync(
+                            requestId: "Send email request: " + response.Data?.ToString(),
+                            jobType: typeof(SendEmailJob),
+                            delay: TimeSpan.FromSeconds(15),
+                            id: response.Data?.ToString(),
+                            payload: order
+                        );
+
+                        await _jobScheduler.ScheduleOnDemandJobAsync(
+                            requestId:  "Delete order request: " + response.Data?.ToString(),
+                            jobType: typeof(CancelOrderJob),
+                            delay: TimeSpan.FromHours(1),
+                            id: response.Data?.ToString(),
+                            payload: null
+                        );
 
                         return response;
                     }

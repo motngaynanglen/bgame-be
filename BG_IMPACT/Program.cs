@@ -1,11 +1,14 @@
 using BG_IMPACT.Business;
 using BG_IMPACT.Business.Config;
+using BG_IMPACT.Business.Jobs;
 using BG_IMPACT.Config;
 using BG_IMPACT.DTO.Models.Configs.Message;
 using BG_IMPACT.Infrastructure.Extensions;
+using BG_IMPACT.Infrastructure.Jobs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Quartz;
 using System.Reflection;
 using System.Text;
 
@@ -33,6 +36,14 @@ builder.Services.AddAuthentication(x =>
         ValidateIssuerSigningKey = true
     };
 });
+
+builder.Services.AddQuartz(q => {});
+builder.Services.AddSingleton<IJobScheduler, JobScheduler>();
+builder.Services.AddQuartzHostedService(options =>
+{
+    options.WaitForJobsToComplete = true;
+});
+builder.Services.AddLogging(config => config.AddConsole());
 
 AppGlobalsConfig.Initialize(builder.Configuration);
 MessageCode.Initialize();

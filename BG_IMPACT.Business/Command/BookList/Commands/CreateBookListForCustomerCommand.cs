@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BG_IMPACT.Business.Jobs;
+using BG_IMPACT.Business.JobSchedulers.Jobs;
+using System.ComponentModel.DataAnnotations;
 
 namespace BG_IMPACT.Business.Command.BookList.Commands
 {
@@ -31,11 +33,13 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
         {
             private readonly IBookListRepository _bookListRepository;
             private readonly IHttpContextAccessor _httpContextAccessor;
+            private readonly IJobScheduler _jobScheduler;
 
-            public CreateBookListByCustomerCommandHandler(IBookListRepository bookListRepository, IHttpContextAccessor httpContextAccessor)
+            public CreateBookListByCustomerCommandHandler(IBookListRepository bookListRepository, IHttpContextAccessor httpContextAccessor, IJobScheduler jobScheduler)
             {
                 _bookListRepository = bookListRepository;
                 _httpContextAccessor = httpContextAccessor;
+                _jobScheduler = jobScheduler;
             }
 
             public async Task<ResponseObject> Handle(CreateBookListByCustomerCommand request, CancellationToken cancellationToken)
@@ -129,6 +133,14 @@ namespace BG_IMPACT.Business.Command.BookList.Commands
                         response.StatusCode = "200";
                         response.Message = "Đặt hàng thành công";
                         response.Data = ((IDictionary<string, object>)dict)["id"].ToString();
+
+                        await _jobScheduler.ScheduleOnDemandJobAsync(
+                            requestId: "Delete book list request: " + response.Data?.ToString(),
+                            jobType: typeof(CancelBookListJob),
+                            delay: TimeSpan.FromHours(1),
+                            id: response.Data?.ToString(),
+                            payload: null
+                        );
                     }
 
                 }

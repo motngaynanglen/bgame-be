@@ -14,7 +14,8 @@
         Task<object?> spGetRevenuePerDayByMonth(object param);
         Task<object?> spGetRevenuePerMonth(object param);
         Task<object?> spDashboardAdminRevenue();
-
+        Task<object?> spDashboardStatisticsByAdmin();
+        Task<object?> spDashboardRevenueByAdmin(object param);
 
     }
 }
