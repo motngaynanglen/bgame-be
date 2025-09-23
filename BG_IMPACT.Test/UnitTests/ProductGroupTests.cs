@@ -1,29 +1,13 @@
 ﻿namespace BG_IMPACT.Test.UnitTests
 {
-    public class ProductGroupTests
+    public class ProductGroupTests : TestBase
     {
-        private ServiceProvider _serviceProvider;
         private IProductGroupRepository _productGroupRepository;
 
         [SetUp]
         public void Setup()
         {
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            var services = new ServiceCollection();
-            services.DependencyInject(configuration);
-            _serviceProvider = services.BuildServiceProvider();
-
             _productGroupRepository = _serviceProvider.GetRequiredService<IProductGroupRepository>();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            if (_serviceProvider is IDisposable disposable)
-                disposable.Dispose();
         }
 
         [Test]

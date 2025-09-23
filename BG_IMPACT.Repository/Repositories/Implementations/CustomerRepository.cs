@@ -19,6 +19,17 @@ namespace BG_IMPACT.Repositories.Implementations
                 _connection.OpenAsync().GetAwaiter().GetResult();
             }
         }
+
+        public async Task<object?> spCustomerAddPointByAdmin(object param)
+        {
+            var result = await _connection.QueryFirstOrDefaultAsync(
+                            "spCustomerAddPointByAdmin",
+                            param,
+                            commandType: CommandType.StoredProcedure
+                        );
+            return result;
+        }
+
         public async Task<object?> spCustomerGetList(object param)
         {
             var result = await _connection.QueryAsync<object>(

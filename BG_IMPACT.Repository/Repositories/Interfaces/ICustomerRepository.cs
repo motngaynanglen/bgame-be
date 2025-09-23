@@ -4,6 +4,6 @@
     {
         Task<object?> spCustomerGetList(object param);
         Task<object?> spCustomerUpdateProfile(object param);
-
+        Task<object?> spCustomerAddPointByAdmin(object param);
     }
 }

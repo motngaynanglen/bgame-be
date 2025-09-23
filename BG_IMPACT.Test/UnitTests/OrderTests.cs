@@ -6,29 +6,13 @@ using System.Data;
 namespace BG_IMPACT.Test.UnitTests
 {
 
-    public class OrderTests
+    public class OrderTests : TestBase
     {
-        private ServiceProvider _serviceProvider; //Luôn có đi kèm với Setup
         private IOrderRepository _orderRepository;
         public void Setup()
-        {
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            var services = new ServiceCollection();
-            services.DependencyInject(configuration);
-            _serviceProvider = services.BuildServiceProvider();
+        {    
             _orderRepository = _serviceProvider.GetRequiredService<IOrderRepository>();
         }
-
-        [TearDown]
-        public void TearDown()
-        {
-            if (_serviceProvider is IDisposable disposable)
-                disposable.Dispose();
-        }
-
 
         [Test]
         public async Task CreateOrder_Success()

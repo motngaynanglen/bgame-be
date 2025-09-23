@@ -31,9 +31,10 @@ namespace BG_IMPACT.Repositories.Implementations
             return result;
         }
 
-        public Task<object?> spStoreGetById(object param)
+        public async Task<object?> spStoreGetByIdByAdmin(object param)
         {
-            throw new NotImplementedException();
+            object? result = await _connection.QueryFirstOrDefaultAsync("spStoreGetByIdByAdmin", param, commandType: CommandType.StoredProcedure);
+            return result;
         }
 
         public async Task<object?> spStoreGetByUserID(object param)

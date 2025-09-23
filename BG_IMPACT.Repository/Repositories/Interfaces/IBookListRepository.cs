@@ -21,6 +21,6 @@ namespace BG_IMPACT.Repositories.Interfaces
         Task<object?> spBookListGetPageData(object param);
         Task<object?> spBookListCancel(object param);
         Task<object?> spBookListGetStoreTimeTableByDate(object param);
-
+        Task<object?> spBookListChangePublicFlag(object param);
     }
 }

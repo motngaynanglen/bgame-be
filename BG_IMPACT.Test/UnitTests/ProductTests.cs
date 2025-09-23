@@ -1,27 +1,12 @@
 namespace BG_IMPACT.Test.UnitTests
 {
-    public class ProductTests
+    public class ProductTests : TestBase
     {
-        private ServiceProvider _serviceProvider; //Luôn có đi kèm với Setup
         private IProductRepository _productRepository;
         [SetUp]
         public void Setup()
         {
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            var services = new ServiceCollection();
-            services.DependencyInject(configuration);
-            _serviceProvider = services.BuildServiceProvider();
             _productRepository = _serviceProvider.GetRequiredService<IProductRepository>();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            if (_serviceProvider is IDisposable disposable)
-                disposable.Dispose();
         }
 
         [Test]
@@ -209,13 +194,13 @@ namespace BG_IMPACT.Test.UnitTests
         {
             var param = new
             {
-                GroupName = "Bài Mèo Nổ",
+                GroupName = "Bài Mèo NềE",
                 Prefix = "CAT",
-                GroupRefName = "Mèo Nổ",
-                ProductName = "Mèo Nổ 2025",
+                GroupRefName = "Mèo NềE",
+                ProductName = "Mèo NềE2025",
                 Image = "",
                 Price = "100000",
-                Description = "Đây là bộ bài mèo nổ dễ chơi, thân thiện với các bạn trẻ",
+                Description = "Đây là bềEbài mèo nềEdềEchơi, thân thiện với các bạn trẻ",
                 RentPrice = "50000",
                 RentPricePerHour = "20000",
                 IsTest = true
@@ -244,7 +229,7 @@ namespace BG_IMPACT.Test.UnitTests
                 ProductName = "BANG BANG 2025",
                 Image = "",
                 Price = "100000",
-                Description = "Đây là bộ Bang, thân thiện với các bạn trẻ",
+                Description = "Đây là bềEBang, thân thiện với các bạn trẻ",
                 RentPrice = "50000",
                 RentPricePerHour = "20000",
                 IsTest = true
@@ -273,7 +258,7 @@ namespace BG_IMPACT.Test.UnitTests
                 ProductName = "Splendor 2025",
                 Image = "",
                 Price = "100000",
-                Description = "Đây là bộ Splendor, thân thiện với các bạn trẻ",
+                Description = "Đây là bềESplendor, thân thiện với các bạn trẻ",
                 RentPrice = "50000",
                 RentPricePerHour = "20000",
                 IsTest = true
@@ -302,7 +287,7 @@ namespace BG_IMPACT.Test.UnitTests
                 ProductName = "Tam quốc sát 2025",
                 Image = "",
                 Price = "200000",
-                Description = "Đây là bộ Tam Quốc Sát, thân thiện với các thanh thiếu niên",
+                Description = "Đây là bềETam Quốc Sát, thân thiện với các thanh thiếu niên",
                 RentPrice = "150000",
                 RentPricePerHour = "120000",
                 IsTest = true
@@ -327,11 +312,11 @@ namespace BG_IMPACT.Test.UnitTests
             {
                 GroupName = "Bài Mèo Nổ",
                 Prefix = "CAT",
-                GroupRefName = "Mèo Nổ",
+                GroupRefName = "Bài Mèo Nổ",
                 ProductName = "Mèo Nổ 2025",
                 Image = "",
                 Price = "100000",
-                Description = "Đây là bộ bài mèo nổ dễ chơi, thân thiện với các bạn trẻ",
+                Description = "Đây là bài mèo nổ dễ chơi, thân thiện với các bạn trẻ",
                 RentPrice = "0",
                 RentPricePerHour = "20000",
                 IsTest = true
@@ -356,11 +341,11 @@ namespace BG_IMPACT.Test.UnitTests
             {
                 GroupName = "Bài Splendor",
                 Prefix = "Splendor",
-                GroupRefName = "Mèo Nổ",
+                GroupRefName = "Bài Splendor",
                 ProductName = "Bài Splendor 2025",
                 Image = "",
                 Price = "123000",
-                Description = "Đây là bộ bài slendor với lối chơi thân thiện với các bạn trẻ",
+                Description = "Đây là bài slendor với lối chơi thân thiện với các bạn trẻ",
                 RentPrice = "15000",
                 RentPricePerHour = "20000",
                 IsTest = true
