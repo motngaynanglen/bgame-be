@@ -1,32 +1,15 @@
 ﻿namespace BG_IMPACT.Test.UnitTests
 {
-    public class LoginTests
+    public class LoginTests : TestBase
     {
-        private ServiceProvider _serviceProvider; //Luôn có đi kèm với Setup
-        private IAccountRepository _accountRepository; //Phụ thuộc vào API có sử dụng hay không
+        private IAccountRepository _accountRepository; 
 
         [SetUp]
         public void Setup()
         {
-            //Giữ nguyên và copy lại
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            var services = new ServiceCollection();
-            services.DependencyInject(configuration);
-            _serviceProvider = services.BuildServiceProvider();
-
-            //Inject các Repo vào để sử dụng
             _accountRepository = _serviceProvider.GetRequiredService<IAccountRepository>();
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            if (_serviceProvider is IDisposable disposable)
-                disposable.Dispose();
-        }
 
         [Test]
         public async Task LoginTest_Successful()

@@ -1,28 +1,14 @@
 ﻿namespace BG_IMPACT.Test.UnitTests
 {
-    class OrderItemProductTests
+    public class OrderItemProductTests : TestBase
     {
-        private ServiceProvider _serviceProvider; //Luôn có đi kèm với Setup
         private IOrderItemRepository _orderItemRepository;
         [SetUp]
         public void Setup()
         {
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            var services = new ServiceCollection();
-            services.DependencyInject(configuration);
-            _serviceProvider = services.BuildServiceProvider();
             _orderItemRepository = _serviceProvider.GetRequiredService<IOrderItemRepository>();
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            if (_serviceProvider is IDisposable disposable)
-                disposable.Dispose();
-        }
 
         [Test]
         public async Task UpdateOrderItemProduct_Successful()

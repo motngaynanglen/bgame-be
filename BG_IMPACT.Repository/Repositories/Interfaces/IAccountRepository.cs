@@ -15,5 +15,7 @@
         Task<object?> spAccountReverseStatusForAdmin(object param);
         Task<object?> spGetCustomerListByPhoneAndEmail(object param);
         Task<object?> spAccountGetProfile(object param);
+        Task<object?> spCustomerGetById(object param);
+        Task<object?> spCustomerGetByCode(object param);
     }
 }

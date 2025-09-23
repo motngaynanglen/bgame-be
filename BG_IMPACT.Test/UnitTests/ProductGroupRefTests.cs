@@ -1,31 +1,13 @@
 ﻿namespace BG_IMPACT.Test.UnitTests
 {
-    public class ProductGroupRefTests
+    public class ProductGroupRefTests : TestBase
     {
-        private ServiceProvider _serviceProvider; //Luôn có đi kèm với Setup
         private IProductGroupRefRepository _productGroupRefRepository; //Phụ thuộc vào API có sử dụng hay không
 
         [SetUp]
         public void Setup()
         {
-            //Giữ nguyên và copy lại
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            var services = new ServiceCollection();
-            services.DependencyInject(configuration);
-            _serviceProvider = services.BuildServiceProvider();
-
-            //Inject các Repo vào để sử dụng
             _productGroupRefRepository = _serviceProvider.GetRequiredService<IProductGroupRefRepository>();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            if (_serviceProvider is IDisposable disposable)
-                disposable.Dispose();
         }
 
         [Test]

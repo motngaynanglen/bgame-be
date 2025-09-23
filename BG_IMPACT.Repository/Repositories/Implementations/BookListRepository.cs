@@ -140,5 +140,11 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spBookListCancel", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+
+        public async Task<object?> spBookListChangePublicFlag(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spBookListChangePublicFlag", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
     }
 }
