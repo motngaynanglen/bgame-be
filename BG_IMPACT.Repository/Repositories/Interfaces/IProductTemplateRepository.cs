@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BG_IMPACT.Repositories.Interfaces
+namespace BG_IMPACT.Repository.Repositories.Interfaces
 {
     public interface IProductTemplateRepository
     {

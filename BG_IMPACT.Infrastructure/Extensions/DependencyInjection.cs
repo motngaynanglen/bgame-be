@@ -15,7 +15,8 @@ namespace BG_IMPACT.Infrastructure.Extensions
     {
         public static IServiceCollection DependencyInject(this IServiceCollection services, IConfiguration configuration)
         {
-            string connectionString = configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+            string connectionString = configuration.GetConnectionString("DefaultConnection")
+                                          ?? string.Empty;
 
             services.AddScoped<SqlConnection>(_ => new SqlConnection(connectionString));
 

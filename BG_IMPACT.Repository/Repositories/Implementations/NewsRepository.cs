@@ -1,5 +1,4 @@
-﻿using BG_IMPACT.Repositories.Interfaces;
-using BG_IMPACT.Repository.Repositories.Interfaces;
+﻿using BG_IMPACT.Repository.Repositories.Interfaces;
 using Dapper;
 using System;
 using System.Collections.Generic;

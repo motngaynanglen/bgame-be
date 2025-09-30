@@ -59,14 +59,8 @@
                 if (count == 1)
                 {
                     response.StatusCode = "404";
-                    response.Message = "Quản Lý Không Tồn Tại.";
+                    response.Message = "Khách hàng không tồn tại.";
                 }
-                else if (count == 2)
-                {
-                    response.StatusCode = "404";
-                    response.Message = "Nhân viên không tồn tại hoặc không làm việc chung cửa hàng với quản lý.";
-                }
-
                 else
                 {
                     response.StatusCode = "200";

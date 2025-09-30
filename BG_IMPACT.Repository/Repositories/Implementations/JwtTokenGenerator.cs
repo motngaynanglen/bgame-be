@@ -1,4 +1,4 @@
-﻿using BG_IMPACT.Repositories.Interfaces;
+﻿using BG_IMPACT.Repository.Repositories.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

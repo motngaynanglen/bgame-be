@@ -38,7 +38,7 @@
         {
             var param = new
             {
-                GroupName = "UITEST 3",
+                GroupName = "Bang!!!",
                 ManagerID = "14ece14e-ace2-416a-92b8-56d92a7abcca",
                 IsTest = true
             };
@@ -60,8 +60,8 @@
         {
             var param = new
             {
-                ProductGroupID = "62aa0d3b-edfa-414d-99e6-039ceaf62a19",
-                GroupName = "UITEST 1",
+                ProductGroupID = "4B172E95-A814-4EA3-9D00-16278991C740",
+                GroupName = "Bang!!!2",
                 IsTest = true
             };
 

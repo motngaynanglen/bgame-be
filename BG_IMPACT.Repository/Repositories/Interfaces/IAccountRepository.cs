@@ -1,4 +1,5 @@
-﻿namespace BG_IMPACT.Repositories.Interfaces
+﻿
+namespace BG_IMPACT.Repository.Repositories.Interfaces
 {
     public interface IAccountRepository
     {
@@ -17,5 +18,7 @@
         Task<object?> spAccountGetProfile(object param);
         Task<object?> spCustomerGetById(object param);
         Task<object?> spCustomerGetByCode(object param);
-    }
+        Task<object?> spUpdateCustomerProfile(object param);
+        Task<object?> spCustomerGetByPhoneNumber(object param);
+    } 
 }

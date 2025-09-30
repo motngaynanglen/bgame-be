@@ -1,4 +1,7 @@
-﻿namespace BG_IMPACT.Business.Command.Account.Queries
+﻿using BG_IMPACT.Business.Command.Account.Commands;
+using System.Text.Json;
+
+namespace BG_IMPACT.Business.Command.Account.Queries
 {
     public class GetAccountProfileQuery : IRequest<ResponseObject>
     {
@@ -39,6 +42,16 @@
 
                     if (dict != null && dict.Count > 0)
                     {
+                        try
+                        {
+                            dict["address"] = JsonSerializer.Deserialize<List<AddressModel>>(dict["address"]?.ToString() ?? string.Empty) ?? null;
+                        }
+                        catch (Exception)
+                        {
+                            dict["address"] = null;
+                        }
+
+
                         response.StatusCode = "200";
                         response.Data = dict;
                         response.Message = string.Empty;

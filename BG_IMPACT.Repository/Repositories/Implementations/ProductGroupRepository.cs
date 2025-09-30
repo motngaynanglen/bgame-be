@@ -1,4 +1,4 @@
-﻿using BG_IMPACT.Repositories.Interfaces;
+﻿using BG_IMPACT.Repository.Repositories.Interfaces;
 using System.Data.Common;
 using System.Data;
 using Microsoft.Data.SqlClient;

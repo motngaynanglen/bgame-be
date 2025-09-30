@@ -15,7 +15,7 @@
         {
             var param = new
             {
-                GroupId = "90ecca84-0f64-4610-a42d-021303794d9a",
+                GroupId = "E29E3171-01FC-4AB5-BFF7-0AD513CC0394",
                 Prefix = "UIT22",
                 GroupRefName = "UITest 2 Test",
                 Description = "abcxyz",
@@ -70,7 +70,7 @@
             var param = new
             {
                 GroupId = "90ecca84-0f64-4610-a42d-021303794d9a",
-                Prefix = "UIT2",
+                Prefix = "Splendor",
                 GroupRefName = "UITest 2 Test",
                 Description = "abcxyz",
                 ManagerID = "14ece14e-ace2-416a-92b8-56d92a7abcca",

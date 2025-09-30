@@ -20,7 +20,6 @@ global using BG_IMPACT.Business.Command.Supplier.Commands;
 global using BG_IMPACT.Business.Command.Supplier.Queries;
 global using BG_IMPACT.Business.Command.Transaction.Commands;
 global using BG_IMPACT.Infrastructure.Services;
-
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc;
 global using MediatR;

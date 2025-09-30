@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using BG_IMPACT.Repository.Repositories.Interfaces;
 
 namespace BG_IMPACT.Repositories.Interfaces
 {

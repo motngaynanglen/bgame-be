@@ -1,8 +1,8 @@
-﻿using BG_IMPACT.Repositories.Interfaces;
-using System.Data.Common;
+﻿using System.Data.Common;
 using System.Data;
 using Microsoft.Data.SqlClient;
 using Dapper;
+using BG_IMPACT.Repository.Repositories.Interfaces;
 
 namespace BG_IMPACT.Repositories.Implementations
 {

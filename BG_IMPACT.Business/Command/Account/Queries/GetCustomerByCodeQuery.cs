@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BG_IMPACT.Business.Command.Account.Queries
 {
     public class GetCustomerByCodeQuery : IRequest<ResponseObject>
     {
-        public string Code { get; set; }
+        [Required]
+        public string Code { get; set; } = string.Empty;
 
         public class GetCustomerByCodeQueryHandler : IRequestHandler<GetCustomerByCodeQuery, ResponseObject>
         {
