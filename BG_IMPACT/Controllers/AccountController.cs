@@ -248,7 +248,7 @@ namespace BG_IMPACT.Controllers
             }
         }
 
-        [HttpGet("get-profile")]
+        [HttpGet("profile")]
         [Authorize(Roles = "STAFF,MANAGER,CUSTOMER")]
         public async Task<IActionResult> GetProfile([FromQuery] GetAccountProfileQuery query)
         {
@@ -349,6 +349,66 @@ namespace BG_IMPACT.Controllers
             try
             {
                 ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
+            }
+        }
+
+        [Authorize(Roles = "CUSTOMER")]
+        [HttpPost("address")]
+        public async Task<IActionResult> UpdateAddress([FromBody] UpdateCustomerAddressCommand command)
+        {
+            try
+            {
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
+            }
+        }
+
+        [HttpGet("customer/phone-number/{PhoneNumber}")]
+        //[Authorize(Roles = "STAFF,MANAGER,ADMIN")]
+        public async Task<IActionResult> GetCustomerByCode([FromRoute] GetCustomerByPhoneNumberQuery query)
+        {
+            try
+            {
+                ResponseObject result = await _mediator.Send(query);
                 if (result.StatusCode == "200")
                 {
                     return Ok(result);

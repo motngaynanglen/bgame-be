@@ -1,15 +1,10 @@
-
-
-
-
-
-
-
-namespace BG_IMPACT.Repositories.Interfaces
+namespace BG_IMPACT.Repository.Repositories.Interfaces
 {
     public interface IProductRepository
     {
         Task<object?> spProductCreateTemplate(object param);
+
+        Task<object?> spProductTemplateCreate(object param);
         Task<(object? products, int totalCount)> spProductGetList(object param);
         Task<object> spProductCreate(object param);
         Task<object> spProductCreateUnknown(object param);

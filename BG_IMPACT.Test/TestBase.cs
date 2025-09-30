@@ -1,7 +1,8 @@
-﻿using System.Data;
+﻿using BG_IMPACT.DTO.Models.Configs.GlobalSetting;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using System.Data;
 
 public abstract class TestBase
 {
@@ -21,6 +22,10 @@ public abstract class TestBase
         var services = new ServiceCollection();
         services.DependencyInject(config);
         _serviceProvider = services.BuildServiceProvider();
+
+        AppGlobals.Username = config["Admin:Username"] ?? string.Empty;
+        AppGlobals.Password = config["Admin:Password"] ?? string.Empty;
+        AppGlobals.ID = Guid.Parse(config["Admin:ID"] ?? string.Empty);
 
         _connection = new SqlConnection(connString);
         _connection.Open();

@@ -1,4 +1,4 @@
-﻿namespace BG_IMPACT.Repositories.Interfaces
+﻿namespace BG_IMPACT.Repository.Repositories.Interfaces
 {
     public interface IConsignmentOrderRepository
     {

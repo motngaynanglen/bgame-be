@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using BG_IMPACT.Repositories.Interfaces;
+using BG_IMPACT.Repository.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using System.Data;
 

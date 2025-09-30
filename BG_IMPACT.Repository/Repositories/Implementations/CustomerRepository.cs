@@ -1,4 +1,4 @@
-﻿using BG_IMPACT.Repositories.Interfaces;
+﻿using BG_IMPACT.Repository.Repositories.Interfaces;
 using System.Data.Common;
 using System.Data;
 using Microsoft.Data.SqlClient;
@@ -43,6 +43,16 @@ namespace BG_IMPACT.Repositories.Implementations
         {
             var result = await _connection.QueryFirstOrDefaultAsync(
                 "spCustomerUpdateProfile",
+                param,
+                commandType: CommandType.StoredProcedure
+            );
+            return result;
+        }
+
+        public async Task<object?> spCustomerUpdateAddress(object param)
+        {
+            var result = await _connection.QueryFirstOrDefaultAsync(
+                "spCustomerUpdateAddress",
                 param,
                 commandType: CommandType.StoredProcedure
             );
