@@ -7,7 +7,8 @@ namespace BG_IMPACT.Controllers
     public class StoreController : ControllerBase
     {
 
-        [HttpPost("create")]
+        [Authorize(Roles = "ADMIN")]
+        [HttpPost]
         public async Task<IActionResult> Create(CreateStoreCommand command)
         {
             try
@@ -36,11 +37,14 @@ namespace BG_IMPACT.Controllers
             }
         }
 
-        [HttpPost("change-status")]
-        public async Task<IActionResult> ChangeStatus(ChangeStoreStatusCommand command)
+        [Authorize(Roles = "ADMIN")]
+        [HttpPost("{id}/status")]
+        public async Task<IActionResult> ChangeStatus([FromRoute] Guid id)
         {
             try
             {
+                ChangeStoreStatusCommand command = new ChangeStoreStatusCommand();
+                command.Id = id;
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -50,7 +54,7 @@ namespace BG_IMPACT.Controllers
             }
         }
 
-        [HttpPost("get-list")]
+        [HttpPost("list")]
         public async Task<IActionResult> GetList(GetStoreListQuery command)
         {
             try
@@ -78,7 +82,7 @@ namespace BG_IMPACT.Controllers
                 return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
-        [HttpPost("get-rentals")]
+        [HttpPost("rentals")]
         public async Task<IActionResult> GetRentals(GetStoreRentalsQuery command)
         {
             try
@@ -106,7 +110,7 @@ namespace BG_IMPACT.Controllers
                 return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
-        [HttpPost("get-list-by-group-ref-id")]
+        [HttpPost("group-ref")]
         public async Task<IActionResult> GetListByGroupRefId(GetStoreListByGroupRefIdQuery command)
         {
             try
@@ -134,11 +138,14 @@ namespace BG_IMPACT.Controllers
                 return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
-        [HttpPost("get-list-by-product-template-id")]
-        public async Task<IActionResult> GetStoreListAndProductCountByIdQuery(GetStoreListAndProductCountByIdQuery command)
+
+        [HttpPost("product-template/{id}")]
+        public async Task<IActionResult> GetStoreListAndProductCountByIdQuery([FromRoute] Guid id)
         {
             try
             {
+                GetStoreListAndProductCountByIdQuery command = new GetStoreListAndProductCountByIdQuery();
+                command.ProductTemplateId = id;
                 ResponseObject result = await _mediator.Send(command);
                 if (result.StatusCode == "200")
                 {
@@ -162,12 +169,14 @@ namespace BG_IMPACT.Controllers
                 return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
+
         [Authorize(Roles = "STAFF,MANAGER")]
-        [HttpGet("get-store-id")]
-        public async Task<IActionResult> GetStoreID([FromQuery]GetStoreIDQuery command)
+        [HttpGet("my")]
+        public async Task<IActionResult> GetStoreID()
         {
             try
             {
+                GetStoreIDQuery command = new GetStoreIDQuery();
                 ResponseObject result = await _mediator.Send(command);
                 if (result.StatusCode == "200")
                 {
@@ -193,7 +202,7 @@ namespace BG_IMPACT.Controllers
         }
 
         [Authorize(Roles = "ADMIN")]
-        [HttpPost("Update")]
+        [HttpPut]
         public async Task<IActionResult> UpdateStore(UpdateStoreCommand command)
         {
             try
