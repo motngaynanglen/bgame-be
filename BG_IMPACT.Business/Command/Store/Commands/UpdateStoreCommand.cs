@@ -7,7 +7,7 @@ namespace BG_IMPACT.Business.Command.Store.Commands
     public class UpdateStoreCommand : IRequest<ResponseObject>
     {
         [Required]
-        public Guid StoreId { get; set; }
+        public Guid Id { get; set; }
         public string StoreName { get; set; }
         public string Image { get; set; }
         public string Address { get; set; }
@@ -33,7 +33,7 @@ namespace BG_IMPACT.Business.Command.Store.Commands
                     object param = new
                     {
 
-                        request.StoreId,
+                        StoreId = request.Id,
                         request.StoreName,
                         request.Image,
                         request.Address,

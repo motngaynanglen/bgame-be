@@ -21,7 +21,7 @@ namespace BG_IMPACT.Repositories.Implementations
 
         public async Task<object?> spStoreChangeStatus(object param)
         {
-            object? result = await _connection.ExecuteAsync("spStoreChangeStatus", param, commandType: CommandType.StoredProcedure);
+            object? result = await _connection.QueryFirstOrDefaultAsync("spStoreChangeStatus", param, commandType: CommandType.StoredProcedure);
             return result;
         }
 
