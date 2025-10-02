@@ -1,23 +1,29 @@
-﻿namespace BG_IMPACT.Business.Command.Order.Commands
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BG_IMPACT.Business.Command.Order.Commands
 {
-    public class UpdateStatusOrderToPaidCommand : IRequest<ResponseObject>
+    public class UpdateStatusOrderToReceivedCommand : IRequest<ResponseObject>
     {
         public Guid? OrderID { get; set; }
 
-        public class UpdateStatusOrderToPaidCommandHandler : IRequestHandler<UpdateStatusOrderToPaidCommand, ResponseObject>
+        public class UpdateStatusOrderToReceivedCommandHandler : IRequestHandler<UpdateStatusOrderToReceivedCommand, ResponseObject>
         {
             private readonly IOrderRepository _orderRepository;
 
             private readonly IHttpContextAccessor _httpContextAccessor;
 
 
-            public UpdateStatusOrderToPaidCommandHandler(IOrderRepository orderRepository, IHttpContextAccessor httpContextAccessor)
+            public UpdateStatusOrderToReceivedCommandHandler(IOrderRepository orderRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _orderRepository = orderRepository;
                 _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<ResponseObject> Handle(UpdateStatusOrderToPaidCommand request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(UpdateStatusOrderToReceivedCommand request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
                 var context = _httpContextAccessor.HttpContext;
@@ -29,7 +35,7 @@
                     request.OrderID
 
                 };
-                var result = await _orderRepository.spOrderUpdateStatusToPaid(parameters);
+                var result = await _orderRepository.spOrderUpdateStatusToReceived(parameters);
                 var dict = result as IDictionary<string, object>;
 
                 if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)
@@ -38,12 +44,7 @@
 
                     string? Message = dict["Message"].ToString() ?? string.Empty;
 
-                    if (count == 1)
-                    {
-                        response.StatusCode = "404";
-                        response.Message = Message;
-                    }
-                    else if (count == 2)
+                    if (count == 1 || count == 2 || count == 4)
                     {
                         response.StatusCode = "404";
                         response.Message = Message;
@@ -65,5 +66,4 @@
             }
         }
     }
-
 }

@@ -1,13 +1,6 @@
-﻿using BG_IMPACT.Business.Command.Order.Commands;
-using BG_IMPACT.Repository.Repositories.Interfaces;
-using Dapper;
-using System;
-using System.Collections.Generic;
+﻿using Dapper;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BG_IMPACT.Business.Command.SupplyOrder.Commands
 {

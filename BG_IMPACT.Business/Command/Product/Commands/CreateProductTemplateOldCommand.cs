@@ -26,7 +26,7 @@ namespace BG_IMPACT.Business.Command.Product.Commands
         public int NumberOfPlayerMax { get; set; }
         public string Description { get; set; } = string.Empty;
         public int? Duration { get; set; } = null;
-        public string ListCategories { get; set; } = string.Empty;
+        public List<string> ListCategories { get; set; } = new();
         public string Publisher { get; set; } = string.Empty;
         public class CreateProductTemplateCommandHandler : IRequestHandler<CreateProductTemplateOldCommand, ResponseObject>
         {
@@ -49,6 +49,8 @@ namespace BG_IMPACT.Business.Command.Product.Commands
 
                 string Image = String.Join("||", request.Images);
 
+                string categories = String.Join("||", request.ListCategories);
+
                 if (context != null && context.GetRole() == "MANAGER")
                 {
                     ManagerID = context.GetName();
@@ -67,7 +69,7 @@ namespace BG_IMPACT.Business.Command.Product.Commands
                         request.NumberOfPlayerMax,
                         request.Description,
                         request.Duration,
-                        request.ListCategories,
+                        ListCategories = categories,
                         request.Publisher,
                         ManagerID,
                     };

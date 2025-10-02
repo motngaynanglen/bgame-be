@@ -139,7 +139,7 @@ namespace BG_IMPACT.Controllers
             }
         }
 
-        [HttpPost("product-template/{id}")]
+        [HttpGet("product-template/{id}/list")]
         public async Task<IActionResult> GetStoreListAndProductCountByIdQuery([FromRoute] Guid id)
         {
             try
