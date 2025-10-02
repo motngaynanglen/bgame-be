@@ -16,6 +16,7 @@
         Task<object?> spDashboardAdminRevenue();
         Task<object?> spDashboardStatisticsByAdmin();
         Task<object?> spDashboardRevenueByAdmin(object param);
+        Task<(object summary, IEnumerable<object> topStores)> spDashboardAdmin(object param);
 
     }
 }
