@@ -93,7 +93,7 @@ namespace BG_IMPACT.Repositories.Implementations
         public async Task<(object summary, IEnumerable<object> topStores)> spDashboardAdmin(object param)
         {
             using var multi = await _connection.QueryMultipleAsync(
-                "spDashboardGet", // Tên SP của bạn
+                "spDashboardAdmin", // Tên SP của bạn
                 param,
                 commandType: CommandType.StoredProcedure
             );
@@ -106,9 +106,6 @@ namespace BG_IMPACT.Repositories.Implementations
 
             return (summary, topStores);
         }
-
-
-
     }
 }
 

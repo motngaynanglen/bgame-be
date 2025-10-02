@@ -1,4 +1,6 @@
 ﻿
+
+
 namespace BG_IMPACT.Repository.Repositories.Interfaces
 {
     public interface IOrderRepository
@@ -19,6 +21,7 @@ namespace BG_IMPACT.Repository.Repositories.Interfaces
         Task<object?> spOrderGetUnclaimPageData(object param);
         Task<(object? orderGroups, int totalCount)> spOrderGetPaged(object param);
         Task<object?> spOrderCancel(object param);
-
+        Task<object?> spOrderUpdateStatusToDelivered(object parameters);
+        Task<object?> spOrderUpdateStatusToReceived(object parameters);
     }
 }

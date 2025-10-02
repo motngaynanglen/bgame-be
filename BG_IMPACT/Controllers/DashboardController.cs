@@ -431,8 +431,8 @@ namespace BG_IMPACT.Controllers
         }
 
         [Authorize(Roles = "ADMIN")]
-        [HttpPost("get-dashboard-admin")]
-        public async Task<IActionResult> GetDashboardAdmin(GetDashboardByAminQuery command)
+        [HttpGet("admin/{CurrentDate}")]
+        public async Task<IActionResult> GetDashboardAdmin([FromRoute] GetDashboardByAminQuery command)
         {
             try
             {

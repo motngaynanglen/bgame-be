@@ -139,6 +139,17 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spOrderCancel", param, commandType: CommandType.StoredProcedure);
             return result;
         }
-        
+
+        public async Task<object?> spOrderUpdateStatusToDelivered(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spOrderUpdateStatusToDelivered", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spOrderUpdateStatusToReceived(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spOrderUpdateStatusToReceived", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
     }
 }

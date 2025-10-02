@@ -188,11 +188,11 @@ namespace BG_IMPACT.Controllers
         }
         [Authorize(Roles = "CUSTOMER")]
         [HttpPost("cancel-order-by-customer")]
-        public async Task<IActionResult> CancelOrderByCus([FromBody] CancelOrderCommand query)
+        public async Task<IActionResult> CancelOrderByCus([FromBody] CancelOrderCommand command)
         {
             try
             {
-                ResponseObject result = await _mediator.Send(query);
+                ResponseObject result = await _mediator.Send(command);
                 if (result.StatusCode == "200")
                 {
                     return Ok(result);
@@ -218,11 +218,11 @@ namespace BG_IMPACT.Controllers
 
         [Authorize(Roles = "STAFF")]
         [HttpPost("update-order-to-prepared")]
-        public async Task<IActionResult> PrepareOrderByStaff([FromBody] UpdateStatusOrderToPrepareCommand query)
+        public async Task<IActionResult> PrepareOrderByStaff([FromBody] UpdateStatusOrderToPrepareCommand command)
         {
             try
             {
-                ResponseObject result = await _mediator.Send(query);
+                ResponseObject result = await _mediator.Send(command);
                 if (result.StatusCode == "200")
                 {
                     return Ok(result);
@@ -249,11 +249,11 @@ namespace BG_IMPACT.Controllers
 
         [Authorize(Roles = "STAFF")]
         [HttpPost("update-order-delivery-info")]
-        public async Task<IActionResult> UpdateOrderDeliveryInfo([FromBody] UpdateOrderDeliveryInfoCommand query)
+        public async Task<IActionResult> UpdateOrderDeliveryInfo([FromBody] UpdateOrderDeliveryInfoCommand command)
         {
             try
             {
-                ResponseObject result = await _mediator.Send(query);
+                ResponseObject result = await _mediator.Send(command);
                 if (result.StatusCode == "200")
                 {
                     return Ok(result);
@@ -278,11 +278,11 @@ namespace BG_IMPACT.Controllers
         }
         [Authorize(Roles = "STAFF")]
         [HttpPost("update-order-to-paid")]
-        public async Task<IActionResult> UpdateOrderToPaid([FromBody] UpdateStatusOrderToPaidCommand query)
+        public async Task<IActionResult> UpdateOrderToPaid([FromBody] UpdateStatusOrderToPaidCommand command)
         {
             try
             {
-                ResponseObject result = await _mediator.Send(query);
+                ResponseObject result = await _mediator.Send(command);
                 if (result.StatusCode == "200")
                 {
                     return Ok(result);
@@ -308,11 +308,11 @@ namespace BG_IMPACT.Controllers
 
         [Authorize(Roles = "STAFF")]
         [HttpPost("update-order-to-sending")]
-        public async Task<IActionResult> UpdateOrderToSending([FromBody] UpdateStatusOrderToSendingCommand query)
+        public async Task<IActionResult> UpdateOrderToSending([FromBody] UpdateStatusOrderToSendingCommand command)
         {
             try
             {
-                ResponseObject result = await _mediator.Send(query);
+                ResponseObject result = await _mediator.Send(command);
                 if (result.StatusCode == "200")
                 {
                     return Ok(result);
@@ -338,11 +338,11 @@ namespace BG_IMPACT.Controllers
 
         [Authorize(Roles = "STAFF")]
         [HttpPost("update-order-to-sent")]
-        public async Task<IActionResult> UpdateOrderToSent([FromBody] UpdateStatusOrderToSentCommand query)
+        public async Task<IActionResult> UpdateOrderToSent([FromBody] UpdateStatusOrderToSentCommand command)
         {
             try
             {
-                ResponseObject result = await _mediator.Send(query);
+                ResponseObject result = await _mediator.Send(command);
                 if (result.StatusCode == "200")
                 {
                     return Ok(result);
@@ -374,6 +374,70 @@ namespace BG_IMPACT.Controllers
             try
             {
                 ResponseObject result = await _mediator.Send(query);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
+            }
+            catch
+            {
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
+            }
+        }
+
+        [Authorize(Roles = "STAFF")]
+        [HttpPost("{id}/delivered")]
+        public async Task<IActionResult> UpdateOrderToDelivered([FromRoute] Guid id)
+        {
+            try
+            {
+                UpdateStatusOrderToDeliveredCommand command = new UpdateStatusOrderToDeliveredCommand();
+                command.OrderID = id;
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
+            }
+            catch
+            {
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
+            }
+        }
+
+        [Authorize(Roles = "STAFF")]
+        [HttpPost("{id}/received")]
+        public async Task<IActionResult> UpdateOrderToReceived([FromRoute] Guid id)
+        {
+            try
+            {
+                UpdateStatusOrderToReceivedCommand command = new UpdateStatusOrderToReceivedCommand();
+                command.OrderID = id;
+                ResponseObject result = await _mediator.Send(command);
                 if (result.StatusCode == "200")
                 {
                     return Ok(result);

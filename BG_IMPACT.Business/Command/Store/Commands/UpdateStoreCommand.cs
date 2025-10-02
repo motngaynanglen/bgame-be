@@ -8,15 +8,13 @@ namespace BG_IMPACT.Business.Command.Store.Commands
     {
         [Required]
         public Guid Id { get; set; }
-        public string StoreName { get; set; }
-        public string Image { get; set; }
-        public string Address { get; set; }
-        public string Hotline { get; set; }
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
-        public string Email { get; set; }
-
-
+        public string StoreName { get; set; } = string.Empty;
+        public string Image { get; set; } = string.Empty;
+        public string Address { get; set; } = string.Empty;
+        public string Hotline { get; set; } = string.Empty;
+        public string Latitude { get; set; } = string.Empty;
+        public string Longitude { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
 
         public class UpdateStoreCommandHandler : IRequestHandler<UpdateStoreCommand, ResponseObject>
         {
@@ -53,12 +51,12 @@ namespace BG_IMPACT.Business.Command.Store.Commands
                         if (statusCode == 1)
                         {
                             response.StatusCode = "404";
-                            response.Message = "Không tìm thấy bản tin.";
+                            response.Message = "Không tìm thấy cửa hàng.";
                         }
                         else
                         {
                             response.StatusCode = "200";
-                            response.Message = "Cập nhật tin tức thành công.";
+                            response.Message = "Cập nhật cửa hàng thành công.";
                         }
                     
                 }
