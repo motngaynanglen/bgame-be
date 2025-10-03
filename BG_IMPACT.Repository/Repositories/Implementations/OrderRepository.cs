@@ -44,9 +44,37 @@ namespace BG_IMPACT.Repositories.Implementations
 
         public async Task<object?> spOrderGetById(object param)
         {
-            object? result = await _connection.QueryFirstOrDefaultAsync("spOrderGetById", param, commandType: CommandType.StoredProcedure);
-            return result;
+            using var multi = await _connection.QueryMultipleAsync("spOrderGetById", param, commandType: CommandType.StoredProcedure);
+
+            var orderGroups = (await multi.ReadAsync()).ToList();
+            var orders = (await multi.ReadAsync()).ToList();
+            var orderItems = (await multi.ReadAsync()).ToList();
+
+            foreach (var order in orders)
+            {
+                var orderId = (Guid)order.order_id;
+                var items = orderItems
+                    .Where(i => (Guid)i.order_id == orderId)
+                    .ToList();
+
+                var dict = (IDictionary<string, object>)order;
+                dict["items"] = items;
+            }
+
+            foreach (var group in orderGroups)
+            {
+                var groupId = (Guid)group.order_group_id;
+                var groupOrders = orders
+                    .Where(o => (Guid)o.order_group_id == groupId)
+                    .ToList();
+
+                var dict = (IDictionary<string, object>)group;
+                dict["orders"] = groupOrders;
+            }
+
+            return orderGroups.FirstOrDefault();
         }
+
 
         public async Task<(object? orderGroups, int totalCount)> spOrderGetPaged(object param)
         {
@@ -149,6 +177,18 @@ namespace BG_IMPACT.Repositories.Implementations
         public async Task<object?> spOrderUpdateStatusToReceived(object param)
         {
             object? result = await _connection.QueryFirstOrDefaultAsync("spOrderUpdateStatusToReceived", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spOrderUpdateIsTransfered(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spOrderUpdateIsTransfered", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        public async Task<object?> spOrderUpdateIsHub(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spOrderUpdateIsHub", param, commandType: CommandType.StoredProcedure);
             return result;
         }
     }

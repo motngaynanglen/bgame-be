@@ -23,11 +23,9 @@ namespace BG_IMPACT.Business.Command.Order.Queries
                 };
 
                 var result = await _orderRepository.spOrderGetById(param);
-                var rawData = result as IDictionary<string, object>;
-                var order = JsonConvert.DeserializeObject<OrderDto>(rawData["json"] as string);
-                var dict = order;
+                var dict = result as IDictionary<string, object>;
 
-                if (dict != null)//&& dict.Count > 0
+                if (dict != null && dict.Count > 0)
                 {
                     response.StatusCode = "200";
                     response.Data = dict;
@@ -36,40 +34,10 @@ namespace BG_IMPACT.Business.Command.Order.Queries
                 else
                 {
                     response.StatusCode = "404";
-                    response.Message = "Không tìm thấy vật phẩm.";
+                    response.Message = "Không tìm thấy đơn hàng.";
                 }
 
                 return response;
-            }
-            private class OrderDto
-            {
-                public Guid order_id { get; set; }
-                public string order_code { get; set; }
-                public string email { get; set; }
-                public string full_name { get; set; }
-                public string phone_number { get; set; }
-                public string address { get; set; }
-                public int total_item { get; set; }
-                public double total_price { get; set; }
-                public string order_status { get; set; }
-                public DateTime order_created_at { get; set; }
-                public bool is_delivery {  get; set; }
-                public List<OrderItemDto> order_items { get; set; }
-            }
-
-            private class OrderItemDto
-            {
-                public Guid order_item_id { get; set; }
-                public Guid? product_id { get; set; }
-                public double current_price { get; set; }
-                public string order_item_status { get; set; }
-                public DateTime order_item_created_at { get; set; }
-                public Guid product_template_id { get; set; }
-                public string template_product_name { get; set; }
-                public string template_image { get; set; }
-                public double template_price { get; set; }
-                public double template_rent_price { get; set; }
-                public string template_description { get; set; }
             }
         }
 
