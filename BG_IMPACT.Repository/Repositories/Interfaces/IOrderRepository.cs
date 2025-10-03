@@ -23,5 +23,9 @@ namespace BG_IMPACT.Repository.Repositories.Interfaces
         Task<object?> spOrderCancel(object param);
         Task<object?> spOrderUpdateStatusToDelivered(object parameters);
         Task<object?> spOrderUpdateStatusToReceived(object parameters);
+        Task<object?> spOrderUpdateIsTransfered(object parameters);
+        Task<object?> spOrderUpdateIsHub(object parameters);
+
+
     }
 }

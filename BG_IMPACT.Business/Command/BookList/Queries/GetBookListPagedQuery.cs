@@ -1,19 +1,25 @@
 ﻿namespace BG_IMPACT.Business.Command.BookList.Queries
 {
-    public class GetBookListHistoryQuery : IRequest<ResponseObject>
+    public class GetBookListPagedQuery : IRequest<ResponseObject>
     {
+        public string? Keyword { get; set; }
+        public List<string>? Status { get; set; }
+        public DateTimeOffset? CreatedFrom { get; set; }
+        public DateTimeOffset? CreatedTo { get; set; }
+        public string? SortColumn { get; set; }
+        public string? SortDirection { get; set; }
         public Paging Paging { get; set; } = new();
-        public class GetBookListHistoryQueryHandler : IRequestHandler<GetBookListHistoryQuery, ResponseObject>
+        public class GetBookListPagedQueryHandler : IRequestHandler<GetBookListPagedQuery, ResponseObject>
         {
             public readonly IBookListRepository _bookListRepository;
             public readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetBookListHistoryQueryHandler(IBookListRepository bookListRepository, IHttpContextAccessor httpContextAccessor)
+            public GetBookListPagedQueryHandler(IBookListRepository bookListRepository, IHttpContextAccessor httpContextAccessor)
             {
                 _httpContextAccessor = httpContextAccessor;
                 _bookListRepository = bookListRepository;
             }
-            public async Task<ResponseObject> Handle(GetBookListHistoryQuery request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(GetBookListPagedQuery request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
 
@@ -24,16 +30,17 @@
 
                 object param = new
                 {
-                    UserID,
-                    Role,
-                    request.Paging.PageNum,
-                    request.Paging.PageSize
-                };
+                    request.Keyword,
+                    Status = request.Status != null ? string.Join(",", request.Status) : null,
+                    request.CreatedFrom,
+                    request.CreatedTo,
+                    request.SortColumn,
+                    request.SortDirection,
 
-                object param2 = new
-                {
-                    UserID,
-                    Role
+                    PageNum = request.Paging.PageNum,
+                    PageSize = request.Paging.PageSize,
+                    ExcuteUserRole = Role,
+                    ExcuteUserID = UserID,
                 };
 
                 var result = await _bookListRepository.spBookListGetPaged(param);
@@ -57,7 +64,7 @@
                 else
                 {
                     response.StatusCode = "404";
-                    response.Message = "Không tìm thấy đơn hàng nào.";
+                    response.Message = "Không tìm thấy đơn thuê nào.";
                 }
 
                 return response;

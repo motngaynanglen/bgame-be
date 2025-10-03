@@ -146,5 +146,15 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spBookListChangePublicFlag", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+
+        public async Task<(object? bookLists, int totalCount)> spBookListGetPublic(object param)
+        {
+            using var multi = await _connection.QueryMultipleAsync("spBookListGetPublic", param, commandType: CommandType.StoredProcedure);
+
+            var bookLists = (await multi.ReadAsync()).ToList();
+            var totalCount = await multi.ReadFirstOrDefaultAsync<int>();
+
+            return (bookLists, totalCount);
+        }
     }
 }

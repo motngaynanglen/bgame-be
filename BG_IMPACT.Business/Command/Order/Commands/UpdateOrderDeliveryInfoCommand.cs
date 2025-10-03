@@ -1,4 +1,6 @@
-﻿namespace BG_IMPACT.Business.Command.Order.Commands
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BG_IMPACT.Business.Command.Order.Commands
 {
     public class UpdateOrderDeliveryInfoCommand : IRequest<ResponseObject>
     {
@@ -10,7 +12,7 @@
         public bool IsDelivery { get; set; } = true; //true: shipping (default) ; false: get at store
         public string DeliveryCode { get; set; } = string.Empty;
         public string DeliveryBrand { get; set; } = string.Empty;
-
+        public DateTime ExpectedReceiptDate { get; set; }
 
         public class UpdateOrderDeliveryInfoCommandHandler : IRequestHandler<UpdateOrderDeliveryInfoCommand, ResponseObject>
         {
@@ -46,6 +48,7 @@
                     request.IsDelivery,
                     request.DeliveryCode,
                     request.DeliveryBrand,
+                    request.ExpectedReceiptDate
 
                 };
                 var result = await _orderRepository.spOrderUpdateDeliveryInfo(parameters);
@@ -64,7 +67,7 @@
                     }
                     else if (count == 2)
                     {
-                        response.StatusCode = "403";
+                        response.StatusCode = "404";
                         response.Message = Message;
                     }
                     else
