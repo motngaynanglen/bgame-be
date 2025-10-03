@@ -90,22 +90,26 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spDashboardRevenueByAdmin", param, commandType: CommandType.StoredProcedure);
             return result;
         }
-        public async Task<(object summary, IEnumerable<object> topStores)> spDashboardAdmin(object param)
+        public async Task<(IEnumerable<object> revenue, object summary, IEnumerable<object> topStores)> spDashboardAdmin(object param)
         {
             using var multi = await _connection.QueryMultipleAsync(
-                "spDashboardAdmin", // Tên SP của bạn
+                "spDashboardAdmin",
                 param,
                 commandType: CommandType.StoredProcedure
             );
 
-            // 1. Lấy summary (1 row)
+            // 1. Lấy revenue (nhiều dòng)
+            var revenue = (await multi.ReadAsync<object>()).ToList();
+
+            // 2. Lấy summary (1 dòng)
             var summary = await multi.ReadFirstOrDefaultAsync<object>();
 
-            // 2. Lấy topStores (list)
+            // 3. Lấy topStores (nhiều dòng)
             var topStores = (await multi.ReadAsync<object>()).ToList();
 
-            return (summary, topStores);
+            return (revenue, summary, topStores);
         }
+
     }
 }
 
