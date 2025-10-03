@@ -8,7 +8,7 @@ namespace BG_IMPACT.Business.Command.Dashboard.Queries
 {
     public class GetDashboardByAminQuery : IRequest<ResponseObject>
     {
-        public DateTimeOffset CurrentDate { get; set; }
+        public string Period { get; set; }
     }
 
     public class GetDashboardByAminQueryHandler : IRequestHandler<GetDashboardByAminQuery, ResponseObject>
@@ -28,21 +28,23 @@ namespace BG_IMPACT.Business.Command.Dashboard.Queries
 
             object param = new
             {
-                request.CurrentDate
+                request.Period
             };
 
-            // Lấy dữ liệu từ repository
-            var (summary, topStores) = await _dashboardRepository.spDashboardAdmin(param);
+            // Gọi repo lấy đủ 3 dataset
+            var (revenue, summary, topStores) = await _dashboardRepository.spDashboardAdmin(param);
 
             response.StatusCode = "200";
             response.Data = new
             {
-                summary,
-                topStores
+                revenue,   // chart dữ liệu theo ngày/tháng
+                summary,   // tổng quan
+                topStores  // top 3 cửa hàng
             };
             response.Message = string.Empty;
 
             return response;
         }
+
     }
 }
