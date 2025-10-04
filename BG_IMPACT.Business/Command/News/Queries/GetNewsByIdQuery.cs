@@ -9,7 +9,7 @@ namespace BG_IMPACT.Business.Command.News.Queries
 {
     public class GetNewsByIdQuery : IRequest<ResponseObject>
     {
-        public Guid @NewsId { get; set; } 
+        public Guid NewsId { get; set; } 
 
         public class GetNewsByIdQueryHandler : IRequestHandler<GetNewsByIdQuery, ResponseObject>
         {
