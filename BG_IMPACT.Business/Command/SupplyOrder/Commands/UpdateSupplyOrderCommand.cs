@@ -1,36 +1,46 @@
-﻿using System;
+﻿using BG_IMPACT.Business.Command.Supplier.Commands;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BG_IMPACT.Business.Command.Supplier.Commands
+namespace BG_IMPACT.Business.Command.SupplyOrder.Commands
 {
-    public class DeactiveSupplierCommand : IRequest<ResponseObject>
+    public class UpdateSupplyOrderCommand : IRequest<ResponseObject>
     {
         [Required]
+        public Guid SupplyOrderId { get; set; }
+        [Required]
         public Guid SupplierId { get; set; }
-        public class DeactiveSupplierCommandHandler : IRequestHandler<DeactiveSupplierCommand, ResponseObject>
+        [Required]
+        public string Title { get; set; }
+
+
+        public class UpdateSupplyOrderCommandHandler : IRequestHandler<UpdateSupplyOrderCommand, ResponseObject>
         {
-            private readonly ISupplierRepository _supplierRepository;
+            private readonly ISupplyOrderRepository _supplyOrderRepository;
             private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public DeactiveSupplierCommandHandler(ISupplierRepository supplierRepository, IHttpContextAccessor httpContextAccessor)
+            public UpdateSupplyOrderCommandHandler(ISupplyOrderRepository supplyOrderRepository, IHttpContextAccessor httpContextAccessor)
             {
-                _supplierRepository = supplierRepository;
+                _supplyOrderRepository = supplyOrderRepository;
                 _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<ResponseObject> Handle(DeactiveSupplierCommand request, CancellationToken cancellationToken)
+            public async Task<ResponseObject> Handle(UpdateSupplyOrderCommand request, CancellationToken cancellationToken)
             {
                 ResponseObject response = new();
+
                     object param = new
                     {
-                        request.SupplierId
+                        request.SupplyOrderId,
+                        request.SupplierId,
+                        request.Title
                     };
 
-                    var result = await _supplierRepository.spSupplierDeactive(param);
+                    var result = await _supplyOrderRepository.spSupplyOrderUpdate(param);
                     var dict = result as IDictionary<string, object>;
 
                     if (dict != null && Int64.TryParse(dict["Status"].ToString(), out _) == true)

@@ -100,5 +100,67 @@ namespace BG_IMPACT.Controllers
                 return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
             }
         }
+        [Authorize(Roles = "ADMIN,MANAGER")]
+
+        [HttpPost("update-supply-order")]
+        public async Task<IActionResult> UpdateSupplyOrder(UpdateSupplyOrderCommand command)
+        {
+            try
+            {
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
+            }
+            catch
+            {
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
+            }
+
+        }
+        [Authorize(Roles = "ADMIN,MANAGER")]
+
+        [HttpPost("deactive-supply-order")]
+        public async Task<IActionResult> DeactiveSupplyOrder(DeactiveSupplyOrderCommand command)
+        {
+            try
+            {
+                ResponseObject result = await _mediator.Send(command);
+                if (result.StatusCode == "200")
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == "403")
+                {
+                    return Forbid();
+                }
+                else if (result.StatusCode == "422")
+                {
+                    return UnprocessableEntity(result);
+                }
+                else
+                {
+                    return NotFound(result);
+                }
+            }
+            catch
+            {
+                return NotFound(new ResponseObject { StatusCode = "404", Message = "Chức năng đang bảo trì. Xin vui lòng thử lại sau!" });
+            }
+
+        }
     }
 }

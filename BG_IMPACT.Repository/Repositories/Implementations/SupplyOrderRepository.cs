@@ -1,4 +1,4 @@
-﻿using BG_IMPACT.Repositories.Interfaces;
+using BG_IMPACT.Repositories.Interfaces;
 using BG_IMPACT.Repository.Repositories.Interfaces;
 using Dapper;
 using Microsoft.Data.SqlClient;
@@ -67,6 +67,16 @@ namespace BG_IMPACT.Repository.Repositories.Implementations
             dict["items"] = items;
 
             return supplyOrder;
+        }
+        public async Task<object> spSupplyOrderUpdate(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spSupplyOrderUpdate", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        public async Task<object> spSupplyOrderDeactive(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spSupplyOrderDeactive", param, commandType: CommandType.StoredProcedure);
+            return result;
         }
     }
 }
