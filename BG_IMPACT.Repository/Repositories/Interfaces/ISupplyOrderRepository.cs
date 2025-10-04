@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +11,8 @@ namespace BG_IMPACT.Repository.Repositories.Interfaces
         Task<object> spSupplyOrderCreate(object param);
         Task<object> spEmailGetSupplierEmailByOrderId(object param);
         Task<object> spGetSupplyItemsByOrderId(object param);
+        Task<(object? supplyOrders, int totalCount)> spSupplyOrderGetList(object param);
+        Task<object> spSupplyOrderGetById(object param);
         Task<object> spSupplyOrderUpdate(object param);
         Task<object> spSupplyOrderDeactive(object param);
     }
