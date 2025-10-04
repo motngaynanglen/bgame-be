@@ -40,5 +40,17 @@ namespace BG_IMPACT.Repositories.Implementations
 
             return (suppliers, totalCount);
         }
+        public async Task<object> spSupplierGetById(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spSupplierGetById", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+        public async Task<object> spSupplierDeactive(object param)
+        {
+            object? result = await _connection.QueryFirstOrDefaultAsync("spSupplierDeactive", param, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+
     }
 }
