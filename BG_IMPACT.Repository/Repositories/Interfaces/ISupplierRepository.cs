@@ -5,6 +5,7 @@
         Task<object> spSupplierCreate(object param);
         Task<object> spSupplierUpdate(object param);
         Task<object> spSupplierGetList();
+        Task<object> spSupplierDeactive(object param);
     }
 }
 
