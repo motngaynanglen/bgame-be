@@ -41,5 +41,32 @@ namespace BG_IMPACT.Repository.Repositories.Implementations
             object? result = await _connection.QueryAsync("spGetSupplyItemsByOrderId", param, commandType: CommandType.StoredProcedure);
             return result;
         }
+
+        public async Task<(object? supplyOrders, int totalCount)> spSupplyOrderGetList(object param)
+        {
+            using var multi = await _connection.QueryMultipleAsync("spSupplyOrderGetList", param, commandType: CommandType.StoredProcedure);
+
+            var supplyOrders = (await multi.ReadAsync()).ToList();
+
+            var totalCount = await multi.ReadFirstOrDefaultAsync<int>();
+
+            return (supplyOrders, totalCount);
+        }
+
+        public async Task<object?> spSupplyOrderGetById(object param)
+        {
+            using var multi = await _connection.QueryMultipleAsync("spSupplyOrderGetById", param, commandType: CommandType.StoredProcedure);
+
+            var supplyOrder = await multi.ReadFirstOrDefaultAsync();
+            if (supplyOrder == null)
+                return null;
+
+            var items = (await multi.ReadAsync()).ToList();
+
+            var dict = (IDictionary<string, object>)supplyOrder;
+            dict["items"] = items;
+
+            return supplyOrder;
+        }
     }
 }
