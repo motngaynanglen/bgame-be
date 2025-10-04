@@ -13,5 +13,6 @@ namespace BG_IMPACT.Repository.Repositories.Interfaces
         Task<object?> spProductTemplateGetListByStoreID(object param);
         Task<object?> spProductTemplateGetListByGroupRefID(object param);
         Task<object?> spProductTemplateGetRentalsByStoreID(object param);
+        Task<object?> spProductTemplateUpdate(object param);
     }
 }

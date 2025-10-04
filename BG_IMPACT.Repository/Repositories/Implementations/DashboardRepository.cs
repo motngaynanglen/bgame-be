@@ -110,6 +110,26 @@ namespace BG_IMPACT.Repositories.Implementations
             return (revenue, summary, topStores);
         }
 
+        public async Task<(IEnumerable<object> revenue, object summary, IEnumerable<object> topProduct)> spDashboardManager(object param)
+        {
+            using var multi = await _connection.QueryMultipleAsync(
+                "spDashboardManager",
+                param,
+                commandType: CommandType.StoredProcedure
+            );
+
+            // 1. Lấy revenue (nhiều dòng)
+            var revenue = (await multi.ReadAsync<object>()).ToList();
+
+            // 2. Lấy summary (1 dòng)
+            var summary = await multi.ReadFirstOrDefaultAsync<object>();
+
+            // 3. Lấy topProduc (nhiều dòng)
+            var topProduct = (await multi.ReadAsync<object>()).ToList();
+
+            return (revenue, summary, topProduct);
+        }
+
     }
 }
 
