@@ -31,8 +31,7 @@ namespace BG_IMPACT.Business.Command.Order.Commands
                 object parameters = new
                 {
                     AccountID,
-                    OrderGroupID = request.Id
-
+                    OrderID = request.Id
                 };
                 var result = await _orderRepository.spOrderUpdateIsHub(parameters);
                 var dict = result as IDictionary<string, object>;

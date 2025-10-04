@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace BG_IMPACT.Business.Command.Order.Commands
 {
-
     public class UpdateOrderIsTransferedCommand : IRequest<ResponseObject>
     {
         public Guid Id { get; set; }
@@ -31,8 +30,7 @@ namespace BG_IMPACT.Business.Command.Order.Commands
                 object parameters = new
                 {
                     AccountID,
-                    OrderGroupID = request.Id
-
+                    OrderID = request.Id
                 };
                 var result = await _orderRepository.spOrderUpdateIsTransfered(parameters);
                 var dict = result as IDictionary<string, object>;
