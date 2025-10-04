@@ -30,12 +30,15 @@ namespace BG_IMPACT.Repositories.Implementations
             object? result = await _connection.QueryFirstOrDefaultAsync("spSupplierUpdate", param, commandType: CommandType.StoredProcedure);
             return result;
         }
-        public async Task<object> spSupplierGetList()
+        public async Task<(object? suppliers, int totalCount)> spSupplierGetList(object param)
         {
-            object? result = await _connection.QueryAsync("spSupplierGetList", commandType: CommandType.StoredProcedure);
-            return result;
+            using var multi = await _connection.QueryMultipleAsync("spSupplierGetList", param, commandType: CommandType.StoredProcedure);
+
+            var suppliers = (await multi.ReadAsync()).ToList();
+
+            var totalCount = await multi.ReadFirstOrDefaultAsync<int>();
+
+            return (suppliers, totalCount);
         }
-
-
     }
 }
