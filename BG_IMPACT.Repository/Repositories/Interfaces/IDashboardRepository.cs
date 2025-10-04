@@ -17,6 +17,7 @@
         Task<object?> spDashboardStatisticsByAdmin();
         Task<object?> spDashboardRevenueByAdmin(object param);
         Task<(IEnumerable<object> revenue, object summary, IEnumerable<object> topStores)> spDashboardAdmin(object param);
+        Task<(IEnumerable<object> revenue, object summary, IEnumerable<object> topProduct)> spDashboardManager(object param);
 
     }
 }
