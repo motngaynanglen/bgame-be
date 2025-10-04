@@ -6,7 +6,7 @@ namespace BG_IMPACT.Controllers
     [ApiController]
     public class SupplierController : ControllerBase
     {
-        [Authorize(Roles = "MANAGER")]
+        [Authorize(Roles = "MANAGER,ADMIN")]
         [HttpPost("get-list-supplier")]
         public async Task<IActionResult> GetListSupplier(GetSupplierListQuery command)
         {
@@ -37,7 +37,7 @@ namespace BG_IMPACT.Controllers
 
         }
 
-        [Authorize(Roles = "MANAGER")]
+        [Authorize(Roles = "MANAGER,ADMIN")]
         [HttpPost("create-supplier")]
         public async Task<IActionResult> CreateSupplier(CreateSupplierCommand command)
         {
@@ -68,7 +68,7 @@ namespace BG_IMPACT.Controllers
 
         }
 
-        [Authorize(Roles = "MANAGER")]
+        [Authorize(Roles = "MANAGER,ADMIN")]
         [HttpPost("update-supplier")]
         public async Task<IActionResult> UpdateSupplier(UpdateSupplierCommand command)
         {

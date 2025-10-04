@@ -4,7 +4,7 @@
     {
         Task<object> spSupplierCreate(object param);
         Task<object> spSupplierUpdate(object param);
-        Task<object> spSupplierGetList();
+        Task<(object? suppliers, int totalCount)> spSupplierGetList(object param);
     }
 }
 
